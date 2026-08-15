@@ -35,7 +35,7 @@ export function ConfirmDialog({
           <p className="text-sm leading-6 text-muted">{message}</p>
         </div>
 
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-3">
           <Button variant="secondary" onClick={onCancel} disabled={isLoading}>
             {cancelLabel}
           </Button>

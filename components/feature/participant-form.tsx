@@ -106,7 +106,7 @@ export function ParticipantForm({
         placeholder="mis. ahmad.fauzi@gmail.com"
       />
 
-      <div className="mt-2 flex justify-end gap-2">
+      <div className="mt-2 flex justify-end gap-3">
         <Button type="button" variant="secondary" onClick={onCancel}>
           Batal
         </Button>

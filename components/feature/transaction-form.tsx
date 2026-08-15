@@ -92,9 +92,9 @@ export function TransactionForm({ submitLabel, onSubmit, onCancel }: Transaction
             type="button"
             onClick={() => handleTypeChange("PEMASUKAN")}
             aria-pressed={type === "PEMASUKAN"}
-            className={`flex-1 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+            className={`flex-1 rounded-lg border px-3.5 py-2.5 text-sm font-medium transition-all ${
               type === "PEMASUKAN"
-                ? "border-success bg-success-soft text-success"
+                ? "border-success bg-success-soft text-success shadow-2xs"
                 : "border-border bg-surface text-muted hover:bg-background"
             }`}
           >
@@ -104,9 +104,9 @@ export function TransactionForm({ submitLabel, onSubmit, onCancel }: Transaction
             type="button"
             onClick={() => handleTypeChange("PENGELUARAN")}
             aria-pressed={type === "PENGELUARAN"}
-            className={`flex-1 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+            className={`flex-1 rounded-lg border px-3.5 py-2.5 text-sm font-medium transition-all ${
               type === "PENGELUARAN"
-                ? "border-danger bg-danger-soft text-danger"
+                ? "border-danger bg-danger-soft text-danger shadow-2xs"
                 : "border-border bg-surface text-muted hover:bg-background"
             }`}
           >
@@ -146,6 +146,7 @@ export function TransactionForm({ submitLabel, onSubmit, onCancel }: Transaction
         value={date}
         onChange={(event) => setDate(event.target.value)}
         error={fieldErrors.date}
+        placeholder="dd/mm/yyyy"
       />
 
       <Textarea
@@ -157,7 +158,7 @@ export function TransactionForm({ submitLabel, onSubmit, onCancel }: Transaction
         rows={3}
       />
 
-      <div className="mt-2 flex justify-end gap-2">
+      <div className="mt-2 flex justify-end gap-3">
         <Button type="button" variant="secondary" onClick={onCancel}>
           Batal
         </Button>

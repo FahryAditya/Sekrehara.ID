@@ -70,6 +70,7 @@ export function EventForm({ submitLabel, onSubmit, onCancel }: EventFormProps) {
         value={date}
         onChange={(event) => setDate(event.target.value)}
         error={fieldErrors.date}
+        placeholder="dd/mm/yyyy"
       />
       <Textarea
         id="event-description"
@@ -80,7 +81,7 @@ export function EventForm({ submitLabel, onSubmit, onCancel }: EventFormProps) {
         rows={3}
       />
 
-      <div className="mt-2 flex justify-end gap-2">
+      <div className="mt-2 flex justify-end gap-3">
         <Button type="button" variant="secondary" onClick={onCancel}>
           Batal
         </Button>
