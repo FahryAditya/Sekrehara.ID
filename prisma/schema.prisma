@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  SUPERADMIN
+}
+
+enum AttendanceStatus {
+  HADIR
+  IZIN
+  ALPA
+}
+
+enum TransactionType {
+  PEMASUKAN
+  PENGELUARAN
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+}
+
+model Participant {
+  id         String       @id @default(cuid())
+  name       String
+  phone      String
+  email      String
+  createdAt  DateTime     @default(now())
+  attendance Attendance[]
+}
+
+model ActivityEvent {
+  id          String       @id @default(cuid())
+  name        String
+  date        DateTime
+  description String?
+  createdAt   DateTime     @default(now())
+  attendance  Attendance[]
+}
+
+model Attendance {
+  id            String           @id @default(cuid())
+  eventId       String
+  participantId String
+  status        AttendanceStatus
+  createdAt     DateTime         @default(now())
+  event         ActivityEvent   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  participant   Participant     @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, participantId])
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  type        TransactionType
+  category    String
+  amount      Int
+  description String
+  date        DateTime
+  createdAt   DateTime        @default(now())
+}
+
+model Announcement {
+  id             String   @id @default(cuid())
+  subject        String
+  body           String
+  recipientCount Int
+  sentAt         DateTime @default(now())
+}
