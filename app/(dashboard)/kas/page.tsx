@@ -323,8 +323,8 @@ function FilterButton({
       onClick={onClick}
       aria-pressed={isActive}
       className={combineClassNames(
-        "rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
-        isActive ? "bg-primary text-white" : "bg-surface text-muted hover:bg-background"
+        "rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+        isActive ? "bg-primary text-white shadow-2xs" : "bg-surface text-muted hover:bg-background"
       )}
     >
       {label}

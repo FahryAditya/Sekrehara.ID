@@ -254,8 +254,8 @@ export default function WorkProgramsPage() {
             </Select>
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <Input id="program-start" label="Mulai (opsional)" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-            <Input id="program-end" label="Selesai (opsional)" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+            <Input id="program-start" label="Mulai (opsional)" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} placeholder="dd/mm/yyyy" />
+            <Input id="program-end" label="Selesai (opsional)" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} placeholder="dd/mm/yyyy" />
           </div>
           <Input
             id="program-target"
@@ -275,6 +275,7 @@ export default function WorkProgramsPage() {
             label="Deskripsi (opsional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi singkat program kerja..."
             rows={3}
           />
 

@@ -248,6 +248,7 @@ export default function AgendaPage() {
             label="Deskripsi (opsional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi singkat agenda..."
             rows={3}
           />
           <Select id="agenda-status" label="Status" value={status} onChange={(e) => setStatus(e.target.value)}>
@@ -259,7 +260,7 @@ export default function AgendaPage() {
 
           <fieldset className="flex flex-col gap-2">
             <legend className="text-sm font-medium text-foreground">Undang Peserta</legend>
-            <div className="max-h-48 overflow-y-auto rounded-md border border-border">
+            <div className="max-h-48 overflow-y-auto rounded-lg border border-border">
               {members.length > 0 ? (
                 <ul className="divide-y divide-border">
                   {members.map((member) => {

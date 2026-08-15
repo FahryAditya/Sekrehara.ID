@@ -336,6 +336,7 @@ export default function TasksPage() {
               type="date"
               value={deadline}
               onChange={(e) => setDeadline(e.target.value)}
+              placeholder="dd/mm/yyyy"
             />
           </div>
           <Select id="task-assignee" label="Penanggung Jawab (opsional)" value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}>
@@ -351,6 +352,7 @@ export default function TasksPage() {
             label="Deskripsi (opsional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi singkat tugas..."
             rows={3}
           />
 

@@ -372,7 +372,7 @@ export default function LettersPage() {
               <option value="MASUK">Surat Masuk</option>
               <option value="KELUAR">Surat Keluar</option>
             </Select>
-            <Input id="letter-date" label="Tanggal Surat" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <Input id="letter-date" label="Tanggal Surat" type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="dd/mm/yyyy" />
           </div>
           <Input
             id="letter-subject"

@@ -104,12 +104,12 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
         aria-modal="true"
         aria-labelledby="modal-title"
         className={combineClassNames(
-          "w-full rounded-2xl border border-border/80 bg-surface shadow-2xl overflow-hidden",
+          "flex max-h-[90vh] w-full flex-col rounded-2xl border border-border/80 bg-surface shadow-2xl overflow-hidden",
           isClosing ? "animate-scale-out" : "animate-scale-in",
           maxWidthClasses[maxWidth]
         )}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-border/60 px-6 pt-5 pb-4">
+        <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border/60 px-6 pt-5 pb-4">
           <div className="flex flex-col gap-1">
             <h2 id="modal-title" className="text-lg font-semibold tracking-tight text-foreground">
               {title}
@@ -125,7 +125,7 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
             <CloseIcon className="h-5 w-5" />
           </button>
         </div>
-        <div className="px-6 py-5">{children}</div>
+        <div className="flex-1 overflow-y-auto px-6 py-5">{children}</div>
       </div>
     </div>
   );

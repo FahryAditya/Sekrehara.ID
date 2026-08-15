@@ -162,7 +162,7 @@ export default function ProfilePage() {
               <Input id="profile-email" label="Email" value={profile.email} disabled />
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Input id="profile-phone" label="No. Telepon" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="mis. 081234567890" />
-                <Input id="profile-dob" label="Tanggal Lahir" type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+                <Input id="profile-dob" label="Tanggal Lahir" type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} placeholder="dd/mm/yyyy" />
               </div>
               <Input id="profile-address" label="Alamat" value={address} onChange={(e) => setAddress(e.target.value)} />
               <div className="flex justify-end">

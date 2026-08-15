@@ -259,19 +259,19 @@ export default function MeetingsPage() {
             <option value="DRAFT">Draft</option>
             <option value="TERJADWAL">Terjadwal</option>
             <option value="BERLANGSUNG">Berlangsung</option>
-            <option value="SELESAI">Selesai</option>
           </Select>
           <Textarea
             id="meeting-description"
             label="Deskripsi (opsional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi singkat rapat..."
             rows={3}
           />
 
           <fieldset className="flex flex-col gap-2">
             <legend className="text-sm font-medium text-foreground">Undang Peserta</legend>
-            <div className="max-h-48 overflow-y-auto rounded-md border border-border">
+            <div className="max-h-48 overflow-y-auto rounded-lg border border-border">
               {members.length > 0 ? (
                 <ul className="divide-y divide-border">
                   {members.map((member) => {

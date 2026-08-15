@@ -108,7 +108,7 @@ export function ParticipantForm({
         error={fieldErrors.name}
         placeholder="mis. Ahmad Fauzi"
       />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Input
           id="participant-kelas"
           label="Kelas"
