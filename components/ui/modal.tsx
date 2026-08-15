@@ -25,23 +25,30 @@ const FOCUSABLE_SELECTOR =
 export function Modal({ open, onClose, title, description, children, maxWidth = "medium" }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
   const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   const handleClose = useCallback(() => {
     setIsClosing(true);
     window.setTimeout(() => {
       setIsClosing(false);
-      onClose();
+      onCloseRef.current();
     }, 180);
-  }, [onClose]);
+  }, []);
 
   const getFocusableElements = useCallback(() => {
     if (!dialogRef.current) return [];
     return Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
   }, []);
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
         handleClose();
@@ -64,26 +71,34 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
         event.preventDefault();
         firstElement.focus();
       }
-    },
-    [getFocusableElements, handleClose]
-  );
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, getFocusableElements, handleClose]);
 
   useEffect(() => {
     if (!open) return;
 
     previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
-    document.addEventListener("keydown", handleKeyDown);
 
-    const initialFocusableElement = getFocusableElements()[0];
-    initialFocusableElement?.focus();
+    const timer = window.setTimeout(() => {
+      if (dialogRef.current && !dialogRef.current.contains(document.activeElement)) {
+        const initialFocusableElement = getFocusableElements()[0];
+        initialFocusableElement?.focus();
+      }
+    }, 50);
 
     return () => {
+      window.clearTimeout(timer);
       document.body.style.overflow = "";
-      document.removeEventListener("keydown", handleKeyDown);
       previouslyFocusedRef.current?.focus();
     };
-  }, [open, handleKeyDown, getFocusableElements]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   if (!open) return null;
 
