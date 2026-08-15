@@ -22,7 +22,6 @@ import {
 import { formatRupiah, formatDate, formatDateTime, formatPercent } from "@/lib/format";
 import type { AttendanceStatus, Transaction } from "@/lib/types";
 import { useAuth } from "@/lib/auth-context";
-
 const statusLabel: Record<AttendanceStatus, string> = {
   HADIR: "Hadir",
   IZIN: "Izin",

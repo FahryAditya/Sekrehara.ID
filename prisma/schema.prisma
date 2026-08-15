@@ -217,6 +217,7 @@ model Member {
   picMeetings        Meeting[]              @relation("MeetingPic")
   assignedTasks      Task[]                 @relation("TaskAssignee")
   picWorkPrograms    WorkProgram[]          @relation("WorkProgramPic")
+  attendance         Attendance[]
 
   @@index([status])
   @@index([kelas])
@@ -549,15 +550,6 @@ model WorkProgramTask {
   @@unique([workProgramId, taskId])
 }
 
-model Participant {
-  id         String       @id @default(cuid())
-  name       String
-  phone      String
-  email      String
-  createdAt  DateTime     @default(now())
-  attendance Attendance[]
-}
-
 model ActivityEvent {
   id          String       @id @default(cuid())
   name        String
@@ -568,15 +560,15 @@ model ActivityEvent {
 }
 
 model Attendance {
-  id            String           @id @default(cuid())
-  eventId       String
-  participantId String
-  status        AttendanceStatus
-  createdAt     DateTime         @default(now())
-  event         ActivityEvent   @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  participant   Participant     @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  id        String           @id @default(cuid())
+  eventId   String
+  memberId  String
+  status    AttendanceStatus
+  createdAt DateTime         @default(now())
+  event     ActivityEvent   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  member    Member          @relation(fields: [memberId], references: [id], onDelete: Cascade)
 
-  @@unique([eventId, participantId])
+  @@unique([eventId, memberId])
 }
 
 model Transaction {

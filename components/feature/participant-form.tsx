@@ -5,12 +5,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/toast";
 
+type ParticipantFormValues = {
+  name: string;
+  phone: string;
+  email: string;
+  kelas: string;
+  jurusan: string;
+  nomorInduk: string;
+};
+
 type ParticipantFormProps = {
   initialName?: string;
   initialPhone?: string;
   initialEmail?: string;
+  initialKelas?: string;
+  initialJurusan?: string;
+  initialNomorInduk?: string;
   submitLabel: string;
-  onSubmit: (values: { name: string; phone: string; email: string }) => void;
+  onSubmit: (values: ParticipantFormValues) => void;
   onCancel: () => void;
 };
 
@@ -24,6 +36,9 @@ export function ParticipantForm({
   initialName = "",
   initialPhone = "",
   initialEmail = "",
+  initialKelas = "",
+  initialJurusan = "",
+  initialNomorInduk = "",
   submitLabel,
   onSubmit,
   onCancel,
@@ -32,6 +47,9 @@ export function ParticipantForm({
   const [name, setName] = useState(initialName);
   const [phone, setPhone] = useState(initialPhone);
   const [email, setEmail] = useState(initialEmail);
+  const [kelas, setKelas] = useState(initialKelas);
+  const [jurusan, setJurusan] = useState(initialJurusan);
+  const [nomorInduk, setNomorInduk] = useState(initialNomorInduk);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -73,6 +91,9 @@ export function ParticipantForm({
       name: name.trim(),
       phone: phone.trim(),
       email: email.trim(),
+      kelas: kelas.trim(),
+      jurusan: jurusan.trim(),
+      nomorInduk: nomorInduk.trim(),
     });
     setIsSubmitting(false);
   };
@@ -86,6 +107,29 @@ export function ParticipantForm({
         onChange={(event) => setName(event.target.value)}
         error={fieldErrors.name}
         placeholder="mis. Ahmad Fauzi"
+      />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Input
+          id="participant-kelas"
+          label="Kelas"
+          value={kelas}
+          onChange={(event) => setKelas(event.target.value)}
+          placeholder="mis. XI-1"
+        />
+        <Input
+          id="participant-jurusan"
+          label="Jurusan"
+          value={jurusan}
+          onChange={(event) => setJurusan(event.target.value)}
+          placeholder="mis. IPA"
+        />
+      </div>
+      <Input
+        id="participant-nomor-induk"
+        label="Nomor Induk (opsional)"
+        value={nomorInduk}
+        onChange={(event) => setNomorInduk(event.target.value)}
+        placeholder="mis. 2023-001"
       />
       <Input
         id="participant-phone"

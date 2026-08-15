@@ -427,7 +427,6 @@ export const ModelName = {
   WorkProgram: 'WorkProgram',
   WorkProgramUpdate: 'WorkProgramUpdate',
   WorkProgramTask: 'WorkProgramTask',
-  Participant: 'Participant',
   ActivityEvent: 'ActivityEvent',
   Attendance: 'Attendance',
   Transaction: 'Transaction',
@@ -447,7 +446,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "passwordReset" | "permission" | "rolePermission" | "activityLog" | "member" | "sekbid" | "position" | "memberSekbid" | "memberPosition" | "agenda" | "agendaParticipant" | "meeting" | "meetingParticipant" | "meetingAttendance" | "meetingNote" | "meetingDecision" | "meetingActionItem" | "task" | "taskComment" | "taskAttachment" | "notification" | "letter" | "folder" | "file" | "filePermission" | "workProgram" | "workProgramUpdate" | "workProgramTask" | "participant" | "activityEvent" | "attendance" | "transaction" | "announcement"
+    modelProps: "user" | "session" | "passwordReset" | "permission" | "rolePermission" | "activityLog" | "member" | "sekbid" | "position" | "memberSekbid" | "memberPosition" | "agenda" | "agendaParticipant" | "meeting" | "meetingParticipant" | "meetingAttendance" | "meetingNote" | "meetingDecision" | "meetingActionItem" | "task" | "taskComment" | "taskAttachment" | "notification" | "letter" | "folder" | "file" | "filePermission" | "workProgram" | "workProgramUpdate" | "workProgramTask" | "activityEvent" | "attendance" | "transaction" | "announcement"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2671,80 +2670,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Participant: {
-      payload: Prisma.$ParticipantPayload<ExtArgs>
-      fields: Prisma.ParticipantFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ParticipantFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ParticipantFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>
-        }
-        findFirst: {
-          args: Prisma.ParticipantFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ParticipantFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>
-        }
-        findMany: {
-          args: Prisma.ParticipantFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>[]
-        }
-        create: {
-          args: Prisma.ParticipantCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>
-        }
-        createMany: {
-          args: Prisma.ParticipantCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ParticipantCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>[]
-        }
-        delete: {
-          args: Prisma.ParticipantDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>
-        }
-        update: {
-          args: Prisma.ParticipantUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>
-        }
-        deleteMany: {
-          args: Prisma.ParticipantDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ParticipantUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ParticipantUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>[]
-        }
-        upsert: {
-          args: Prisma.ParticipantUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParticipantPayload>
-        }
-        aggregate: {
-          args: Prisma.ParticipantAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateParticipant>
-        }
-        groupBy: {
-          args: Prisma.ParticipantGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ParticipantGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ParticipantCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ParticipantCountAggregateOutputType> | number
-        }
-      }
-    }
     ActivityEvent: {
       payload: Prisma.$ActivityEventPayload<ExtArgs>
       fields: Prisma.ActivityEventFieldRefs
@@ -3468,17 +3393,6 @@ export const WorkProgramTaskScalarFieldEnum = {
 export type WorkProgramTaskScalarFieldEnum = (typeof WorkProgramTaskScalarFieldEnum)[keyof typeof WorkProgramTaskScalarFieldEnum]
 
 
-export const ParticipantScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  phone: 'phone',
-  email: 'email',
-  createdAt: 'createdAt'
-} as const
-
-export type ParticipantScalarFieldEnum = (typeof ParticipantScalarFieldEnum)[keyof typeof ParticipantScalarFieldEnum]
-
-
 export const ActivityEventScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -3493,7 +3407,7 @@ export type ActivityEventScalarFieldEnum = (typeof ActivityEventScalarFieldEnum)
 export const AttendanceScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
-  participantId: 'participantId',
+  memberId: 'memberId',
   status: 'status',
   createdAt: 'createdAt'
 } as const
@@ -4011,7 +3925,6 @@ export type GlobalOmitConfig = {
   workProgram?: Prisma.WorkProgramOmit
   workProgramUpdate?: Prisma.WorkProgramUpdateOmit
   workProgramTask?: Prisma.WorkProgramTaskOmit
-  participant?: Prisma.ParticipantOmit
   activityEvent?: Prisma.ActivityEventOmit
   attendance?: Prisma.AttendanceOmit
   transaction?: Prisma.TransactionOmit

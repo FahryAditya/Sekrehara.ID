@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { DataStoreProvider } from "@/lib/data-store";
 import { ToastProvider } from "@/components/ui/toast";
 import { Sidebar } from "@/components/layout/sidebar";
+import { NotificationBell } from "@/components/feature/notification-bell";
 import { MenuIcon, LogOutIcon } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -119,6 +120,14 @@ function DashboardShell({ children }: { children: ReactNode }) {
             <MenuIcon />
           </button>
           <span className="text-base font-semibold text-foreground">SekreHara</span>
+          <span className="ml-auto">
+            <NotificationBell />
+          </span>
+        </header>
+
+        {/* Header desktop */}
+        <header className="sticky top-0 z-30 hidden h-16 items-center justify-end border-b border-border bg-surface/90 px-8 backdrop-blur lg:flex">
+          <NotificationBell />
         </header>
 
         <main className={combineClassNames("mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8")}>

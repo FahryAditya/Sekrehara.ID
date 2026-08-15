@@ -46,7 +46,7 @@ const statusOptions: Array<{
 
 export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
   const { events, participants, attendance, setAttendanceStatus } = useDataStore();
-  const { showSuccess } = useToast();
+  const { showSuccess, showError } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<AttendanceStatus | "SEMUA">("SEMUA");
 
@@ -58,7 +58,7 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
       const matchesQuery =
         !normalizedQuery ||
         participant.name.toLowerCase().includes(normalizedQuery) ||
-        participant.email.toLowerCase().includes(normalizedQuery);
+        (participant.email ?? "").toLowerCase().includes(normalizedQuery);
       const status = attendance[eventId]?.[participant.id];
       const matchesFilter = statusFilter === "SEMUA" || status === statusFilter;
       return matchesQuery && matchesFilter;
@@ -100,8 +100,12 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
     { status: "ALPA" as AttendanceStatus, count: alpaCount, className: "bg-danger" },
   ];
 
-  const handleSetStatus = (participantId: string, status: AttendanceStatus) => {
-    setAttendanceStatus(eventId, participantId, status);
+  const handleSetStatus = async (participantId: string, status: AttendanceStatus) => {
+    const result = await setAttendanceStatus(eventId, participantId, status);
+    if (!result.ok) {
+      showError("Gagal memperbarui kehadiran: " + (result.error ?? ""));
+      return;
+    }
     const participant = participants.find((item) => item.id === participantId);
     const statusLabel = statusOptions.find((option) => option.value === status)?.label;
     if (participant) {

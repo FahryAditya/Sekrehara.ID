@@ -256,6 +256,7 @@ export type MemberWhereInput = {
   picMeetings?: Prisma.MeetingListRelationFilter
   assignedTasks?: Prisma.TaskListRelationFilter
   picWorkPrograms?: Prisma.WorkProgramListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }
 
 export type MemberOrderByWithRelationInput = {
@@ -282,6 +283,7 @@ export type MemberOrderByWithRelationInput = {
   picMeetings?: Prisma.MeetingOrderByRelationAggregateInput
   assignedTasks?: Prisma.TaskOrderByRelationAggregateInput
   picWorkPrograms?: Prisma.WorkProgramOrderByRelationAggregateInput
+  attendance?: Prisma.AttendanceOrderByRelationAggregateInput
 }
 
 export type MemberWhereUniqueInput = Prisma.AtLeast<{
@@ -311,6 +313,7 @@ export type MemberWhereUniqueInput = Prisma.AtLeast<{
   picMeetings?: Prisma.MeetingListRelationFilter
   assignedTasks?: Prisma.TaskListRelationFilter
   picWorkPrograms?: Prisma.WorkProgramListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }, "id" | "userId" | "nomorInduk">
 
 export type MemberOrderByWithAggregationInput = {
@@ -374,6 +377,7 @@ export type MemberCreateInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateInput = {
@@ -399,6 +403,7 @@ export type MemberUncheckedCreateInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUpdateInput = {
@@ -424,6 +429,7 @@ export type MemberUpdateInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateInput = {
@@ -449,6 +455,7 @@ export type MemberUncheckedUpdateInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateManyInput = {
@@ -726,6 +733,20 @@ export type MemberUpdateOneWithoutPicWorkProgramsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MemberUpdateToOneWithWhereWithoutPicWorkProgramsInput, Prisma.MemberUpdateWithoutPicWorkProgramsInput>, Prisma.MemberUncheckedUpdateWithoutPicWorkProgramsInput>
 }
 
+export type MemberCreateNestedOneWithoutAttendanceInput = {
+  create?: Prisma.XOR<Prisma.MemberCreateWithoutAttendanceInput, Prisma.MemberUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.MemberCreateOrConnectWithoutAttendanceInput
+  connect?: Prisma.MemberWhereUniqueInput
+}
+
+export type MemberUpdateOneRequiredWithoutAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.MemberCreateWithoutAttendanceInput, Prisma.MemberUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.MemberCreateOrConnectWithoutAttendanceInput
+  upsert?: Prisma.MemberUpsertWithoutAttendanceInput
+  connect?: Prisma.MemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MemberUpdateToOneWithWhereWithoutAttendanceInput, Prisma.MemberUpdateWithoutAttendanceInput>, Prisma.MemberUncheckedUpdateWithoutAttendanceInput>
+}
+
 export type MemberCreateWithoutUserInput = {
   id?: string
   name: string
@@ -748,6 +769,7 @@ export type MemberCreateWithoutUserInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutUserInput = {
@@ -772,6 +794,7 @@ export type MemberUncheckedCreateWithoutUserInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutUserInput = {
@@ -812,6 +835,7 @@ export type MemberUpdateWithoutUserInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutUserInput = {
@@ -836,6 +860,7 @@ export type MemberUncheckedUpdateWithoutUserInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutSekbidsInput = {
@@ -860,6 +885,7 @@ export type MemberCreateWithoutSekbidsInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutSekbidsInput = {
@@ -884,6 +910,7 @@ export type MemberUncheckedCreateWithoutSekbidsInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutSekbidsInput = {
@@ -924,6 +951,7 @@ export type MemberUpdateWithoutSekbidsInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutSekbidsInput = {
@@ -948,6 +976,7 @@ export type MemberUncheckedUpdateWithoutSekbidsInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutPositionsInput = {
@@ -972,6 +1001,7 @@ export type MemberCreateWithoutPositionsInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutPositionsInput = {
@@ -996,6 +1026,7 @@ export type MemberUncheckedCreateWithoutPositionsInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutPositionsInput = {
@@ -1036,6 +1067,7 @@ export type MemberUpdateWithoutPositionsInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutPositionsInput = {
@@ -1060,6 +1092,7 @@ export type MemberUncheckedUpdateWithoutPositionsInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutAgendaParticipantsInput = {
@@ -1084,6 +1117,7 @@ export type MemberCreateWithoutAgendaParticipantsInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutAgendaParticipantsInput = {
@@ -1108,6 +1142,7 @@ export type MemberUncheckedCreateWithoutAgendaParticipantsInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutAgendaParticipantsInput = {
@@ -1148,6 +1183,7 @@ export type MemberUpdateWithoutAgendaParticipantsInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutAgendaParticipantsInput = {
@@ -1172,6 +1208,7 @@ export type MemberUncheckedUpdateWithoutAgendaParticipantsInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutPicMeetingsInput = {
@@ -1196,6 +1233,7 @@ export type MemberCreateWithoutPicMeetingsInput = {
   meetingActionItems?: Prisma.MeetingActionItemCreateNestedManyWithoutAssigneeInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutPicMeetingsInput = {
@@ -1220,6 +1258,7 @@ export type MemberUncheckedCreateWithoutPicMeetingsInput = {
   meetingActionItems?: Prisma.MeetingActionItemUncheckedCreateNestedManyWithoutAssigneeInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutPicMeetingsInput = {
@@ -1260,6 +1299,7 @@ export type MemberUpdateWithoutPicMeetingsInput = {
   meetingActionItems?: Prisma.MeetingActionItemUpdateManyWithoutAssigneeNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutPicMeetingsInput = {
@@ -1284,6 +1324,7 @@ export type MemberUncheckedUpdateWithoutPicMeetingsInput = {
   meetingActionItems?: Prisma.MeetingActionItemUncheckedUpdateManyWithoutAssigneeNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutMeetingParticipantsInput = {
@@ -1308,6 +1349,7 @@ export type MemberCreateWithoutMeetingParticipantsInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutMeetingParticipantsInput = {
@@ -1332,6 +1374,7 @@ export type MemberUncheckedCreateWithoutMeetingParticipantsInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutMeetingParticipantsInput = {
@@ -1372,6 +1415,7 @@ export type MemberUpdateWithoutMeetingParticipantsInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutMeetingParticipantsInput = {
@@ -1396,6 +1440,7 @@ export type MemberUncheckedUpdateWithoutMeetingParticipantsInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutMeetingAttendanceInput = {
@@ -1420,6 +1465,7 @@ export type MemberCreateWithoutMeetingAttendanceInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutMeetingAttendanceInput = {
@@ -1444,6 +1490,7 @@ export type MemberUncheckedCreateWithoutMeetingAttendanceInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutMeetingAttendanceInput = {
@@ -1484,6 +1531,7 @@ export type MemberUpdateWithoutMeetingAttendanceInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutMeetingAttendanceInput = {
@@ -1508,6 +1556,7 @@ export type MemberUncheckedUpdateWithoutMeetingAttendanceInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutMeetingActionItemsInput = {
@@ -1532,6 +1581,7 @@ export type MemberCreateWithoutMeetingActionItemsInput = {
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutMeetingActionItemsInput = {
@@ -1556,6 +1606,7 @@ export type MemberUncheckedCreateWithoutMeetingActionItemsInput = {
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutMeetingActionItemsInput = {
@@ -1596,6 +1647,7 @@ export type MemberUpdateWithoutMeetingActionItemsInput = {
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutMeetingActionItemsInput = {
@@ -1620,6 +1672,7 @@ export type MemberUncheckedUpdateWithoutMeetingActionItemsInput = {
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutAssignedTasksInput = {
@@ -1644,6 +1697,7 @@ export type MemberCreateWithoutAssignedTasksInput = {
   meetingActionItems?: Prisma.MeetingActionItemCreateNestedManyWithoutAssigneeInput
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutAssignedTasksInput = {
@@ -1668,6 +1722,7 @@ export type MemberUncheckedCreateWithoutAssignedTasksInput = {
   meetingActionItems?: Prisma.MeetingActionItemUncheckedCreateNestedManyWithoutAssigneeInput
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutAssignedTasksInput = {
@@ -1708,6 +1763,7 @@ export type MemberUpdateWithoutAssignedTasksInput = {
   meetingActionItems?: Prisma.MeetingActionItemUpdateManyWithoutAssigneeNestedInput
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutAssignedTasksInput = {
@@ -1732,6 +1788,7 @@ export type MemberUncheckedUpdateWithoutAssignedTasksInput = {
   meetingActionItems?: Prisma.MeetingActionItemUncheckedUpdateManyWithoutAssigneeNestedInput
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateWithoutPicWorkProgramsInput = {
@@ -1756,6 +1813,7 @@ export type MemberCreateWithoutPicWorkProgramsInput = {
   meetingActionItems?: Prisma.MeetingActionItemCreateNestedManyWithoutAssigneeInput
   picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutPicWorkProgramsInput = {
@@ -1780,6 +1838,7 @@ export type MemberUncheckedCreateWithoutPicWorkProgramsInput = {
   meetingActionItems?: Prisma.MeetingActionItemUncheckedCreateNestedManyWithoutAssigneeInput
   picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutPicWorkProgramsInput = {
@@ -1820,6 +1879,7 @@ export type MemberUpdateWithoutPicWorkProgramsInput = {
   meetingActionItems?: Prisma.MeetingActionItemUpdateManyWithoutAssigneeNestedInput
   picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutPicWorkProgramsInput = {
@@ -1844,6 +1904,123 @@ export type MemberUncheckedUpdateWithoutPicWorkProgramsInput = {
   meetingActionItems?: Prisma.MeetingActionItemUncheckedUpdateManyWithoutAssigneeNestedInput
   picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutMemberNestedInput
+}
+
+export type MemberCreateWithoutAttendanceInput = {
+  id?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  kelas?: string | null
+  jurusan?: string | null
+  nomorInduk?: string | null
+  avatarUrl?: string | null
+  status?: $Enums.MemberStatus
+  joinDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutMemberInput
+  sekbids?: Prisma.MemberSekbidCreateNestedManyWithoutMemberInput
+  positions?: Prisma.MemberPositionCreateNestedManyWithoutMemberInput
+  agendaParticipants?: Prisma.AgendaParticipantCreateNestedManyWithoutMemberInput
+  meetingParticipants?: Prisma.MeetingParticipantCreateNestedManyWithoutMemberInput
+  meetingAttendance?: Prisma.MeetingAttendanceCreateNestedManyWithoutMemberInput
+  meetingActionItems?: Prisma.MeetingActionItemCreateNestedManyWithoutAssigneeInput
+  picMeetings?: Prisma.MeetingCreateNestedManyWithoutPicInput
+  assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  picWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutPicInput
+}
+
+export type MemberUncheckedCreateWithoutAttendanceInput = {
+  id?: string
+  userId?: string | null
+  name: string
+  email?: string | null
+  phone?: string | null
+  kelas?: string | null
+  jurusan?: string | null
+  nomorInduk?: string | null
+  avatarUrl?: string | null
+  status?: $Enums.MemberStatus
+  joinDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sekbids?: Prisma.MemberSekbidUncheckedCreateNestedManyWithoutMemberInput
+  positions?: Prisma.MemberPositionUncheckedCreateNestedManyWithoutMemberInput
+  agendaParticipants?: Prisma.AgendaParticipantUncheckedCreateNestedManyWithoutMemberInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedCreateNestedManyWithoutMemberInput
+  meetingAttendance?: Prisma.MeetingAttendanceUncheckedCreateNestedManyWithoutMemberInput
+  meetingActionItems?: Prisma.MeetingActionItemUncheckedCreateNestedManyWithoutAssigneeInput
+  picMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutPicInput
+  assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  picWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutPicInput
+}
+
+export type MemberCreateOrConnectWithoutAttendanceInput = {
+  where: Prisma.MemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.MemberCreateWithoutAttendanceInput, Prisma.MemberUncheckedCreateWithoutAttendanceInput>
+}
+
+export type MemberUpsertWithoutAttendanceInput = {
+  update: Prisma.XOR<Prisma.MemberUpdateWithoutAttendanceInput, Prisma.MemberUncheckedUpdateWithoutAttendanceInput>
+  create: Prisma.XOR<Prisma.MemberCreateWithoutAttendanceInput, Prisma.MemberUncheckedCreateWithoutAttendanceInput>
+  where?: Prisma.MemberWhereInput
+}
+
+export type MemberUpdateToOneWithWhereWithoutAttendanceInput = {
+  where?: Prisma.MemberWhereInput
+  data: Prisma.XOR<Prisma.MemberUpdateWithoutAttendanceInput, Prisma.MemberUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type MemberUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurusan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nomorInduk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
+  joinDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutMemberNestedInput
+  sekbids?: Prisma.MemberSekbidUpdateManyWithoutMemberNestedInput
+  positions?: Prisma.MemberPositionUpdateManyWithoutMemberNestedInput
+  agendaParticipants?: Prisma.AgendaParticipantUpdateManyWithoutMemberNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUpdateManyWithoutMemberNestedInput
+  meetingAttendance?: Prisma.MeetingAttendanceUpdateManyWithoutMemberNestedInput
+  meetingActionItems?: Prisma.MeetingActionItemUpdateManyWithoutAssigneeNestedInput
+  picMeetings?: Prisma.MeetingUpdateManyWithoutPicNestedInput
+  assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  picWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutPicNestedInput
+}
+
+export type MemberUncheckedUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kelas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurusan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nomorInduk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
+  joinDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sekbids?: Prisma.MemberSekbidUncheckedUpdateManyWithoutMemberNestedInput
+  positions?: Prisma.MemberPositionUncheckedUpdateManyWithoutMemberNestedInput
+  agendaParticipants?: Prisma.AgendaParticipantUncheckedUpdateManyWithoutMemberNestedInput
+  meetingParticipants?: Prisma.MeetingParticipantUncheckedUpdateManyWithoutMemberNestedInput
+  meetingAttendance?: Prisma.MeetingAttendanceUncheckedUpdateManyWithoutMemberNestedInput
+  meetingActionItems?: Prisma.MeetingActionItemUncheckedUpdateManyWithoutAssigneeNestedInput
+  picMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutPicNestedInput
+  assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  picWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutPicNestedInput
 }
 
 
@@ -1861,6 +2038,7 @@ export type MemberCountOutputType = {
   picMeetings: number
   assignedTasks: number
   picWorkPrograms: number
+  attendance: number
 }
 
 export type MemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1873,6 +2051,7 @@ export type MemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   picMeetings?: boolean | MemberCountOutputTypeCountPicMeetingsArgs
   assignedTasks?: boolean | MemberCountOutputTypeCountAssignedTasksArgs
   picWorkPrograms?: boolean | MemberCountOutputTypeCountPicWorkProgramsArgs
+  attendance?: boolean | MemberCountOutputTypeCountAttendanceArgs
 }
 
 /**
@@ -1948,6 +2127,13 @@ export type MemberCountOutputTypeCountPicWorkProgramsArgs<ExtArgs extends runtim
   where?: Prisma.WorkProgramWhereInput
 }
 
+/**
+ * MemberCountOutputType without action
+ */
+export type MemberCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceWhereInput
+}
+
 
 export type MemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1973,6 +2159,7 @@ export type MemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   picMeetings?: boolean | Prisma.Member$picMeetingsArgs<ExtArgs>
   assignedTasks?: boolean | Prisma.Member$assignedTasksArgs<ExtArgs>
   picWorkPrograms?: boolean | Prisma.Member$picWorkProgramsArgs<ExtArgs>
+  attendance?: boolean | Prisma.Member$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.MemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["member"]>
 
@@ -2038,6 +2225,7 @@ export type MemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   picMeetings?: boolean | Prisma.Member$picMeetingsArgs<ExtArgs>
   assignedTasks?: boolean | Prisma.Member$assignedTasksArgs<ExtArgs>
   picWorkPrograms?: boolean | Prisma.Member$picWorkProgramsArgs<ExtArgs>
+  attendance?: boolean | Prisma.Member$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.MemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2060,6 +2248,7 @@ export type $MemberPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     picMeetings: Prisma.$MeetingPayload<ExtArgs>[]
     assignedTasks: Prisma.$TaskPayload<ExtArgs>[]
     picWorkPrograms: Prisma.$WorkProgramPayload<ExtArgs>[]
+    attendance: Prisma.$AttendancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2479,6 +2668,7 @@ export interface Prisma__MemberClient<T, Null = never, ExtArgs extends runtime.T
   picMeetings<T extends Prisma.Member$picMeetingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Member$picMeetingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedTasks<T extends Prisma.Member$assignedTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Member$assignedTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   picWorkPrograms<T extends Prisma.Member$picWorkProgramsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Member$picWorkProgramsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkProgramPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendance<T extends Prisma.Member$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Member$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3154,6 +3344,30 @@ export type Member$picWorkProgramsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.WorkProgramScalarFieldEnum | Prisma.WorkProgramScalarFieldEnum[]
+}
+
+/**
+ * Member.attendance
+ */
+export type Member$attendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attendance
+   */
+  select?: Prisma.AttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attendance
+   */
+  omit?: Prisma.AttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceInclude<ExtArgs> | null
+  where?: Prisma.AttendanceWhereInput
+  orderBy?: Prisma.AttendanceOrderByWithRelationInput | Prisma.AttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
 }
 
 /**

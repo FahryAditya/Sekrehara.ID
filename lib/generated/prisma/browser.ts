@@ -168,11 +168,6 @@ export type WorkProgramUpdate = Prisma.WorkProgramUpdateModel
  */
 export type WorkProgramTask = Prisma.WorkProgramTaskModel
 /**
- * Model Participant
- * 
- */
-export type Participant = Prisma.ParticipantModel
-/**
  * Model ActivityEvent
  * 
  */

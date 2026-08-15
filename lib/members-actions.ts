@@ -292,3 +292,39 @@ export async function listKelasAction(): Promise<string[]> {
   });
   return rows.map((r) => r.kelas as string);
 }
+
+export async function getMyMemberAction(): Promise<{ id: string } | null> {
+  const session = await requireUser();
+  const member = await prisma.member.findUnique({
+    where: { userId: session.id },
+    select: { id: true },
+  });
+  return member ? { id: member.id } : null;
+}
+
+export async function listAllMembersAction(): Promise<MemberListItem[]> {
+  await requireUser();
+
+  const rows = await prisma.member.findMany({
+    orderBy: { name: "asc" },
+    include: {
+      sekbids: { include: { sekbid: true } },
+      positions: { include: { position: true } },
+    },
+  });
+
+  return rows.map((m) => ({
+    id: m.id,
+    name: m.name,
+    email: m.email,
+    phone: m.phone,
+    kelas: m.kelas,
+    jurusan: m.jurusan,
+    nomorInduk: m.nomorInduk,
+    status: m.status as MemberStatus,
+    joinDate: m.joinDate?.toISOString() ?? null,
+    createdAt: m.createdAt.toISOString(),
+    sekbids: m.sekbids.map((s) => ({ id: s.sekbid.id, name: s.sekbid.name })),
+    positions: m.positions.map((p) => ({ id: p.position.id, name: p.position.name })),
+  }));
+}

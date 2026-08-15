@@ -15,20 +15,25 @@ import { Badge } from "@/components/ui/badge";
 import { ParticipantForm } from "@/components/feature/participant-form";
 import { PlusIcon, PencilIcon, TrashIcon, UsersIcon } from "@/components/ui/icons";
 import { formatDate } from "@/lib/format";
-import type { Participant } from "@/lib/types";
+import type { MemberListItem } from "@/lib/members-actions";
 
 type ModalState =
   | { mode: "add"; participant: null }
-  | { mode: "edit"; participant: Participant }
+  | { mode: "edit"; participant: MemberListItem }
   | null;
 
 export default function PesertaPage() {
-  const { participants, addParticipant, updateParticipant, deleteParticipant } = useDataStore();
-  const { showSuccess } = useToast();
+  const {
+    participants,
+    addParticipant,
+    updateParticipant,
+    deleteParticipant,
+  } = useDataStore();
+  const { showSuccess, showError } = useToast();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [modalState, setModalState] = useState<ModalState>(null);
-  const [participantToDelete, setParticipantToDelete] = useState<Participant | null>(null);
+  const [participantToDelete, setParticipantToDelete] = useState<MemberListItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const filteredParticipants = useMemo(() => {
@@ -38,28 +43,48 @@ export default function PesertaPage() {
     return participants.filter(
       (participant) =>
         participant.name.toLowerCase().includes(normalizedQuery) ||
-        participant.email.toLowerCase().includes(normalizedQuery)
+        (participant.email ?? "").toLowerCase().includes(normalizedQuery) ||
+        (participant.kelas ?? "").toLowerCase().includes(normalizedQuery)
     );
   }, [participants, searchQuery]);
 
-  const handleSubmitForm = (values: { name: string; phone: string; email: string }) => {
+  const handleSubmitForm = async (values: {
+    name: string;
+    phone: string;
+    email: string;
+    kelas: string;
+    jurusan: string;
+    nomorInduk: string;
+  }) => {
     if (modalState?.mode === "edit" && modalState.participant) {
-      updateParticipant(modalState.participant.id, values);
+      const result = await updateParticipant(modalState.participant.id, values);
+      if (!result.ok) {
+        showError(result.error ?? "Gagal memperbarui peserta.");
+        return;
+      }
       showSuccess("Data peserta berhasil diperbarui.");
     } else {
-      addParticipant(values);
+      const result = await addParticipant(values);
+      if (!result.ok) {
+        showError(result.error ?? "Gagal menambah peserta.");
+        return;
+      }
       showSuccess("Peserta baru berhasil ditambahkan.");
     }
     setModalState(null);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!participantToDelete) return;
 
     setIsDeleting(true);
-    deleteParticipant(participantToDelete.id);
-    showSuccess("Peserta berhasil dihapus.");
+    const result = await deleteParticipant(participantToDelete.id);
     setIsDeleting(false);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal menghapus peserta.");
+      return;
+    }
+    showSuccess("Peserta berhasil dihapus.");
     setParticipantToDelete(null);
   };
 
@@ -67,7 +92,7 @@ export default function PesertaPage() {
     <div>
       <PageHeader
         title="Data Peserta"
-        description="Kelola nama, nomor kontak, dan email peserta organisasi."
+        description="Kelola nama, kelas, nomor kontak, dan email anggota organisasi."
         action={
           <Button onClick={() => setModalState({ mode: "add", participant: null })}>
             <PlusIcon className="h-4 w-4" />
@@ -81,7 +106,7 @@ export default function PesertaPage() {
           id="participant-search"
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="Cari nama atau email peserta..."
+          placeholder="Cari nama, email, atau kelas..."
         />
       </div>
 
@@ -91,25 +116,44 @@ export default function PesertaPage() {
             columns={[
               {
                 header: "Nama Lengkap",
-                accessor: (participant: Participant) => (
+                accessor: (participant: MemberListItem) => (
                   <span className="font-medium text-foreground">{participant.name}</span>
                 ),
               },
               {
+                header: "Kelas / Jurusan",
+                accessor: (participant: MemberListItem) =>
+                  participant.kelas || participant.jurusan ? (
+                    <span className="text-muted">
+                      {[participant.kelas, participant.jurusan].filter(Boolean).join(" · ")}
+                    </span>
+                  ) : (
+                    <span className="text-muted">—</span>
+                  ),
+              },
+              {
                 header: "Nomor Kontak",
-                accessor: (participant: Participant) => participant.phone,
+                accessor: (participant: MemberListItem) => participant.phone ?? "—",
               },
               {
                 header: "Email",
-                accessor: (participant: Participant) => participant.email,
+                accessor: (participant: MemberListItem) => participant.email ?? "—",
+              },
+              {
+                header: "Status",
+                accessor: (participant: MemberListItem) => (
+                  <Badge variant={participant.status === "AKTIF" ? "success" : "neutral"}>
+                    {participant.status === "AKTIF" ? "Aktif" : "Tidak Aktif"}
+                  </Badge>
+                ),
               },
               {
                 header: "Terdaftar",
-                accessor: (participant: Participant) => formatDate(participant.createdAt),
+                accessor: (participant: MemberListItem) => formatDate(participant.createdAt),
               },
               {
                 header: "Aksi",
-                accessor: (participant: Participant) => (
+                accessor: (participant: MemberListItem) => (
                   <div className="flex items-center gap-1">
                     <Button
                       variant="ghost"
@@ -172,8 +216,13 @@ export default function PesertaPage() {
           <ParticipantForm
             key={modalState.mode === "edit" ? modalState.participant.id : "add"}
             initialName={modalState.mode === "edit" ? modalState.participant.name : ""}
-            initialPhone={modalState.mode === "edit" ? modalState.participant.phone : ""}
-            initialEmail={modalState.mode === "edit" ? modalState.participant.email : ""}
+            initialPhone={modalState.mode === "edit" ? modalState.participant.phone ?? "" : ""}
+            initialEmail={modalState.mode === "edit" ? modalState.participant.email ?? "" : ""}
+            initialKelas={modalState.mode === "edit" ? modalState.participant.kelas ?? "" : ""}
+            initialJurusan={modalState.mode === "edit" ? modalState.participant.jurusan ?? "" : ""}
+            initialNomorInduk={
+              modalState.mode === "edit" ? modalState.participant.nomorInduk ?? "" : ""
+            }
             submitLabel={modalState.mode === "edit" ? "Simpan Perubahan" : "Tambah Peserta"}
             onSubmit={handleSubmitForm}
             onCancel={() => setModalState(null)}

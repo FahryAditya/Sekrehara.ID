@@ -23,7 +23,7 @@ type TransactionFilter = "SEMUA" | TransactionType;
 
 export default function KasPage() {
   const { transactions, addTransaction, deleteTransaction } = useDataStore();
-  const { showSuccess } = useToast();
+  const { showSuccess, showError } = useToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,27 +83,35 @@ export default function KasPage() {
     return rowsWithBalance;
   }, [transactions, searchQuery, typeFilter]);
 
-  const handleSubmitTransaction = (values: {
+  const handleSubmitTransaction = async (values: {
     type: TransactionType;
     category: string;
     amount: number;
     description: string;
     date: string;
   }) => {
-    addTransaction(values);
+    const result = await addTransaction(values);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal mencatat transaksi.");
+      return;
+    }
     showSuccess(
       values.type === "PEMASUKAN" ? "Pemasukan berhasil dicatat." : "Pengeluaran berhasil dicatat."
     );
     setIsModalOpen(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!transactionToDelete) return;
 
     setIsDeleting(true);
-    deleteTransaction(transactionToDelete.id);
-    showSuccess("Transaksi berhasil dihapus.");
+    const result = await deleteTransaction(transactionToDelete.id);
     setIsDeleting(false);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal menghapus transaksi.");
+      return;
+    }
+    showSuccess("Transaksi berhasil dihapus.");
     setTransactionToDelete(null);
   };
 

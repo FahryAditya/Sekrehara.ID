@@ -10,24 +10,47 @@ import {
   type ReactNode,
 } from "react";
 import type {
-  AppData,
-  ActivityEvent,
-  Announcement,
   AttendanceMap,
   AttendanceStatus,
-  Participant,
   Role,
-  Transaction,
   TransactionType,
-  User,
 } from "@/lib/types";
-import { loadPersistedData, persistData } from "@/lib/storage";
-import { generateId } from "@/lib/utils";
+import { listAllMembersAction } from "@/lib/members-actions";
+import type { MemberListItem } from "@/lib/members-actions";
+import {
+  createEventAction,
+  deleteEventAction,
+  listAllAttendanceAction,
+  listEventsAction,
+  setAttendanceStatusAction,
+  type EventItem,
+} from "@/lib/events-actions";
+import {
+  createTransactionAction,
+  deleteTransactionAction,
+  listTransactionsAction,
+  type TransactionItem,
+} from "@/lib/transactions-actions";
+import {
+  createAnnouncementAction,
+  listAnnouncementsAction,
+  type AnnouncementItem,
+} from "@/lib/announcements-actions";
+import {
+  createUserAction,
+  deleteUserAction,
+  listUsersAction,
+  type AdminUserItem,
+} from "@/lib/users-actions";
+import { updateUserRoleAction } from "@/lib/roles-actions";
 
 type NewParticipantInput = {
   name: string;
   phone: string;
   email: string;
+  kelas?: string | null;
+  jurusan?: string | null;
+  nomorInduk?: string | null;
 };
 
 type NewEventInput = {
@@ -57,204 +80,338 @@ type NewUserInput = {
   role: Role;
 };
 
+export type MutationResult = { ok: boolean; error?: string };
+
 type DataStoreValue = {
-  users: User[];
-  participants: Participant[];
-  events: ActivityEvent[];
+  users: AdminUserItem[];
+  participants: MemberListItem[];
+  events: EventItem[];
   attendance: AttendanceMap;
-  transactions: Transaction[];
-  announcements: Announcement[];
-  addParticipant: (input: NewParticipantInput) => void;
-  updateParticipant: (participantId: string, input: NewParticipantInput) => void;
-  deleteParticipant: (participantId: string) => void;
-  addEvent: (input: NewEventInput) => void;
-  deleteEvent: (eventId: string) => void;
-  setAttendanceStatus: (eventId: string, participantId: string, status: AttendanceStatus) => void;
-  addTransaction: (input: NewTransactionInput) => void;
-  deleteTransaction: (transactionId: string) => void;
-  addAnnouncement: (input: NewAnnouncementInput) => void;
-  addUser: (input: NewUserInput) => void;
-  updateUserRole: (userId: string, role: Role) => void;
-  deleteUser: (userId: string) => void;
+  transactions: TransactionItem[];
+  announcements: AnnouncementItem[];
+  isLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+  addParticipant: (input: NewParticipantInput) => Promise<MutationResult>;
+  updateParticipant: (participantId: string, input: NewParticipantInput) => Promise<MutationResult>;
+  deleteParticipant: (participantId: string) => Promise<MutationResult>;
+  addEvent: (input: NewEventInput) => Promise<MutationResult>;
+  deleteEvent: (eventId: string) => Promise<MutationResult>;
+  setAttendanceStatus: (
+    eventId: string,
+    memberId: string,
+    status: AttendanceStatus
+  ) => Promise<MutationResult>;
+  addTransaction: (input: NewTransactionInput) => Promise<MutationResult>;
+  deleteTransaction: (transactionId: string) => Promise<MutationResult>;
+  addAnnouncement: (input: NewAnnouncementInput) => Promise<MutationResult>;
+  addUser: (input: NewUserInput) => Promise<MutationResult>;
+  updateUserRole: (userId: string, role: Role) => Promise<MutationResult>;
+  deleteUser: (userId: string) => Promise<MutationResult>;
 };
 
 const DataStoreContext = createContext<DataStoreValue | null>(null);
 
 export function DataStoreProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<AppData>(() => loadPersistedData());
+  const [users, setUsers] = useState<AdminUserItem[]>([]);
+  const [participants, setParticipants] = useState<MemberListItem[]>([]);
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [attendance, setAttendance] = useState<AttendanceMap>({});
+  const [transactions, setTransactions] = useState<TransactionItem[]>([]);
+  const [announcements, setAnnouncements] = useState<AnnouncementItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const refresh = useCallback(async () => {
+    try {
+      const data = await Promise.all([
+        listUsersAction(),
+        listAllMembersAction(),
+        listEventsAction(),
+        listAllAttendanceAction(),
+        listTransactionsAction(),
+        listAnnouncementsAction(),
+      ]);
+      setUsers(data[0]);
+      setParticipants(data[1]);
+      setEvents(data[2]);
+      setAttendance(data[3]);
+      setTransactions(data[4]);
+      setAnnouncements(data[5]);
+    } catch (loadError) {
+      setError(loadError instanceof Error ? loadError.message : "Gagal memuat data.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    persistData(data);
-  }, [data]);
-
-  const addParticipant = useCallback((input: NewParticipantInput) => {
-    setData((currentData) => {
-      const newParticipant: Participant = {
-        id: generateId(),
-        name: input.name,
-        phone: input.phone,
-        email: input.email,
-        createdAt: new Date().toISOString(),
-      };
-      return { ...currentData, participants: [...currentData.participants, newParticipant] };
-    });
-  }, []);
-
-  const updateParticipant = useCallback((participantId: string, input: NewParticipantInput) => {
-    setData((currentData) => ({
-      ...currentData,
-      participants: currentData.participants.map((participant) =>
-        participant.id === participantId
-          ? { ...participant, name: input.name, phone: input.phone, email: input.email }
-          : participant
-      ),
-    }));
-  }, []);
-
-  const deleteParticipant = useCallback((participantId: string) => {
-    setData((currentData) => {
-      const nextAttendance: AttendanceMap = {};
-      for (const eventId of Object.keys(currentData.attendance)) {
-        const records = currentData.attendance[eventId];
-        if (participantId in records) {
-          const nextRecords = { ...records };
-          delete nextRecords[participantId];
-          nextAttendance[eventId] = nextRecords;
-        } else {
-          nextAttendance[eventId] = records;
+    let cancelled = false;
+    Promise.all([
+      listUsersAction(),
+      listAllMembersAction(),
+      listEventsAction(),
+      listAllAttendanceAction(),
+      listTransactionsAction(),
+      listAnnouncementsAction(),
+    ])
+      .then((data) => {
+        if (cancelled) return;
+        setUsers(data[0]);
+        setParticipants(data[1]);
+        setEvents(data[2]);
+        setAttendance(data[3]);
+        setTransactions(data[4]);
+        setAnnouncements(data[5]);
+      })
+      .catch((loadError) => {
+        if (!cancelled) {
+          setError(loadError instanceof Error ? loadError.message : "Gagal memuat data.");
         }
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const addParticipant = useCallback(
+    async (input: NewParticipantInput): Promise<MutationResult> => {
+      try {
+        const { createMemberAction } = await import("@/lib/members-actions");
+        const result = await createMemberAction({
+          name: input.name,
+          phone: input.phone,
+          email: input.email,
+          kelas: input.kelas,
+          jurusan: input.jurusan,
+          nomorInduk: input.nomorInduk,
+        });
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal menambah peserta.",
+        };
       }
+    },
+    [refresh]
+  );
 
-      return {
-        ...currentData,
-        participants: currentData.participants.filter(
-          (participant) => participant.id !== participantId
-        ),
-        attendance: nextAttendance,
-      };
-    });
-  }, []);
+  const deleteParticipant = useCallback(
+    async (participantId: string): Promise<MutationResult> => {
+      try {
+        const { deleteMemberAction } = await import("@/lib/members-actions");
+        const result = await deleteMemberAction(participantId);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal menghapus peserta.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const addEvent = useCallback((input: NewEventInput) => {
-    setData((currentData) => {
-      const newEvent: ActivityEvent = {
-        id: generateId(),
-        name: input.name,
-        date: input.date,
-        description: input.description,
-        createdAt: new Date().toISOString(),
-      };
-      return {
-        ...currentData,
-        events: [...currentData.events, newEvent],
-        attendance: { ...currentData.attendance, [newEvent.id]: {} },
-      };
-    });
-  }, []);
+  const updateParticipant = useCallback(
+    async (participantId: string, input: NewParticipantInput): Promise<MutationResult> => {
+      try {
+        const { updateMemberAction } = await import("@/lib/members-actions");
+        const result = await updateMemberAction(participantId, {
+          name: input.name,
+          phone: input.phone,
+          email: input.email,
+          kelas: input.kelas,
+          jurusan: input.jurusan,
+          nomorInduk: input.nomorInduk,
+        });
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal memperbarui peserta.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const deleteEvent = useCallback((eventId: string) => {
-    setData((currentData) => {
-      const nextAttendance = { ...currentData.attendance };
-      delete nextAttendance[eventId];
-      return {
-        ...currentData,
-        events: currentData.events.filter((event) => event.id !== eventId),
-        attendance: nextAttendance,
-      };
-    });
-  }, []);
+  const addEvent = useCallback(
+    async (input: NewEventInput): Promise<MutationResult> => {
+      try {
+        const result = await createEventAction(input);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal membuat kegiatan.",
+        };
+      }
+    },
+    [refresh]
+  );
+
+  const deleteEvent = useCallback(
+    async (eventId: string): Promise<MutationResult> => {
+      try {
+        const result = await deleteEventAction(eventId);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal menghapus kegiatan.",
+        };
+      }
+    },
+    [refresh]
+  );
 
   const setAttendanceStatus = useCallback(
-    (eventId: string, participantId: string, status: AttendanceStatus) => {
-      setData((currentData) => {
-        const eventRecords = currentData.attendance[eventId] ?? {};
+    async (eventId: string, memberId: string, status: AttendanceStatus): Promise<MutationResult> => {
+      try {
+        const result = await setAttendanceStatusAction(eventId, memberId, status);
+        if ("error" in result) return { ok: false, error: result.error };
+        setAttendance((currentMap) => ({
+          ...currentMap,
+          [eventId]: { ...(currentMap[eventId] ?? {}), [memberId]: status },
+        }));
+        return { ok: true };
+      } catch (mutateError) {
         return {
-          ...currentData,
-          attendance: {
-            ...currentData.attendance,
-            [eventId]: { ...eventRecords, [participantId]: status },
-          },
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal memperbarui kehadiran.",
         };
-      });
+      }
     },
     []
   );
 
-  const addTransaction = useCallback((input: NewTransactionInput) => {
-    setData((currentData) => {
-      const newTransaction: Transaction = {
-        id: generateId(),
-        type: input.type,
-        category: input.category,
-        amount: input.amount,
-        description: input.description,
-        date: input.date,
-        createdAt: new Date().toISOString(),
-      };
-      return { ...currentData, transactions: [...currentData.transactions, newTransaction] };
-    });
-  }, []);
+  const addTransaction = useCallback(
+    async (input: NewTransactionInput): Promise<MutationResult> => {
+      try {
+        const result = await createTransactionAction(input);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal mencatat transaksi.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const deleteTransaction = useCallback((transactionId: string) => {
-    setData((currentData) => ({
-      ...currentData,
-      transactions: currentData.transactions.filter(
-        (transaction) => transaction.id !== transactionId
-      ),
-    }));
-  }, []);
+  const deleteTransaction = useCallback(
+    async (transactionId: string): Promise<MutationResult> => {
+      try {
+        const result = await deleteTransactionAction(transactionId);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal menghapus transaksi.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const addAnnouncement = useCallback((input: NewAnnouncementInput) => {
-    setData((currentData) => {
-      const newAnnouncement: Announcement = {
-        id: generateId(),
-        subject: input.subject,
-        body: input.body,
-        recipientCount: input.recipientCount,
-        sentAt: new Date().toISOString(),
-      };
-      return { ...currentData, announcements: [...currentData.announcements, newAnnouncement] };
-    });
-  }, []);
+  const addAnnouncement = useCallback(
+    async (input: NewAnnouncementInput): Promise<MutationResult> => {
+      try {
+        const result = await createAnnouncementAction(input);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal mengirim pengumuman.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const addUser = useCallback((input: NewUserInput) => {
-    setData((currentData) => {
-      const newUser: User = {
-        id: generateId(),
-        name: input.name,
-        email: input.email,
-        password: input.password,
-        role: input.role,
-        createdAt: new Date().toISOString(),
-      };
-      return { ...currentData, users: [...currentData.users, newUser] };
-    });
-  }, []);
+  const addUser = useCallback(
+    async (input: NewUserInput): Promise<MutationResult> => {
+      try {
+        const result = await createUserAction(input);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal menambah pengguna.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const updateUserRole = useCallback((userId: string, role: Role) => {
-    setData((currentData) => ({
-      ...currentData,
-      users: currentData.users.map((user) =>
-        user.id === userId ? { ...user, role } : user
-      ),
-    }));
-  }, []);
+  const updateUserRole = useCallback(
+    async (userId: string, role: Role): Promise<MutationResult> => {
+      try {
+        const result = await updateUserRoleAction({ userId, role });
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal mengubah peran.",
+        };
+      }
+    },
+    [refresh]
+  );
 
-  const deleteUser = useCallback((userId: string) => {
-    setData((currentData) => ({
-      ...currentData,
-      users: currentData.users.filter((user) => user.id !== userId),
-    }));
-  }, []);
+  const deleteUser = useCallback(
+    async (userId: string): Promise<MutationResult> => {
+      try {
+        const result = await deleteUserAction(userId);
+        if ("error" in result) return { ok: false, error: result.error };
+        await refresh();
+        return { ok: true };
+      } catch (mutateError) {
+        return {
+          ok: false,
+          error: mutateError instanceof Error ? mutateError.message : "Gagal menghapus pengguna.",
+        };
+      }
+    },
+    [refresh]
+  );
 
   const storeValue = useMemo<DataStoreValue>(
     () => ({
-      users: data.users,
-      participants: data.participants,
-      events: data.events,
-      attendance: data.attendance,
-      transactions: data.transactions,
-      announcements: data.announcements,
+      users,
+      participants,
+      events,
+      attendance,
+      transactions,
+      announcements,
+      isLoading,
+      error,
+      refresh,
       addParticipant,
       updateParticipant,
       deleteParticipant,
@@ -269,7 +426,15 @@ export function DataStoreProvider({ children }: { children: ReactNode }) {
       deleteUser,
     }),
     [
-      data,
+      users,
+      participants,
+      events,
+      attendance,
+      transactions,
+      announcements,
+      isLoading,
+      error,
+      refresh,
       addParticipant,
       updateParticipant,
       deleteParticipant,

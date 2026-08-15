@@ -8,6 +8,14 @@ import {
   WalletIcon,
   MegaphoneIcon,
   ShieldIcon,
+  CalendarIcon,
+  TaskIcon,
+  DocumentIcon,
+  FolderIcon,
+  ChartIcon,
+  UserIcon,
+  BuildingIcon,
+  KeyIcon,
 } from "@/components/ui/icons";
 
 type SidebarItem = {
@@ -24,6 +32,30 @@ const sidebarItems: SidebarItem[] = [
     label: "Dashboard",
     description: "Ringkasan kegiatan",
     icon: DashboardIcon,
+  },
+  {
+    href: "/profil",
+    label: "Profil",
+    description: "Akun dan kata sandi",
+    icon: UserIcon,
+  },
+  {
+    href: "/agenda",
+    label: "Agenda",
+    description: "Kelola kegiatan",
+    icon: CalendarIcon,
+  },
+  {
+    href: "/rapat",
+    label: "Rapat",
+    description: "Jadwal & notulen",
+    icon: BuildingIcon,
+  },
+  {
+    href: "/tugas",
+    label: "Tugas",
+    description: "Pekerjaan organisasi",
+    icon: TaskIcon,
   },
   {
     href: "/peserta",
@@ -48,6 +80,31 @@ const sidebarItems: SidebarItem[] = [
     label: "Pengumuman",
     description: "Kirim info massal",
     icon: MegaphoneIcon,
+  },
+  {
+    href: "/surat",
+    label: "Surat",
+    description: "Korespondensi surat",
+    icon: DocumentIcon,
+  },
+  {
+    href: "/arsip",
+    label: "Arsip",
+    description: "Penyimpanan dokumen",
+    icon: FolderIcon,
+  },
+  {
+    href: "/proker",
+    label: "Program Kerja",
+    description: "Pantau progres",
+    icon: ChartIcon,
+  },
+  {
+    href: "/roles",
+    label: "Perizinan",
+    description: "Kelola hak akses",
+    icon: KeyIcon,
+    superAdminOnly: true,
   },
   {
     href: "/pengguna",
@@ -125,7 +182,7 @@ export function Sidebar({
         <span className="text-base font-semibold text-foreground">SekreHara</span>
       </div>
 
-      <nav aria-label="Navigasi utama" className="flex flex-col gap-1">
+      <nav aria-label="Navigasi utama" className="flex flex-1 flex-col gap-1 overflow-y-auto pb-4">
         {visibleItems.map((item) => (
           <SidebarLink
             key={item.href}

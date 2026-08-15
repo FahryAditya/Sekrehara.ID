@@ -14,31 +14,39 @@ import { Badge } from "@/components/ui/badge";
 import { EventForm } from "@/components/feature/event-form";
 import { PlusIcon, ClipboardCheckIcon, CalendarIcon, TrashIcon } from "@/components/ui/icons";
 import { formatDate, formatPercent } from "@/lib/format";
-import type { ActivityEvent } from "@/lib/types";
+import type { EventItem } from "@/lib/events-actions";
 
 export default function PresensiPage() {
   const { events, attendance, participants, addEvent, deleteEvent } = useDataStore();
-  const { showSuccess } = useToast();
+  const { showSuccess, showError } = useToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [eventToDelete, setEventToDelete] = useState<ActivityEvent | null>(null);
+  const [eventToDelete, setEventToDelete] = useState<EventItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const sortedEvents = [...events].sort((a, b) => b.date.localeCompare(a.date));
 
-  const handleCreateEvent = (values: { name: string; date: string; description: string }) => {
-    addEvent(values);
+  const handleCreateEvent = async (values: { name: string; date: string; description: string }) => {
+    const result = await addEvent(values);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal membuat kegiatan.");
+      return;
+    }
     showSuccess("Kegiatan baru berhasil dibuat.");
     setIsModalOpen(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!eventToDelete) return;
 
     setIsDeleting(true);
-    deleteEvent(eventToDelete.id);
-    showSuccess("Kegiatan berhasil dihapus.");
+    const result = await deleteEvent(eventToDelete.id);
     setIsDeleting(false);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal menghapus kegiatan.");
+      return;
+    }
+    showSuccess("Kegiatan berhasil dihapus.");
     setEventToDelete(null);
   };
 

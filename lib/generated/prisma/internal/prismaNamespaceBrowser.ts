@@ -81,7 +81,6 @@ export const ModelName = {
   WorkProgram: 'WorkProgram',
   WorkProgramUpdate: 'WorkProgramUpdate',
   WorkProgramTask: 'WorkProgramTask',
-  Participant: 'Participant',
   ActivityEvent: 'ActivityEvent',
   Attendance: 'Attendance',
   Transaction: 'Transaction',
@@ -492,17 +491,6 @@ export const WorkProgramTaskScalarFieldEnum = {
 export type WorkProgramTaskScalarFieldEnum = (typeof WorkProgramTaskScalarFieldEnum)[keyof typeof WorkProgramTaskScalarFieldEnum]
 
 
-export const ParticipantScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  phone: 'phone',
-  email: 'email',
-  createdAt: 'createdAt'
-} as const
-
-export type ParticipantScalarFieldEnum = (typeof ParticipantScalarFieldEnum)[keyof typeof ParticipantScalarFieldEnum]
-
-
 export const ActivityEventScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -517,7 +505,7 @@ export type ActivityEventScalarFieldEnum = (typeof ActivityEventScalarFieldEnum)
 export const AttendanceScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
-  participantId: 'participantId',
+  memberId: 'memberId',
   status: 'status',
   createdAt: 'createdAt'
 } as const

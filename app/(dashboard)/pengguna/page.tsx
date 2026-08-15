@@ -16,7 +16,8 @@ import { AdminForm } from "@/components/feature/admin-form";
 import { RequireSuperAdmin } from "@/components/layout/require-super-admin";
 import { PlusIcon, ShieldIcon, TrashIcon } from "@/components/ui/icons";
 import { formatDate } from "@/lib/format";
-import type { Role, User } from "@/lib/types";
+import type { Role } from "@/lib/types";
+import type { AdminUserItem } from "@/lib/users-actions";
 
 export default function PenggunaPage() {
   return (
@@ -32,10 +33,10 @@ function PenggunaPageContent() {
   const { showSuccess, showError } = useToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [userToDelete, setUserToDelete] = useState<AdminUserItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleAddUser = (values: { name: string; email: string; password: string; role: Role }) => {
+  const handleAddUser = async (values: { name: string; email: string; password: string; role: Role }) => {
     const emailExists = users.some(
       (user) => user.email.toLowerCase() === values.email.toLowerCase()
     );
@@ -44,22 +45,30 @@ function PenggunaPageContent() {
       return;
     }
 
-    addUser(values);
+    const result = await addUser(values);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal menambah pengguna.");
+      return;
+    }
     showSuccess("Pengguna baru berhasil ditambahkan.");
     setIsModalOpen(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!userToDelete) return;
 
     setIsDeleting(true);
-    deleteUser(userToDelete.id);
-    showSuccess(`Pengguna "${userToDelete.name}" berhasil dihapus.`);
+    const result = await deleteUser(userToDelete.id);
     setIsDeleting(false);
+    if (!result.ok) {
+      showError(result.error ?? "Gagal menghapus pengguna.");
+      return;
+    }
+    showSuccess(`Pengguna "${userToDelete.name}" berhasil dihapus.`);
     setUserToDelete(null);
   };
 
-  const canDeleteUser = (user: User) => user.id !== currentUser?.id;
+  const canDeleteUser = (user: AdminUserItem) => user.id !== currentUser?.id;
 
   return (
     <div>
@@ -80,7 +89,7 @@ function PenggunaPageContent() {
             columns={[
               {
                 header: "Nama",
-                accessor: (user: User) => (
+                accessor: (user: AdminUserItem) => (
                   <div className="flex items-center gap-3">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-sm font-medium text-primary">
                       {user.name.charAt(0).toUpperCase()}
@@ -96,11 +105,11 @@ function PenggunaPageContent() {
               },
               {
                 header: "Email",
-                accessor: (user: User) => user.email,
+                accessor: (user: AdminUserItem) => user.email,
               },
               {
                 header: "Peran",
-                accessor: (user: User) => (
+                accessor: (user: AdminUserItem) => (
                   <Badge variant={user.role === "SUPERADMIN" ? "primary" : "neutral"}>
                     {user.role === "SUPERADMIN" ? "Super Admin" : "Admin"}
                   </Badge>
@@ -108,11 +117,11 @@ function PenggunaPageContent() {
               },
               {
                 header: "Terdaftar",
-                accessor: (user: User) => formatDate(user.createdAt),
+                accessor: (user: AdminUserItem) => formatDate(user.createdAt),
               },
               {
                 header: "Aksi",
-                accessor: (user: User) => (
+                accessor: (user: AdminUserItem) => (
                   <Button
                     variant="ghost"
                     size="small"

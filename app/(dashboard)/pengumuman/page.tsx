@@ -35,12 +35,16 @@ export default function PengumumanPage() {
     setIsConfirmOpen(true);
   };
 
-  const handleConfirmSend = () => {
-    addAnnouncement({
+  const handleConfirmSend = async () => {
+    const result = await addAnnouncement({
       subject: pendingSubject,
       body: pendingBody,
       recipientCount,
     });
+    if (!result.ok) {
+      showError(result.error ?? "Gagal mengirim pengumuman.");
+      return;
+    }
     showSuccess(
       `Pengumuman berhasil dikirim ke ${recipientCount} email peserta.`
     );
