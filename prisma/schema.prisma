@@ -23,13 +23,530 @@ enum TransactionType {
   PENGELUARAN
 }
 
+enum MemberStatus {
+  AKTIF
+  TIDAK_AKTIF
+}
+
+enum RsvpStatus {
+  PENDING
+  AKAN_HADIR
+  TIDAK_HADIR
+}
+
+enum AgendaStatus {
+  DRAFT
+  PUBLISHED
+  SELESAI
+  BATAL
+}
+
+enum MeetingStatus {
+  DRAFT
+  TERJADWAL
+  BERLANGSUNG
+  SELESAI
+}
+
+enum MeetingAttendanceStatus {
+  HADIR
+  IZIN
+  SAKIT
+  ALPHA
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+  CANCELLED
+}
+
+enum ActionItemStatus {
+  OPEN
+  IN_PROGRESS
+  DONE
+}
+
+enum LetterType {
+  MASUK
+  KELUAR
+}
+
+enum LetterStatus {
+  DRAFT
+  REVIEW
+  APPROVED
+  REJECTED
+  ARCHIVED
+}
+
+enum FilePermissionType {
+  VIEW
+  EDIT
+  DELETE
+}
+
+enum WorkProgramStatus {
+  PLANNING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
 model User {
+  id          String    @id @default(cuid())
+  name        String
+  email       String    @unique
+  username    String?   @unique
+  password    String
+  role        Role      @default(ADMIN)
+  avatarUrl   String?
+  phone       String?
+  dateOfBirth DateTime?
+  address     String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  member            Member?
+  sessions          Session[]
+  passwordResets    PasswordReset[]
+  activityLogs      ActivityLog[]
+  notifications     Notification[]
+  taskComments      TaskComment[]
+  taskAttachments   TaskAttachment[]
+  createdAgendas    Agenda[]          @relation("AgendaCreatedBy")
+  createdMeetings   Meeting[]         @relation("MeetingCreatedBy")
+  meetingNotes      MeetingNote[]
+  meetingDecisions  MeetingDecision[]
+  createdLetters    Letter[]          @relation("LetterCreatedBy")
+  reviewedLetters   Letter[]          @relation("LetterReviewedBy")
+  createdFolders    Folder[]
+  uploadedFiles     File[]
+  createdWorkPrograms WorkProgram[]   @relation("WorkProgramCreatedBy")
+  createdTasks        Task[]          @relation("TaskCreatedBy")
+  filePermissions     FilePermission[]
+  workProgramUpdates  WorkProgramUpdate[]
+  createdTransactions Transaction[]   @relation("TransactionCreatedBy")
+  createdAnnouncements Announcement[] @relation("AnnouncementCreatedBy")
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  userId        String
+  token         String   @unique
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordReset {
   id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(ADMIN)
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Permission {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String?
+  rolePermissions RolePermission[]
+}
+
+model RolePermission {
+  id           String     @id @default(cuid())
+  role         Role
+  permissionId String
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([role, permissionId])
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String
+  entityType  String
+  entityId    String?
+  description String?
+  createdAt   DateTime @default(now())
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
+}
+
+model Member {
+  id         String       @id @default(cuid())
+  userId     String?      @unique
+  name       String
+  email      String?
+  phone      String?
+  kelas      String?
+  jurusan    String?
+  nomorInduk String?      @unique
+  avatarUrl  String?
+  status     MemberStatus @default(AKTIF)
+  joinDate   DateTime?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  user       User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  sekbids          MemberSekbid[]
+  positions        MemberPosition[]
+  agendaParticipants AgendaParticipant[]
+  meetingParticipants MeetingParticipant[]
+  meetingAttendance   MeetingAttendance[]
+  meetingActionItems  MeetingActionItem[]   @relation("ActionItemAssignee")
+  picMeetings        Meeting[]              @relation("MeetingPic")
+  assignedTasks      Task[]                 @relation("TaskAssignee")
+  picWorkPrograms    WorkProgram[]          @relation("WorkProgramPic")
+
+  @@index([status])
+  @@index([kelas])
+}
+
+model Sekbid {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  logoUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members       MemberSekbid[]
+  workPrograms  WorkProgram[]
+  filePermissions FilePermission[]
+}
+
+model Position {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+  level       Int     @default(0)
+  createdAt   DateTime @default(now())
+
+  members MemberPosition[]
+}
+
+model MemberSekbid {
+  id       String @id @default(cuid())
+  memberId String
+  sekbidId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  sekbid   Sekbid @relation(fields: [sekbidId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, sekbidId])
+}
+
+model MemberPosition {
+  id         String   @id @default(cuid())
+  memberId   String
+  positionId String
+  member     Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  position   Position @relation(fields: [positionId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([memberId, positionId])
+}
+
+model Agenda {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime?
+  location    String?
+  status      AgendaStatus @default(DRAFT)
+  createdById String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  createdBy   User?        @relation("AgendaCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  participants AgendaParticipant[]
+
+  @@index([startDate])
+  @@index([status])
+}
+
+model AgendaParticipant {
+  id        String     @id @default(cuid())
+  agendaId  String
+  memberId  String
+  rsvpStatus RsvpStatus @default(PENDING)
+  createdAt DateTime   @default(now())
+  agenda    Agenda     @relation(fields: [agendaId], references: [id], onDelete: Cascade)
+  member    Member     @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([agendaId, memberId])
+}
+
+model Meeting {
+  id            String        @id @default(cuid())
+  title         String
+  description   String?
+  scheduledDate DateTime
+  location      String?
+  picId         String?
+  status        MeetingStatus @default(DRAFT)
+  createdById   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  pic           Member?       @relation("MeetingPic", fields: [picId], references: [id], onDelete: SetNull)
+  createdBy     User?         @relation("MeetingCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  participants  MeetingParticipant[]
+  attendance    MeetingAttendance[]
+  notes         MeetingNote[]
+  decisions     MeetingDecision[]
+  actionItems   MeetingActionItem[]
+
+  @@index([scheduledDate])
+  @@index([status])
+}
+
+model MeetingParticipant {
+  id        String  @id @default(cuid())
+  meetingId String
+  memberId  String
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([meetingId, memberId])
+}
+
+model MeetingAttendance {
+  id        String                  @id @default(cuid())
+  meetingId String
+  memberId  String
+  status    MeetingAttendanceStatus @default(ALPHA)
+  keterangan String?
+  recordedAt DateTime               @default(now())
+  meeting   Meeting                 @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  member    Member                  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([meetingId, memberId])
+}
+
+model MeetingNote {
+  id        String   @id @default(cuid())
+  meetingId String
+  content   String
+  createdById String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  createdBy User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+}
+
+model MeetingDecision {
+  id        String   @id @default(cuid())
+  meetingId String
+  decision  String
+  createdById String?
+  createdAt DateTime @default(now())
+  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  createdBy User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+}
+
+model MeetingActionItem {
+  id          String            @id @default(cuid())
+  meetingId   String
+  description String
+  assignedTo  String?
+  deadline    DateTime?
+  priority    Priority          @default(MEDIUM)
+  status      ActionItemStatus  @default(OPEN)
+  createdAt   DateTime          @default(now())
+  meeting     Meeting           @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  assignee    Member?           @relation("ActionItemAssignee", fields: [assignedTo], references: [id], onDelete: SetNull)
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  priority    Priority   @default(MEDIUM)
+  deadline    DateTime?
+  assignedTo  String?
+  createdById String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  assignee    Member?    @relation("TaskAssignee", fields: [assignedTo], references: [id], onDelete: SetNull)
+  createdBy   User?      @relation("TaskCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  comments     TaskComment[]
+  attachments  TaskAttachment[]
+  workPrograms WorkProgramTask[]
+
+  @@index([status])
+  @@index([priority])
+  @@index([deadline])
+}
+
+model TaskComment {
+  id        String   @id @default(cuid())
+  taskId    String
+  userId    String?
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model TaskAttachment {
+  id         String   @id @default(cuid())
+  taskId     String
+  fileUrl    String
+  fileName   String
+  fileSize   Int?
+  uploadedById String?
+  uploadedAt DateTime @default(now())
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  uploader   User?    @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+}
+
+model Notification {
+  id                 String   @id @default(cuid())
+  userId             String
+  type               String
+  title              String
+  message            String?
+  relatedEntityType  String?
+  relatedEntityId    String?
+  isRead             Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt])
+}
+
+model Letter {
+  id           String       @id @default(cuid())
+  letterType   LetterType
+  letterNumber String?      @unique
+  date         DateTime
+  subject      String
+  sender       String?
+  recipient    String?
+  fileUrl      String?
+  status       LetterStatus @default(DRAFT)
+  rejectionReason String?
+  createdById  String?
+  reviewedById String?
+  reviewedAt   DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  createdBy    User?        @relation("LetterCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  reviewedBy   User?        @relation("LetterReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@index([letterType])
+  @@index([status])
+  @@index([date])
+}
+
+model Folder {
+  id        String   @id @default(cuid())
+  parentId  String?
+  name      String
+  createdById String?
+  createdAt DateTime @default(now())
+  parent    Folder?  @relation("FolderTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Folder[] @relation("FolderTree")
+  createdBy User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  files     File[]
+
+  @@unique([parentId, name])
+}
+
+model File {
+  id         String   @id @default(cuid())
+  folderId   String?
+  fileName   String
+  filePath   String?
+  fileSize   Int?
+  fileType   String?
+  uploadedById String?
+  uploadedAt DateTime @default(now())
+  folder     Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  uploader   User?    @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  permissions FilePermission[]
+}
+
+model FilePermission {
+  id             String             @id @default(cuid())
+  fileId         String
+  userId         String?
+  sekbidId       String?
+  permissionType FilePermissionType @default(VIEW)
+  createdAt      DateTime           @default(now())
+  file           File               @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  user           User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sekbid         Sekbid?            @relation(fields: [sekbidId], references: [id], onDelete: Cascade)
+}
+
+model WorkProgram {
+  id            String            @id @default(cuid())
+  name          String
+  description   String?
+  sekbidId      String?
+  picId         String?
+  startDate     DateTime?
+  endDate       DateTime?
+  target        String?
+  status        WorkProgramStatus @default(PLANNING)
+  progressPercentage Int          @default(0)
+  createdById   String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  sekbid        Sekbid?           @relation(fields: [sekbidId], references: [id], onDelete: SetNull)
+  pic           Member?           @relation("WorkProgramPic", fields: [picId], references: [id], onDelete: SetNull)
+  createdBy     User?             @relation("WorkProgramCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  updates WorkProgramUpdate[]
+  tasks   WorkProgramTask[]
+
+  @@index([status])
+}
+
+model WorkProgramUpdate {
+  id               String   @id @default(cuid())
+  workProgramId    String
+  description      String?
+  progressPercentage Int    @default(0)
+  createdById      String?
+  createdAt        DateTime @default(now())
+  workProgram      WorkProgram @relation(fields: [workProgramId], references: [id], onDelete: Cascade)
+  createdBy        User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+}
+
+model WorkProgramTask {
+  id            String @id @default(cuid())
+  workProgramId String
+  taskId        String
+  workProgram   WorkProgram @relation(fields: [workProgramId], references: [id], onDelete: Cascade)
+  task          Task        @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@unique([workProgramId, taskId])
 }
 
 model Participant {
@@ -70,6 +587,11 @@ model Transaction {
   description String
   date        DateTime
   createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now()) @updatedAt
+  createdById String?
+  createdBy   User?           @relation("TransactionCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([date, type])
 }
 
 model Announcement {
@@ -78,4 +600,6 @@ model Announcement {
   body           String
   recipientCount Int
   sentAt         DateTime @default(now())
+  createdById    String?
+  createdBy      User?    @relation("AnnouncementCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
 }

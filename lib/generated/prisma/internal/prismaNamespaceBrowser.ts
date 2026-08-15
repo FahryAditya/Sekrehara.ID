@@ -52,6 +52,35 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Session: 'Session',
+  PasswordReset: 'PasswordReset',
+  Permission: 'Permission',
+  RolePermission: 'RolePermission',
+  ActivityLog: 'ActivityLog',
+  Member: 'Member',
+  Sekbid: 'Sekbid',
+  Position: 'Position',
+  MemberSekbid: 'MemberSekbid',
+  MemberPosition: 'MemberPosition',
+  Agenda: 'Agenda',
+  AgendaParticipant: 'AgendaParticipant',
+  Meeting: 'Meeting',
+  MeetingParticipant: 'MeetingParticipant',
+  MeetingAttendance: 'MeetingAttendance',
+  MeetingNote: 'MeetingNote',
+  MeetingDecision: 'MeetingDecision',
+  MeetingActionItem: 'MeetingActionItem',
+  Task: 'Task',
+  TaskComment: 'TaskComment',
+  TaskAttachment: 'TaskAttachment',
+  Notification: 'Notification',
+  Letter: 'Letter',
+  Folder: 'Folder',
+  File: 'File',
+  FilePermission: 'FilePermission',
+  WorkProgram: 'WorkProgram',
+  WorkProgramUpdate: 'WorkProgramUpdate',
+  WorkProgramTask: 'WorkProgramTask',
   Participant: 'Participant',
   ActivityEvent: 'ActivityEvent',
   Attendance: 'Attendance',
@@ -79,12 +108,388 @@ export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  username: 'username',
   password: 'password',
   role: 'role',
-  createdAt: 'createdAt'
+  avatarUrl: 'avatarUrl',
+  phone: 'phone',
+  dateOfBirth: 'dateOfBirth',
+  address: 'address',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const PasswordResetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PasswordResetScalarFieldEnum = (typeof PasswordResetScalarFieldEnum)[keyof typeof PasswordResetScalarFieldEnum]
+
+
+export const PermissionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+} as const
+
+export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+export const RolePermissionScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  permissionId: 'permissionId'
+} as const
+
+export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
+
+
+export const ActivityLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
+
+
+export const MemberScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  kelas: 'kelas',
+  jurusan: 'jurusan',
+  nomorInduk: 'nomorInduk',
+  avatarUrl: 'avatarUrl',
+  status: 'status',
+  joinDate: 'joinDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MemberScalarFieldEnum = (typeof MemberScalarFieldEnum)[keyof typeof MemberScalarFieldEnum]
+
+
+export const SekbidScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  logoUrl: 'logoUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SekbidScalarFieldEnum = (typeof SekbidScalarFieldEnum)[keyof typeof SekbidScalarFieldEnum]
+
+
+export const PositionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  level: 'level',
+  createdAt: 'createdAt'
+} as const
+
+export type PositionScalarFieldEnum = (typeof PositionScalarFieldEnum)[keyof typeof PositionScalarFieldEnum]
+
+
+export const MemberSekbidScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  sekbidId: 'sekbidId'
+} as const
+
+export type MemberSekbidScalarFieldEnum = (typeof MemberSekbidScalarFieldEnum)[keyof typeof MemberSekbidScalarFieldEnum]
+
+
+export const MemberPositionScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  positionId: 'positionId',
+  createdAt: 'createdAt'
+} as const
+
+export type MemberPositionScalarFieldEnum = (typeof MemberPositionScalarFieldEnum)[keyof typeof MemberPositionScalarFieldEnum]
+
+
+export const AgendaScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  location: 'location',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AgendaScalarFieldEnum = (typeof AgendaScalarFieldEnum)[keyof typeof AgendaScalarFieldEnum]
+
+
+export const AgendaParticipantScalarFieldEnum = {
+  id: 'id',
+  agendaId: 'agendaId',
+  memberId: 'memberId',
+  rsvpStatus: 'rsvpStatus',
+  createdAt: 'createdAt'
+} as const
+
+export type AgendaParticipantScalarFieldEnum = (typeof AgendaParticipantScalarFieldEnum)[keyof typeof AgendaParticipantScalarFieldEnum]
+
+
+export const MeetingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  scheduledDate: 'scheduledDate',
+  location: 'location',
+  picId: 'picId',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MeetingScalarFieldEnum = (typeof MeetingScalarFieldEnum)[keyof typeof MeetingScalarFieldEnum]
+
+
+export const MeetingParticipantScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  memberId: 'memberId'
+} as const
+
+export type MeetingParticipantScalarFieldEnum = (typeof MeetingParticipantScalarFieldEnum)[keyof typeof MeetingParticipantScalarFieldEnum]
+
+
+export const MeetingAttendanceScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  memberId: 'memberId',
+  status: 'status',
+  keterangan: 'keterangan',
+  recordedAt: 'recordedAt'
+} as const
+
+export type MeetingAttendanceScalarFieldEnum = (typeof MeetingAttendanceScalarFieldEnum)[keyof typeof MeetingAttendanceScalarFieldEnum]
+
+
+export const MeetingNoteScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  content: 'content',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MeetingNoteScalarFieldEnum = (typeof MeetingNoteScalarFieldEnum)[keyof typeof MeetingNoteScalarFieldEnum]
+
+
+export const MeetingDecisionScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  decision: 'decision',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type MeetingDecisionScalarFieldEnum = (typeof MeetingDecisionScalarFieldEnum)[keyof typeof MeetingDecisionScalarFieldEnum]
+
+
+export const MeetingActionItemScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  description: 'description',
+  assignedTo: 'assignedTo',
+  deadline: 'deadline',
+  priority: 'priority',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type MeetingActionItemScalarFieldEnum = (typeof MeetingActionItemScalarFieldEnum)[keyof typeof MeetingActionItemScalarFieldEnum]
+
+
+export const TaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  deadline: 'deadline',
+  assignedTo: 'assignedTo',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const TaskCommentScalarFieldEnum = {
+  id: 'id',
+  taskId: 'taskId',
+  userId: 'userId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaskCommentScalarFieldEnum = (typeof TaskCommentScalarFieldEnum)[keyof typeof TaskCommentScalarFieldEnum]
+
+
+export const TaskAttachmentScalarFieldEnum = {
+  id: 'id',
+  taskId: 'taskId',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  uploadedById: 'uploadedById',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type TaskAttachmentScalarFieldEnum = (typeof TaskAttachmentScalarFieldEnum)[keyof typeof TaskAttachmentScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  relatedEntityType: 'relatedEntityType',
+  relatedEntityId: 'relatedEntityId',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const LetterScalarFieldEnum = {
+  id: 'id',
+  letterType: 'letterType',
+  letterNumber: 'letterNumber',
+  date: 'date',
+  subject: 'subject',
+  sender: 'sender',
+  recipient: 'recipient',
+  fileUrl: 'fileUrl',
+  status: 'status',
+  rejectionReason: 'rejectionReason',
+  createdById: 'createdById',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LetterScalarFieldEnum = (typeof LetterScalarFieldEnum)[keyof typeof LetterScalarFieldEnum]
+
+
+export const FolderScalarFieldEnum = {
+  id: 'id',
+  parentId: 'parentId',
+  name: 'name',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type FolderScalarFieldEnum = (typeof FolderScalarFieldEnum)[keyof typeof FolderScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  folderId: 'folderId',
+  fileName: 'fileName',
+  filePath: 'filePath',
+  fileSize: 'fileSize',
+  fileType: 'fileType',
+  uploadedById: 'uploadedById',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
+
+
+export const FilePermissionScalarFieldEnum = {
+  id: 'id',
+  fileId: 'fileId',
+  userId: 'userId',
+  sekbidId: 'sekbidId',
+  permissionType: 'permissionType',
+  createdAt: 'createdAt'
+} as const
+
+export type FilePermissionScalarFieldEnum = (typeof FilePermissionScalarFieldEnum)[keyof typeof FilePermissionScalarFieldEnum]
+
+
+export const WorkProgramScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  sekbidId: 'sekbidId',
+  picId: 'picId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  target: 'target',
+  status: 'status',
+  progressPercentage: 'progressPercentage',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkProgramScalarFieldEnum = (typeof WorkProgramScalarFieldEnum)[keyof typeof WorkProgramScalarFieldEnum]
+
+
+export const WorkProgramUpdateScalarFieldEnum = {
+  id: 'id',
+  workProgramId: 'workProgramId',
+  description: 'description',
+  progressPercentage: 'progressPercentage',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type WorkProgramUpdateScalarFieldEnum = (typeof WorkProgramUpdateScalarFieldEnum)[keyof typeof WorkProgramUpdateScalarFieldEnum]
+
+
+export const WorkProgramTaskScalarFieldEnum = {
+  id: 'id',
+  workProgramId: 'workProgramId',
+  taskId: 'taskId'
+} as const
+
+export type WorkProgramTaskScalarFieldEnum = (typeof WorkProgramTaskScalarFieldEnum)[keyof typeof WorkProgramTaskScalarFieldEnum]
 
 
 export const ParticipantScalarFieldEnum = {
@@ -127,7 +532,9 @@ export const TransactionScalarFieldEnum = {
   amount: 'amount',
   description: 'description',
   date: 'date',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -138,7 +545,8 @@ export const AnnouncementScalarFieldEnum = {
   subject: 'subject',
   body: 'body',
   recipientCount: 'recipientCount',
-  sentAt: 'sentAt'
+  sentAt: 'sentAt',
+  createdById: 'createdById'
 } as const
 
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]

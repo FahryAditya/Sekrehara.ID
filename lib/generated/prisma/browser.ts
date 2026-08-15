@@ -23,6 +23,151 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model PasswordReset
+ * 
+ */
+export type PasswordReset = Prisma.PasswordResetModel
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = Prisma.PermissionModel
+/**
+ * Model RolePermission
+ * 
+ */
+export type RolePermission = Prisma.RolePermissionModel
+/**
+ * Model ActivityLog
+ * 
+ */
+export type ActivityLog = Prisma.ActivityLogModel
+/**
+ * Model Member
+ * 
+ */
+export type Member = Prisma.MemberModel
+/**
+ * Model Sekbid
+ * 
+ */
+export type Sekbid = Prisma.SekbidModel
+/**
+ * Model Position
+ * 
+ */
+export type Position = Prisma.PositionModel
+/**
+ * Model MemberSekbid
+ * 
+ */
+export type MemberSekbid = Prisma.MemberSekbidModel
+/**
+ * Model MemberPosition
+ * 
+ */
+export type MemberPosition = Prisma.MemberPositionModel
+/**
+ * Model Agenda
+ * 
+ */
+export type Agenda = Prisma.AgendaModel
+/**
+ * Model AgendaParticipant
+ * 
+ */
+export type AgendaParticipant = Prisma.AgendaParticipantModel
+/**
+ * Model Meeting
+ * 
+ */
+export type Meeting = Prisma.MeetingModel
+/**
+ * Model MeetingParticipant
+ * 
+ */
+export type MeetingParticipant = Prisma.MeetingParticipantModel
+/**
+ * Model MeetingAttendance
+ * 
+ */
+export type MeetingAttendance = Prisma.MeetingAttendanceModel
+/**
+ * Model MeetingNote
+ * 
+ */
+export type MeetingNote = Prisma.MeetingNoteModel
+/**
+ * Model MeetingDecision
+ * 
+ */
+export type MeetingDecision = Prisma.MeetingDecisionModel
+/**
+ * Model MeetingActionItem
+ * 
+ */
+export type MeetingActionItem = Prisma.MeetingActionItemModel
+/**
+ * Model Task
+ * 
+ */
+export type Task = Prisma.TaskModel
+/**
+ * Model TaskComment
+ * 
+ */
+export type TaskComment = Prisma.TaskCommentModel
+/**
+ * Model TaskAttachment
+ * 
+ */
+export type TaskAttachment = Prisma.TaskAttachmentModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model Letter
+ * 
+ */
+export type Letter = Prisma.LetterModel
+/**
+ * Model Folder
+ * 
+ */
+export type Folder = Prisma.FolderModel
+/**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel
+/**
+ * Model FilePermission
+ * 
+ */
+export type FilePermission = Prisma.FilePermissionModel
+/**
+ * Model WorkProgram
+ * 
+ */
+export type WorkProgram = Prisma.WorkProgramModel
+/**
+ * Model WorkProgramUpdate
+ * 
+ */
+export type WorkProgramUpdate = Prisma.WorkProgramUpdateModel
+/**
+ * Model WorkProgramTask
+ * 
+ */
+export type WorkProgramTask = Prisma.WorkProgramTaskModel
+/**
  * Model Participant
  * 
  */

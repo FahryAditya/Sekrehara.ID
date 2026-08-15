@@ -6,6 +6,7 @@ import type { Role } from "@/lib/types";
 
 const SESSION_COOKIE = "sekrehara_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
+const SESSION_REMEMBER_TTL_SECONDS = 60 * 60 * 24 * 30;
 const SESSION_SECRET = process.env.SESSION_SECRET ?? "sekrehara-session-secret";
 
 export type SessionUser = {
@@ -20,8 +21,8 @@ function signPayload(payload: string): string {
   return createHmac("sha256", SESSION_SECRET).update(payload).digest("base64url");
 }
 
-function createToken(userId: string): string {
-  const expiresAt = Date.now() + SESSION_TTL_SECONDS * 1000;
+function createToken(userId: string, ttlSeconds = SESSION_TTL_SECONDS): string {
+  const expiresAt = Date.now() + ttlSeconds * 1000;
   const payload = `${userId}.${expiresAt}`;
   return `${payload}.${signPayload(payload)}`;
 }
@@ -58,14 +59,15 @@ export async function getSession(): Promise<SessionUser | null> {
   };
 }
 
-export async function createSession(userId: string): Promise<void> {
+export async function createSession(userId: string, rememberMe = false): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE, createToken(userId), {
+  const ttl = rememberMe ? SESSION_REMEMBER_TTL_SECONDS : SESSION_TTL_SECONDS;
+  cookieStore.set(SESSION_COOKIE, createToken(userId, ttl), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: SESSION_TTL_SECONDS,
+    maxAge: ttl,
   });
 }
 

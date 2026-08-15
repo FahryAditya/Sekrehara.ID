@@ -28,27 +28,48 @@ export type UserMinAggregateOutputType = {
   id: string | null
   name: string | null
   email: string | null
+  username: string | null
   password: string | null
   role: $Enums.Role | null
+  avatarUrl: string | null
+  phone: string | null
+  dateOfBirth: Date | null
+  address: string | null
+  isActive: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: string | null
   name: string | null
   email: string | null
+  username: string | null
   password: string | null
   role: $Enums.Role | null
+  avatarUrl: string | null
+  phone: string | null
+  dateOfBirth: Date | null
+  address: string | null
+  isActive: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
   name: number
   email: number
+  username: number
   password: number
   role: number
+  avatarUrl: number
+  phone: number
+  dateOfBirth: number
+  address: number
+  isActive: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -57,27 +78,48 @@ export type UserMinAggregateInputType = {
   id?: true
   name?: true
   email?: true
+  username?: true
   password?: true
   role?: true
+  avatarUrl?: true
+  phone?: true
+  dateOfBirth?: true
+  address?: true
+  isActive?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
   name?: true
   email?: true
+  username?: true
   password?: true
   role?: true
+  avatarUrl?: true
+  phone?: true
+  dateOfBirth?: true
+  address?: true
+  isActive?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
   name?: true
   email?: true
+  username?: true
   password?: true
   role?: true
+  avatarUrl?: true
+  phone?: true
+  dateOfBirth?: true
+  address?: true
+  isActive?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -157,9 +199,16 @@ export type UserGroupByOutputType = {
   id: string
   name: string
   email: string
+  username: string | null
   password: string
   role: $Enums.Role
+  avatarUrl: string | null
+  phone: string | null
+  dateOfBirth: Date | null
+  address: string | null
+  isActive: boolean
   createdAt: Date
+  updatedAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -187,39 +236,130 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
+  username?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  member?: Prisma.XOR<Prisma.MemberNullableScalarRelationFilter, Prisma.MemberWhereInput> | null
+  sessions?: Prisma.SessionListRelationFilter
+  passwordResets?: Prisma.PasswordResetListRelationFilter
+  activityLogs?: Prisma.ActivityLogListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  taskComments?: Prisma.TaskCommentListRelationFilter
+  taskAttachments?: Prisma.TaskAttachmentListRelationFilter
+  createdAgendas?: Prisma.AgendaListRelationFilter
+  createdMeetings?: Prisma.MeetingListRelationFilter
+  meetingNotes?: Prisma.MeetingNoteListRelationFilter
+  meetingDecisions?: Prisma.MeetingDecisionListRelationFilter
+  createdLetters?: Prisma.LetterListRelationFilter
+  reviewedLetters?: Prisma.LetterListRelationFilter
+  createdFolders?: Prisma.FolderListRelationFilter
+  uploadedFiles?: Prisma.FileListRelationFilter
+  createdWorkPrograms?: Prisma.WorkProgramListRelationFilter
+  createdTasks?: Prisma.TaskListRelationFilter
+  filePermissions?: Prisma.FilePermissionListRelationFilter
+  workProgramUpdates?: Prisma.WorkProgramUpdateListRelationFilter
+  createdTransactions?: Prisma.TransactionListRelationFilter
+  createdAnnouncements?: Prisma.AnnouncementListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  username?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  member?: Prisma.MemberOrderByWithRelationInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
+  passwordResets?: Prisma.PasswordResetOrderByRelationAggregateInput
+  activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  taskComments?: Prisma.TaskCommentOrderByRelationAggregateInput
+  taskAttachments?: Prisma.TaskAttachmentOrderByRelationAggregateInput
+  createdAgendas?: Prisma.AgendaOrderByRelationAggregateInput
+  createdMeetings?: Prisma.MeetingOrderByRelationAggregateInput
+  meetingNotes?: Prisma.MeetingNoteOrderByRelationAggregateInput
+  meetingDecisions?: Prisma.MeetingDecisionOrderByRelationAggregateInput
+  createdLetters?: Prisma.LetterOrderByRelationAggregateInput
+  reviewedLetters?: Prisma.LetterOrderByRelationAggregateInput
+  createdFolders?: Prisma.FolderOrderByRelationAggregateInput
+  uploadedFiles?: Prisma.FileOrderByRelationAggregateInput
+  createdWorkPrograms?: Prisma.WorkProgramOrderByRelationAggregateInput
+  createdTasks?: Prisma.TaskOrderByRelationAggregateInput
+  filePermissions?: Prisma.FilePermissionOrderByRelationAggregateInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateOrderByRelationAggregateInput
+  createdTransactions?: Prisma.TransactionOrderByRelationAggregateInput
+  createdAnnouncements?: Prisma.AnnouncementOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  username?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-}, "id" | "email">
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  member?: Prisma.XOR<Prisma.MemberNullableScalarRelationFilter, Prisma.MemberWhereInput> | null
+  sessions?: Prisma.SessionListRelationFilter
+  passwordResets?: Prisma.PasswordResetListRelationFilter
+  activityLogs?: Prisma.ActivityLogListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  taskComments?: Prisma.TaskCommentListRelationFilter
+  taskAttachments?: Prisma.TaskAttachmentListRelationFilter
+  createdAgendas?: Prisma.AgendaListRelationFilter
+  createdMeetings?: Prisma.MeetingListRelationFilter
+  meetingNotes?: Prisma.MeetingNoteListRelationFilter
+  meetingDecisions?: Prisma.MeetingDecisionListRelationFilter
+  createdLetters?: Prisma.LetterListRelationFilter
+  reviewedLetters?: Prisma.LetterListRelationFilter
+  createdFolders?: Prisma.FolderListRelationFilter
+  uploadedFiles?: Prisma.FileListRelationFilter
+  createdWorkPrograms?: Prisma.WorkProgramListRelationFilter
+  createdTasks?: Prisma.TaskListRelationFilter
+  filePermissions?: Prisma.FilePermissionListRelationFilter
+  workProgramUpdates?: Prisma.WorkProgramUpdateListRelationFilter
+  createdTransactions?: Prisma.TransactionListRelationFilter
+  createdAnnouncements?: Prisma.AnnouncementListRelationFilter
+}, "id" | "email" | "username">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  username?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -232,163 +372,4341 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
+  username?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
   id?: string
   name: string
   email: string
+  username?: string | null
   password: string
   role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
   name: string
   email: string
+  username?: string | null
   password: string
   role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: string
   name: string
   email: string
+  username?: string | null
   password: string
   role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.UserUpsertWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserCreateNestedOneWithoutPasswordResetsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPasswordResetsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetsInput
+  upsert?: Prisma.UserUpsertWithoutPasswordResetsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetsInput, Prisma.UserUpdateWithoutPasswordResetsInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetsInput>
+}
+
+export type UserCreateNestedOneWithoutActivityLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivityLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutActivityLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivityLogsInput
+  upsert?: Prisma.UserUpsertWithoutActivityLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActivityLogsInput, Prisma.UserUpdateWithoutActivityLogsInput>, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
+}
+
+export type UserCreateNestedOneWithoutMemberInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMemberInput, Prisma.UserUncheckedCreateWithoutMemberInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMemberInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMemberNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMemberInput, Prisma.UserUncheckedCreateWithoutMemberInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMemberInput
+  upsert?: Prisma.UserUpsertWithoutMemberInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMemberInput, Prisma.UserUpdateWithoutMemberInput>, Prisma.UserUncheckedUpdateWithoutMemberInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedAgendasInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAgendasInput, Prisma.UserUncheckedCreateWithoutCreatedAgendasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAgendasInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedAgendasNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAgendasInput, Prisma.UserUncheckedCreateWithoutCreatedAgendasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAgendasInput
+  upsert?: Prisma.UserUpsertWithoutCreatedAgendasInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedAgendasInput, Prisma.UserUpdateWithoutCreatedAgendasInput>, Prisma.UserUncheckedUpdateWithoutCreatedAgendasInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedMeetingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedMeetingsInput, Prisma.UserUncheckedCreateWithoutCreatedMeetingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedMeetingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedMeetingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedMeetingsInput, Prisma.UserUncheckedCreateWithoutCreatedMeetingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedMeetingsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedMeetingsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedMeetingsInput, Prisma.UserUpdateWithoutCreatedMeetingsInput>, Prisma.UserUncheckedUpdateWithoutCreatedMeetingsInput>
+}
+
+export type UserCreateNestedOneWithoutMeetingNotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMeetingNotesInput, Prisma.UserUncheckedCreateWithoutMeetingNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMeetingNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMeetingNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMeetingNotesInput, Prisma.UserUncheckedCreateWithoutMeetingNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMeetingNotesInput
+  upsert?: Prisma.UserUpsertWithoutMeetingNotesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMeetingNotesInput, Prisma.UserUpdateWithoutMeetingNotesInput>, Prisma.UserUncheckedUpdateWithoutMeetingNotesInput>
+}
+
+export type UserCreateNestedOneWithoutMeetingDecisionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMeetingDecisionsInput, Prisma.UserUncheckedCreateWithoutMeetingDecisionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMeetingDecisionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMeetingDecisionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMeetingDecisionsInput, Prisma.UserUncheckedCreateWithoutMeetingDecisionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMeetingDecisionsInput
+  upsert?: Prisma.UserUpsertWithoutMeetingDecisionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMeetingDecisionsInput, Prisma.UserUpdateWithoutMeetingDecisionsInput>, Prisma.UserUncheckedUpdateWithoutMeetingDecisionsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedTasksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedTasksInput, Prisma.UserUncheckedCreateWithoutCreatedTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedTasksInput, Prisma.UserUncheckedCreateWithoutCreatedTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedTasksInput
+  upsert?: Prisma.UserUpsertWithoutCreatedTasksInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedTasksInput, Prisma.UserUpdateWithoutCreatedTasksInput>, Prisma.UserUncheckedUpdateWithoutCreatedTasksInput>
+}
+
+export type UserCreateNestedOneWithoutTaskCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTaskCommentsInput, Prisma.UserUncheckedCreateWithoutTaskCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTaskCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutTaskCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTaskCommentsInput, Prisma.UserUncheckedCreateWithoutTaskCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTaskCommentsInput
+  upsert?: Prisma.UserUpsertWithoutTaskCommentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTaskCommentsInput, Prisma.UserUpdateWithoutTaskCommentsInput>, Prisma.UserUncheckedUpdateWithoutTaskCommentsInput>
+}
+
+export type UserCreateNestedOneWithoutTaskAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTaskAttachmentsInput, Prisma.UserUncheckedCreateWithoutTaskAttachmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTaskAttachmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutTaskAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTaskAttachmentsInput, Prisma.UserUncheckedCreateWithoutTaskAttachmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTaskAttachmentsInput
+  upsert?: Prisma.UserUpsertWithoutTaskAttachmentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTaskAttachmentsInput, Prisma.UserUpdateWithoutTaskAttachmentsInput>, Prisma.UserUncheckedUpdateWithoutTaskAttachmentsInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedLettersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLettersInput, Prisma.UserUncheckedCreateWithoutCreatedLettersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLettersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedLettersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedLettersInput, Prisma.UserUncheckedCreateWithoutReviewedLettersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedLettersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedLettersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLettersInput, Prisma.UserUncheckedCreateWithoutCreatedLettersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLettersInput
+  upsert?: Prisma.UserUpsertWithoutCreatedLettersInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedLettersInput, Prisma.UserUpdateWithoutCreatedLettersInput>, Prisma.UserUncheckedUpdateWithoutCreatedLettersInput>
+}
+
+export type UserUpdateOneWithoutReviewedLettersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedLettersInput, Prisma.UserUncheckedCreateWithoutReviewedLettersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedLettersInput
+  upsert?: Prisma.UserUpsertWithoutReviewedLettersInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedLettersInput, Prisma.UserUpdateWithoutReviewedLettersInput>, Prisma.UserUncheckedUpdateWithoutReviewedLettersInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedFoldersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedFoldersInput, Prisma.UserUncheckedCreateWithoutCreatedFoldersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedFoldersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedFoldersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedFoldersInput, Prisma.UserUncheckedCreateWithoutCreatedFoldersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedFoldersInput
+  upsert?: Prisma.UserUpsertWithoutCreatedFoldersInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedFoldersInput, Prisma.UserUpdateWithoutCreatedFoldersInput>, Prisma.UserUncheckedUpdateWithoutCreatedFoldersInput>
+}
+
+export type UserCreateNestedOneWithoutUploadedFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutUploadedFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedFilesInput
+  upsert?: Prisma.UserUpsertWithoutUploadedFilesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedFilesInput, Prisma.UserUpdateWithoutUploadedFilesInput>, Prisma.UserUncheckedUpdateWithoutUploadedFilesInput>
+}
+
+export type UserCreateNestedOneWithoutFilePermissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilePermissionsInput, Prisma.UserUncheckedCreateWithoutFilePermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilePermissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutFilePermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilePermissionsInput, Prisma.UserUncheckedCreateWithoutFilePermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilePermissionsInput
+  upsert?: Prisma.UserUpsertWithoutFilePermissionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilePermissionsInput, Prisma.UserUpdateWithoutFilePermissionsInput>, Prisma.UserUncheckedUpdateWithoutFilePermissionsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedWorkProgramsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedWorkProgramsInput, Prisma.UserUncheckedCreateWithoutCreatedWorkProgramsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedWorkProgramsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedWorkProgramsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedWorkProgramsInput, Prisma.UserUncheckedCreateWithoutCreatedWorkProgramsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedWorkProgramsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedWorkProgramsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedWorkProgramsInput, Prisma.UserUpdateWithoutCreatedWorkProgramsInput>, Prisma.UserUncheckedUpdateWithoutCreatedWorkProgramsInput>
+}
+
+export type UserCreateNestedOneWithoutWorkProgramUpdatesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkProgramUpdatesInput, Prisma.UserUncheckedCreateWithoutWorkProgramUpdatesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkProgramUpdatesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutWorkProgramUpdatesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkProgramUpdatesInput, Prisma.UserUncheckedCreateWithoutWorkProgramUpdatesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkProgramUpdatesInput
+  upsert?: Prisma.UserUpsertWithoutWorkProgramUpdatesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkProgramUpdatesInput, Prisma.UserUpdateWithoutWorkProgramUpdatesInput>, Prisma.UserUncheckedUpdateWithoutWorkProgramUpdatesInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedTransactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedTransactionsInput, Prisma.UserUncheckedCreateWithoutCreatedTransactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedTransactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedTransactionsInput, Prisma.UserUncheckedCreateWithoutCreatedTransactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedTransactionsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedTransactionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedTransactionsInput, Prisma.UserUpdateWithoutCreatedTransactionsInput>, Prisma.UserUncheckedUpdateWithoutCreatedTransactionsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedAnnouncementsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAnnouncementsInput, Prisma.UserUncheckedCreateWithoutCreatedAnnouncementsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAnnouncementsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedAnnouncementsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAnnouncementsInput, Prisma.UserUncheckedCreateWithoutCreatedAnnouncementsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAnnouncementsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedAnnouncementsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedAnnouncementsInput, Prisma.UserUpdateWithoutCreatedAnnouncementsInput>, Prisma.UserUncheckedUpdateWithoutCreatedAnnouncementsInput>
+}
+
+export type UserCreateWithoutSessionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+}
+
+export type UserUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutPasswordResetsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutPasswordResetsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutPasswordResetsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+}
+
+export type UserUpsertWithoutPasswordResetsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetsInput, Prisma.UserUncheckedUpdateWithoutPasswordResetsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPasswordResetsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetsInput, Prisma.UserUncheckedUpdateWithoutPasswordResetsInput>
+}
+
+export type UserUpdateWithoutPasswordResetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPasswordResetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutActivityLogsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutActivityLogsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutActivityLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+}
+
+export type UserUpsertWithoutActivityLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutActivityLogsInput, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutActivityLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutActivityLogsInput, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
+}
+
+export type UserUpdateWithoutActivityLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutActivityLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutMemberInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutMemberInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutMemberInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMemberInput, Prisma.UserUncheckedCreateWithoutMemberInput>
+}
+
+export type UserUpsertWithoutMemberInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMemberInput, Prisma.UserUncheckedUpdateWithoutMemberInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMemberInput, Prisma.UserUncheckedCreateWithoutMemberInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMemberInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMemberInput, Prisma.UserUncheckedUpdateWithoutMemberInput>
+}
+
+export type UserUpdateWithoutMemberInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMemberInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedAgendasInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedAgendasInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedAgendasInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAgendasInput, Prisma.UserUncheckedCreateWithoutCreatedAgendasInput>
+}
+
+export type UserUpsertWithoutCreatedAgendasInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAgendasInput, Prisma.UserUncheckedUpdateWithoutCreatedAgendasInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAgendasInput, Prisma.UserUncheckedCreateWithoutCreatedAgendasInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedAgendasInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAgendasInput, Prisma.UserUncheckedUpdateWithoutCreatedAgendasInput>
+}
+
+export type UserUpdateWithoutCreatedAgendasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedAgendasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedMeetingsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedMeetingsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedMeetingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedMeetingsInput, Prisma.UserUncheckedCreateWithoutCreatedMeetingsInput>
+}
+
+export type UserUpsertWithoutCreatedMeetingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedMeetingsInput, Prisma.UserUncheckedUpdateWithoutCreatedMeetingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedMeetingsInput, Prisma.UserUncheckedCreateWithoutCreatedMeetingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedMeetingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedMeetingsInput, Prisma.UserUncheckedUpdateWithoutCreatedMeetingsInput>
+}
+
+export type UserUpdateWithoutCreatedMeetingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedMeetingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutMeetingNotesInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutMeetingNotesInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutMeetingNotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMeetingNotesInput, Prisma.UserUncheckedCreateWithoutMeetingNotesInput>
+}
+
+export type UserUpsertWithoutMeetingNotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMeetingNotesInput, Prisma.UserUncheckedUpdateWithoutMeetingNotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMeetingNotesInput, Prisma.UserUncheckedCreateWithoutMeetingNotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMeetingNotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMeetingNotesInput, Prisma.UserUncheckedUpdateWithoutMeetingNotesInput>
+}
+
+export type UserUpdateWithoutMeetingNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMeetingNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutMeetingDecisionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutMeetingDecisionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutMeetingDecisionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMeetingDecisionsInput, Prisma.UserUncheckedCreateWithoutMeetingDecisionsInput>
+}
+
+export type UserUpsertWithoutMeetingDecisionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMeetingDecisionsInput, Prisma.UserUncheckedUpdateWithoutMeetingDecisionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMeetingDecisionsInput, Prisma.UserUncheckedCreateWithoutMeetingDecisionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMeetingDecisionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMeetingDecisionsInput, Prisma.UserUncheckedUpdateWithoutMeetingDecisionsInput>
+}
+
+export type UserUpdateWithoutMeetingDecisionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMeetingDecisionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedTasksInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedTasksInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedTasksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedTasksInput, Prisma.UserUncheckedCreateWithoutCreatedTasksInput>
+}
+
+export type UserUpsertWithoutCreatedTasksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedTasksInput, Prisma.UserUncheckedUpdateWithoutCreatedTasksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedTasksInput, Prisma.UserUncheckedCreateWithoutCreatedTasksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedTasksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedTasksInput, Prisma.UserUncheckedUpdateWithoutCreatedTasksInput>
+}
+
+export type UserUpdateWithoutCreatedTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutTaskCommentsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutTaskCommentsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutTaskCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTaskCommentsInput, Prisma.UserUncheckedCreateWithoutTaskCommentsInput>
+}
+
+export type UserUpsertWithoutTaskCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTaskCommentsInput, Prisma.UserUncheckedUpdateWithoutTaskCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTaskCommentsInput, Prisma.UserUncheckedCreateWithoutTaskCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTaskCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTaskCommentsInput, Prisma.UserUncheckedUpdateWithoutTaskCommentsInput>
+}
+
+export type UserUpdateWithoutTaskCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTaskCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutTaskAttachmentsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutTaskAttachmentsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutTaskAttachmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTaskAttachmentsInput, Prisma.UserUncheckedCreateWithoutTaskAttachmentsInput>
+}
+
+export type UserUpsertWithoutTaskAttachmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTaskAttachmentsInput, Prisma.UserUncheckedUpdateWithoutTaskAttachmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTaskAttachmentsInput, Prisma.UserUncheckedCreateWithoutTaskAttachmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTaskAttachmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTaskAttachmentsInput, Prisma.UserUncheckedUpdateWithoutTaskAttachmentsInput>
+}
+
+export type UserUpdateWithoutTaskAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTaskAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedLettersInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedLettersInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedLettersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLettersInput, Prisma.UserUncheckedCreateWithoutCreatedLettersInput>
+}
+
+export type UserCreateWithoutReviewedLettersInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutReviewedLettersInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutReviewedLettersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedLettersInput, Prisma.UserUncheckedCreateWithoutReviewedLettersInput>
+}
+
+export type UserUpsertWithoutCreatedLettersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLettersInput, Prisma.UserUncheckedUpdateWithoutCreatedLettersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLettersInput, Prisma.UserUncheckedCreateWithoutCreatedLettersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedLettersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLettersInput, Prisma.UserUncheckedUpdateWithoutCreatedLettersInput>
+}
+
+export type UserUpdateWithoutCreatedLettersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedLettersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUpsertWithoutReviewedLettersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedLettersInput, Prisma.UserUncheckedUpdateWithoutReviewedLettersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedLettersInput, Prisma.UserUncheckedCreateWithoutReviewedLettersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedLettersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedLettersInput, Prisma.UserUncheckedUpdateWithoutReviewedLettersInput>
+}
+
+export type UserUpdateWithoutReviewedLettersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedLettersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedFoldersInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedFoldersInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedFoldersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedFoldersInput, Prisma.UserUncheckedCreateWithoutCreatedFoldersInput>
+}
+
+export type UserUpsertWithoutCreatedFoldersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedFoldersInput, Prisma.UserUncheckedUpdateWithoutCreatedFoldersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedFoldersInput, Prisma.UserUncheckedCreateWithoutCreatedFoldersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedFoldersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedFoldersInput, Prisma.UserUncheckedUpdateWithoutCreatedFoldersInput>
+}
+
+export type UserUpdateWithoutCreatedFoldersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedFoldersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutUploadedFilesInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutUploadedFilesInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutUploadedFilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+}
+
+export type UserUpsertWithoutUploadedFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUploadedFilesInput, Prisma.UserUncheckedUpdateWithoutUploadedFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUploadedFilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUploadedFilesInput, Prisma.UserUncheckedUpdateWithoutUploadedFilesInput>
+}
+
+export type UserUpdateWithoutUploadedFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUploadedFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutFilePermissionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutFilePermissionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutFilePermissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilePermissionsInput, Prisma.UserUncheckedCreateWithoutFilePermissionsInput>
+}
+
+export type UserUpsertWithoutFilePermissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFilePermissionsInput, Prisma.UserUncheckedUpdateWithoutFilePermissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilePermissionsInput, Prisma.UserUncheckedCreateWithoutFilePermissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFilePermissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFilePermissionsInput, Prisma.UserUncheckedUpdateWithoutFilePermissionsInput>
+}
+
+export type UserUpdateWithoutFilePermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFilePermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedWorkProgramsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedWorkProgramsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedWorkProgramsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedWorkProgramsInput, Prisma.UserUncheckedCreateWithoutCreatedWorkProgramsInput>
+}
+
+export type UserUpsertWithoutCreatedWorkProgramsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedWorkProgramsInput, Prisma.UserUncheckedUpdateWithoutCreatedWorkProgramsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedWorkProgramsInput, Prisma.UserUncheckedCreateWithoutCreatedWorkProgramsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedWorkProgramsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedWorkProgramsInput, Prisma.UserUncheckedUpdateWithoutCreatedWorkProgramsInput>
+}
+
+export type UserUpdateWithoutCreatedWorkProgramsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedWorkProgramsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutWorkProgramUpdatesInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutWorkProgramUpdatesInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutWorkProgramUpdatesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkProgramUpdatesInput, Prisma.UserUncheckedCreateWithoutWorkProgramUpdatesInput>
+}
+
+export type UserUpsertWithoutWorkProgramUpdatesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWorkProgramUpdatesInput, Prisma.UserUncheckedUpdateWithoutWorkProgramUpdatesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkProgramUpdatesInput, Prisma.UserUncheckedCreateWithoutWorkProgramUpdatesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWorkProgramUpdatesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWorkProgramUpdatesInput, Prisma.UserUncheckedUpdateWithoutWorkProgramUpdatesInput>
+}
+
+export type UserUpdateWithoutWorkProgramUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWorkProgramUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedTransactionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedTransactionsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedTransactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedTransactionsInput, Prisma.UserUncheckedCreateWithoutCreatedTransactionsInput>
+}
+
+export type UserUpsertWithoutCreatedTransactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedTransactionsInput, Prisma.UserUncheckedUpdateWithoutCreatedTransactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedTransactionsInput, Prisma.UserUncheckedCreateWithoutCreatedTransactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedTransactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedTransactionsInput, Prisma.UserUncheckedUpdateWithoutCreatedTransactionsInput>
+}
+
+export type UserUpdateWithoutCreatedTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAnnouncements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedAnnouncementsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedAnnouncementsInput = {
+  id?: string
+  name: string
+  email: string
+  username?: string | null
+  password: string
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  phone?: string | null
+  dateOfBirth?: Date | string | null
+  address?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  member?: Prisma.MemberUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  taskComments?: Prisma.TaskCommentUncheckedCreateNestedManyWithoutUserInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedCreateNestedManyWithoutUploaderInput
+  createdAgendas?: Prisma.AgendaUncheckedCreateNestedManyWithoutCreatedByInput
+  createdMeetings?: Prisma.MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedCreateNestedManyWithoutCreatedByInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedLetters?: Prisma.LetterUncheckedCreateNestedManyWithoutReviewedByInput
+  createdFolders?: Prisma.FolderUncheckedCreateNestedManyWithoutCreatedByInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploaderInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatedByInput
+  filePermissions?: Prisma.FilePermissionUncheckedCreateNestedManyWithoutUserInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedCreateNestedManyWithoutCreatedByInput
+  createdTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedAnnouncementsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAnnouncementsInput, Prisma.UserUncheckedCreateWithoutCreatedAnnouncementsInput>
+}
+
+export type UserUpsertWithoutCreatedAnnouncementsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAnnouncementsInput, Prisma.UserUncheckedUpdateWithoutCreatedAnnouncementsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAnnouncementsInput, Prisma.UserUncheckedCreateWithoutCreatedAnnouncementsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedAnnouncementsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAnnouncementsInput, Prisma.UserUncheckedUpdateWithoutCreatedAnnouncementsInput>
+}
+
+export type UserUpdateWithoutCreatedAnnouncementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedAnnouncementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  member?: Prisma.MemberUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  taskComments?: Prisma.TaskCommentUncheckedUpdateManyWithoutUserNestedInput
+  taskAttachments?: Prisma.TaskAttachmentUncheckedUpdateManyWithoutUploaderNestedInput
+  createdAgendas?: Prisma.AgendaUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdMeetings?: Prisma.MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingNotes?: Prisma.MeetingNoteUncheckedUpdateManyWithoutCreatedByNestedInput
+  meetingDecisions?: Prisma.MeetingDecisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLetters?: Prisma.LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedLetters?: Prisma.LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdFolders?: Prisma.FolderUncheckedUpdateManyWithoutCreatedByNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploaderNestedInput
+  createdWorkPrograms?: Prisma.WorkProgramUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  filePermissions?: Prisma.FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+  workProgramUpdates?: Prisma.WorkProgramUpdateUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  sessions: number
+  passwordResets: number
+  activityLogs: number
+  notifications: number
+  taskComments: number
+  taskAttachments: number
+  createdAgendas: number
+  createdMeetings: number
+  meetingNotes: number
+  meetingDecisions: number
+  createdLetters: number
+  reviewedLetters: number
+  createdFolders: number
+  uploadedFiles: number
+  createdWorkPrograms: number
+  createdTasks: number
+  filePermissions: number
+  workProgramUpdates: number
+  createdTransactions: number
+  createdAnnouncements: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  passwordResets?: boolean | UserCountOutputTypeCountPasswordResetsArgs
+  activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  taskComments?: boolean | UserCountOutputTypeCountTaskCommentsArgs
+  taskAttachments?: boolean | UserCountOutputTypeCountTaskAttachmentsArgs
+  createdAgendas?: boolean | UserCountOutputTypeCountCreatedAgendasArgs
+  createdMeetings?: boolean | UserCountOutputTypeCountCreatedMeetingsArgs
+  meetingNotes?: boolean | UserCountOutputTypeCountMeetingNotesArgs
+  meetingDecisions?: boolean | UserCountOutputTypeCountMeetingDecisionsArgs
+  createdLetters?: boolean | UserCountOutputTypeCountCreatedLettersArgs
+  reviewedLetters?: boolean | UserCountOutputTypeCountReviewedLettersArgs
+  createdFolders?: boolean | UserCountOutputTypeCountCreatedFoldersArgs
+  uploadedFiles?: boolean | UserCountOutputTypeCountUploadedFilesArgs
+  createdWorkPrograms?: boolean | UserCountOutputTypeCountCreatedWorkProgramsArgs
+  createdTasks?: boolean | UserCountOutputTypeCountCreatedTasksArgs
+  filePermissions?: boolean | UserCountOutputTypeCountFilePermissionsArgs
+  workProgramUpdates?: boolean | UserCountOutputTypeCountWorkProgramUpdatesArgs
+  createdTransactions?: boolean | UserCountOutputTypeCountCreatedTransactionsArgs
+  createdAnnouncements?: boolean | UserCountOutputTypeCountCreatedAnnouncementsArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPasswordResetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PasswordResetWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountActivityLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ActivityLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTaskCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskCommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTaskAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskAttachmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedAgendasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AgendaWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedMeetingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeetingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMeetingNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeetingNoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMeetingDecisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MeetingDecisionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedLettersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LetterWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedLettersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LetterWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedFoldersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FolderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedWorkProgramsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkProgramWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFilePermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FilePermissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkProgramUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkProgramUpdateWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedAnnouncementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnnouncementWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   email?: boolean
+  username?: boolean
   password?: boolean
   role?: boolean
+  avatarUrl?: boolean
+  phone?: boolean
+  dateOfBirth?: boolean
+  address?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  member?: boolean | Prisma.User$memberArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  passwordResets?: boolean | Prisma.User$passwordResetsArgs<ExtArgs>
+  activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  taskComments?: boolean | Prisma.User$taskCommentsArgs<ExtArgs>
+  taskAttachments?: boolean | Prisma.User$taskAttachmentsArgs<ExtArgs>
+  createdAgendas?: boolean | Prisma.User$createdAgendasArgs<ExtArgs>
+  createdMeetings?: boolean | Prisma.User$createdMeetingsArgs<ExtArgs>
+  meetingNotes?: boolean | Prisma.User$meetingNotesArgs<ExtArgs>
+  meetingDecisions?: boolean | Prisma.User$meetingDecisionsArgs<ExtArgs>
+  createdLetters?: boolean | Prisma.User$createdLettersArgs<ExtArgs>
+  reviewedLetters?: boolean | Prisma.User$reviewedLettersArgs<ExtArgs>
+  createdFolders?: boolean | Prisma.User$createdFoldersArgs<ExtArgs>
+  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
+  createdWorkPrograms?: boolean | Prisma.User$createdWorkProgramsArgs<ExtArgs>
+  createdTasks?: boolean | Prisma.User$createdTasksArgs<ExtArgs>
+  filePermissions?: boolean | Prisma.User$filePermissionsArgs<ExtArgs>
+  workProgramUpdates?: boolean | Prisma.User$workProgramUpdatesArgs<ExtArgs>
+  createdTransactions?: boolean | Prisma.User$createdTransactionsArgs<ExtArgs>
+  createdAnnouncements?: boolean | Prisma.User$createdAnnouncementsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   email?: boolean
+  username?: boolean
   password?: boolean
   role?: boolean
+  avatarUrl?: boolean
+  phone?: boolean
+  dateOfBirth?: boolean
+  address?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   email?: boolean
+  username?: boolean
   password?: boolean
   role?: boolean
+  avatarUrl?: boolean
+  phone?: boolean
+  dateOfBirth?: boolean
+  address?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   name?: boolean
   email?: boolean
+  username?: boolean
   password?: boolean
   role?: boolean
+  avatarUrl?: boolean
+  phone?: boolean
+  dateOfBirth?: boolean
+  address?: boolean
+  isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "username" | "password" | "role" | "avatarUrl" | "phone" | "dateOfBirth" | "address" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  member?: boolean | Prisma.User$memberArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  passwordResets?: boolean | Prisma.User$passwordResetsArgs<ExtArgs>
+  activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  taskComments?: boolean | Prisma.User$taskCommentsArgs<ExtArgs>
+  taskAttachments?: boolean | Prisma.User$taskAttachmentsArgs<ExtArgs>
+  createdAgendas?: boolean | Prisma.User$createdAgendasArgs<ExtArgs>
+  createdMeetings?: boolean | Prisma.User$createdMeetingsArgs<ExtArgs>
+  meetingNotes?: boolean | Prisma.User$meetingNotesArgs<ExtArgs>
+  meetingDecisions?: boolean | Prisma.User$meetingDecisionsArgs<ExtArgs>
+  createdLetters?: boolean | Prisma.User$createdLettersArgs<ExtArgs>
+  reviewedLetters?: boolean | Prisma.User$reviewedLettersArgs<ExtArgs>
+  createdFolders?: boolean | Prisma.User$createdFoldersArgs<ExtArgs>
+  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
+  createdWorkPrograms?: boolean | Prisma.User$createdWorkProgramsArgs<ExtArgs>
+  createdTasks?: boolean | Prisma.User$createdTasksArgs<ExtArgs>
+  filePermissions?: boolean | Prisma.User$filePermissionsArgs<ExtArgs>
+  workProgramUpdates?: boolean | Prisma.User$workProgramUpdatesArgs<ExtArgs>
+  createdTransactions?: boolean | Prisma.User$createdTransactionsArgs<ExtArgs>
+  createdAnnouncements?: boolean | Prisma.User$createdAnnouncementsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    member: Prisma.$MemberPayload<ExtArgs> | null
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
+    passwordResets: Prisma.$PasswordResetPayload<ExtArgs>[]
+    activityLogs: Prisma.$ActivityLogPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    taskComments: Prisma.$TaskCommentPayload<ExtArgs>[]
+    taskAttachments: Prisma.$TaskAttachmentPayload<ExtArgs>[]
+    createdAgendas: Prisma.$AgendaPayload<ExtArgs>[]
+    createdMeetings: Prisma.$MeetingPayload<ExtArgs>[]
+    meetingNotes: Prisma.$MeetingNotePayload<ExtArgs>[]
+    meetingDecisions: Prisma.$MeetingDecisionPayload<ExtArgs>[]
+    createdLetters: Prisma.$LetterPayload<ExtArgs>[]
+    reviewedLetters: Prisma.$LetterPayload<ExtArgs>[]
+    createdFolders: Prisma.$FolderPayload<ExtArgs>[]
+    uploadedFiles: Prisma.$FilePayload<ExtArgs>[]
+    createdWorkPrograms: Prisma.$WorkProgramPayload<ExtArgs>[]
+    createdTasks: Prisma.$TaskPayload<ExtArgs>[]
+    filePermissions: Prisma.$FilePermissionPayload<ExtArgs>[]
+    workProgramUpdates: Prisma.$WorkProgramUpdatePayload<ExtArgs>[]
+    createdTransactions: Prisma.$TransactionPayload<ExtArgs>[]
+    createdAnnouncements: Prisma.$AnnouncementPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     email: string
+    username: string | null
     password: string
     role: $Enums.Role
+    avatarUrl: string | null
+    phone: string | null
+    dateOfBirth: Date | null
+    address: string | null
+    isActive: boolean
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -783,6 +5101,27 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  member<T extends Prisma.User$memberArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$memberArgs<ExtArgs>>): Prisma.Prisma__MemberClient<runtime.Types.Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResets<T extends Prisma.User$passwordResetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  activityLogs<T extends Prisma.User$activityLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  taskComments<T extends Prisma.User$taskCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$taskCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  taskAttachments<T extends Prisma.User$taskAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$taskAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAgendas<T extends Prisma.User$createdAgendasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdAgendasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AgendaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdMeetings<T extends Prisma.User$createdMeetingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdMeetingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  meetingNotes<T extends Prisma.User$meetingNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$meetingNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  meetingDecisions<T extends Prisma.User$meetingDecisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$meetingDecisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MeetingDecisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdLetters<T extends Prisma.User$createdLettersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdLettersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LetterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedLetters<T extends Prisma.User$reviewedLettersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedLettersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LetterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdFolders<T extends Prisma.User$createdFoldersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdFoldersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FolderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  uploadedFiles<T extends Prisma.User$uploadedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdWorkPrograms<T extends Prisma.User$createdWorkProgramsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdWorkProgramsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkProgramPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdTasks<T extends Prisma.User$createdTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  filePermissions<T extends Prisma.User$filePermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workProgramUpdates<T extends Prisma.User$workProgramUpdatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workProgramUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkProgramUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdTransactions<T extends Prisma.User$createdTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAnnouncements<T extends Prisma.User$createdAnnouncementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdAnnouncementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -815,9 +5154,16 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
+  readonly username: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly phone: Prisma.FieldRef<"User", 'String'>
+  readonly dateOfBirth: Prisma.FieldRef<"User", 'DateTime'>
+  readonly address: Prisma.FieldRef<"User", 'String'>
+  readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -834,6 +5180,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -853,6 +5203,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -870,6 +5224,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -919,6 +5277,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -966,6 +5328,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which Users to fetch.
    */
@@ -1015,6 +5381,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The data needed to create a User.
    */
   data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>
@@ -1062,6 +5432,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1129,6 +5503,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1155,6 +5533,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1175,6 +5557,505 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.member
+ */
+export type User$memberArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Member
+   */
+  select?: Prisma.MemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Member
+   */
+  omit?: Prisma.MemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MemberInclude<ExtArgs> | null
+  where?: Prisma.MemberWhereInput
+}
+
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.passwordResets
+ */
+export type User$passwordResetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordReset
+   */
+  select?: Prisma.PasswordResetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordReset
+   */
+  omit?: Prisma.PasswordResetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetWhereInput
+  orderBy?: Prisma.PasswordResetOrderByWithRelationInput | Prisma.PasswordResetOrderByWithRelationInput[]
+  cursor?: Prisma.PasswordResetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PasswordResetScalarFieldEnum | Prisma.PasswordResetScalarFieldEnum[]
+}
+
+/**
+ * User.activityLogs
+ */
+export type User$activityLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ActivityLog
+   */
+  select?: Prisma.ActivityLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ActivityLog
+   */
+  omit?: Prisma.ActivityLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ActivityLogInclude<ExtArgs> | null
+  where?: Prisma.ActivityLogWhereInput
+  orderBy?: Prisma.ActivityLogOrderByWithRelationInput | Prisma.ActivityLogOrderByWithRelationInput[]
+  cursor?: Prisma.ActivityLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ActivityLogScalarFieldEnum | Prisma.ActivityLogScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.taskComments
+ */
+export type User$taskCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaskComment
+   */
+  select?: Prisma.TaskCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TaskComment
+   */
+  omit?: Prisma.TaskCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskCommentInclude<ExtArgs> | null
+  where?: Prisma.TaskCommentWhereInput
+  orderBy?: Prisma.TaskCommentOrderByWithRelationInput | Prisma.TaskCommentOrderByWithRelationInput[]
+  cursor?: Prisma.TaskCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskCommentScalarFieldEnum | Prisma.TaskCommentScalarFieldEnum[]
+}
+
+/**
+ * User.taskAttachments
+ */
+export type User$taskAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaskAttachment
+   */
+  select?: Prisma.TaskAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TaskAttachment
+   */
+  omit?: Prisma.TaskAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskAttachmentInclude<ExtArgs> | null
+  where?: Prisma.TaskAttachmentWhereInput
+  orderBy?: Prisma.TaskAttachmentOrderByWithRelationInput | Prisma.TaskAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.TaskAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskAttachmentScalarFieldEnum | Prisma.TaskAttachmentScalarFieldEnum[]
+}
+
+/**
+ * User.createdAgendas
+ */
+export type User$createdAgendasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Agenda
+   */
+  select?: Prisma.AgendaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Agenda
+   */
+  omit?: Prisma.AgendaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AgendaInclude<ExtArgs> | null
+  where?: Prisma.AgendaWhereInput
+  orderBy?: Prisma.AgendaOrderByWithRelationInput | Prisma.AgendaOrderByWithRelationInput[]
+  cursor?: Prisma.AgendaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AgendaScalarFieldEnum | Prisma.AgendaScalarFieldEnum[]
+}
+
+/**
+ * User.createdMeetings
+ */
+export type User$createdMeetingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Meeting
+   */
+  select?: Prisma.MeetingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Meeting
+   */
+  omit?: Prisma.MeetingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeetingInclude<ExtArgs> | null
+  where?: Prisma.MeetingWhereInput
+  orderBy?: Prisma.MeetingOrderByWithRelationInput | Prisma.MeetingOrderByWithRelationInput[]
+  cursor?: Prisma.MeetingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeetingScalarFieldEnum | Prisma.MeetingScalarFieldEnum[]
+}
+
+/**
+ * User.meetingNotes
+ */
+export type User$meetingNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MeetingNote
+   */
+  select?: Prisma.MeetingNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MeetingNote
+   */
+  omit?: Prisma.MeetingNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeetingNoteInclude<ExtArgs> | null
+  where?: Prisma.MeetingNoteWhereInput
+  orderBy?: Prisma.MeetingNoteOrderByWithRelationInput | Prisma.MeetingNoteOrderByWithRelationInput[]
+  cursor?: Prisma.MeetingNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeetingNoteScalarFieldEnum | Prisma.MeetingNoteScalarFieldEnum[]
+}
+
+/**
+ * User.meetingDecisions
+ */
+export type User$meetingDecisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MeetingDecision
+   */
+  select?: Prisma.MeetingDecisionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MeetingDecision
+   */
+  omit?: Prisma.MeetingDecisionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MeetingDecisionInclude<ExtArgs> | null
+  where?: Prisma.MeetingDecisionWhereInput
+  orderBy?: Prisma.MeetingDecisionOrderByWithRelationInput | Prisma.MeetingDecisionOrderByWithRelationInput[]
+  cursor?: Prisma.MeetingDecisionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MeetingDecisionScalarFieldEnum | Prisma.MeetingDecisionScalarFieldEnum[]
+}
+
+/**
+ * User.createdLetters
+ */
+export type User$createdLettersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Letter
+   */
+  select?: Prisma.LetterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Letter
+   */
+  omit?: Prisma.LetterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LetterInclude<ExtArgs> | null
+  where?: Prisma.LetterWhereInput
+  orderBy?: Prisma.LetterOrderByWithRelationInput | Prisma.LetterOrderByWithRelationInput[]
+  cursor?: Prisma.LetterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LetterScalarFieldEnum | Prisma.LetterScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedLetters
+ */
+export type User$reviewedLettersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Letter
+   */
+  select?: Prisma.LetterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Letter
+   */
+  omit?: Prisma.LetterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LetterInclude<ExtArgs> | null
+  where?: Prisma.LetterWhereInput
+  orderBy?: Prisma.LetterOrderByWithRelationInput | Prisma.LetterOrderByWithRelationInput[]
+  cursor?: Prisma.LetterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LetterScalarFieldEnum | Prisma.LetterScalarFieldEnum[]
+}
+
+/**
+ * User.createdFolders
+ */
+export type User$createdFoldersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Folder
+   */
+  select?: Prisma.FolderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Folder
+   */
+  omit?: Prisma.FolderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FolderInclude<ExtArgs> | null
+  where?: Prisma.FolderWhereInput
+  orderBy?: Prisma.FolderOrderByWithRelationInput | Prisma.FolderOrderByWithRelationInput[]
+  cursor?: Prisma.FolderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FolderScalarFieldEnum | Prisma.FolderScalarFieldEnum[]
+}
+
+/**
+ * User.uploadedFiles
+ */
+export type User$uploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
+ * User.createdWorkPrograms
+ */
+export type User$createdWorkProgramsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkProgram
+   */
+  select?: Prisma.WorkProgramSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkProgram
+   */
+  omit?: Prisma.WorkProgramOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkProgramInclude<ExtArgs> | null
+  where?: Prisma.WorkProgramWhereInput
+  orderBy?: Prisma.WorkProgramOrderByWithRelationInput | Prisma.WorkProgramOrderByWithRelationInput[]
+  cursor?: Prisma.WorkProgramWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkProgramScalarFieldEnum | Prisma.WorkProgramScalarFieldEnum[]
+}
+
+/**
+ * User.createdTasks
+ */
+export type User$createdTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * User.filePermissions
+ */
+export type User$filePermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FilePermission
+   */
+  select?: Prisma.FilePermissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FilePermission
+   */
+  omit?: Prisma.FilePermissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FilePermissionInclude<ExtArgs> | null
+  where?: Prisma.FilePermissionWhereInput
+  orderBy?: Prisma.FilePermissionOrderByWithRelationInput | Prisma.FilePermissionOrderByWithRelationInput[]
+  cursor?: Prisma.FilePermissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FilePermissionScalarFieldEnum | Prisma.FilePermissionScalarFieldEnum[]
+}
+
+/**
+ * User.workProgramUpdates
+ */
+export type User$workProgramUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkProgramUpdate
+   */
+  select?: Prisma.WorkProgramUpdateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkProgramUpdate
+   */
+  omit?: Prisma.WorkProgramUpdateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkProgramUpdateInclude<ExtArgs> | null
+  where?: Prisma.WorkProgramUpdateWhereInput
+  orderBy?: Prisma.WorkProgramUpdateOrderByWithRelationInput | Prisma.WorkProgramUpdateOrderByWithRelationInput[]
+  cursor?: Prisma.WorkProgramUpdateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkProgramUpdateScalarFieldEnum | Prisma.WorkProgramUpdateScalarFieldEnum[]
+}
+
+/**
+ * User.createdTransactions
+ */
+export type User$createdTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Transaction
+   */
+  select?: Prisma.TransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Transaction
+   */
+  omit?: Prisma.TransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransactionInclude<ExtArgs> | null
+  where?: Prisma.TransactionWhereInput
+  orderBy?: Prisma.TransactionOrderByWithRelationInput | Prisma.TransactionOrderByWithRelationInput[]
+  cursor?: Prisma.TransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * User.createdAnnouncements
+ */
+export type User$createdAnnouncementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Announcement
+   */
+  select?: Prisma.AnnouncementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Announcement
+   */
+  omit?: Prisma.AnnouncementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnnouncementInclude<ExtArgs> | null
+  where?: Prisma.AnnouncementWhereInput
+  orderBy?: Prisma.AnnouncementOrderByWithRelationInput | Prisma.AnnouncementOrderByWithRelationInput[]
+  cursor?: Prisma.AnnouncementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnnouncementScalarFieldEnum | Prisma.AnnouncementScalarFieldEnum[]
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1186,4 +6067,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

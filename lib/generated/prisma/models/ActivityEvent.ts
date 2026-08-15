@@ -317,10 +317,6 @@ export type ActivityEventScalarRelationFilter = {
   isNot?: Prisma.ActivityEventWhereInput
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type ActivityEventCreateNestedOneWithoutAttendanceInput = {
   create?: Prisma.XOR<Prisma.ActivityEventCreateWithoutAttendanceInput, Prisma.ActivityEventUncheckedCreateWithoutAttendanceInput>
   connectOrCreate?: Prisma.ActivityEventCreateOrConnectWithoutAttendanceInput

@@ -32,3 +32,118 @@ export const TransactionType = {
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const MemberStatus = {
+  AKTIF: 'AKTIF',
+  TIDAK_AKTIF: 'TIDAK_AKTIF'
+} as const
+
+export type MemberStatus = (typeof MemberStatus)[keyof typeof MemberStatus]
+
+
+export const RsvpStatus = {
+  PENDING: 'PENDING',
+  AKAN_HADIR: 'AKAN_HADIR',
+  TIDAK_HADIR: 'TIDAK_HADIR'
+} as const
+
+export type RsvpStatus = (typeof RsvpStatus)[keyof typeof RsvpStatus]
+
+
+export const AgendaStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  SELESAI: 'SELESAI',
+  BATAL: 'BATAL'
+} as const
+
+export type AgendaStatus = (typeof AgendaStatus)[keyof typeof AgendaStatus]
+
+
+export const MeetingStatus = {
+  DRAFT: 'DRAFT',
+  TERJADWAL: 'TERJADWAL',
+  BERLANGSUNG: 'BERLANGSUNG',
+  SELESAI: 'SELESAI'
+} as const
+
+export type MeetingStatus = (typeof MeetingStatus)[keyof typeof MeetingStatus]
+
+
+export const MeetingAttendanceStatus = {
+  HADIR: 'HADIR',
+  IZIN: 'IZIN',
+  SAKIT: 'SAKIT',
+  ALPHA: 'ALPHA'
+} as const
+
+export type MeetingAttendanceStatus = (typeof MeetingAttendanceStatus)[keyof typeof MeetingAttendanceStatus]
+
+
+export const Priority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type Priority = (typeof Priority)[keyof typeof Priority]
+
+
+export const TaskStatus = {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  REVIEW: 'REVIEW',
+  DONE: 'DONE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
+
+
+export const ActionItemStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+} as const
+
+export type ActionItemStatus = (typeof ActionItemStatus)[keyof typeof ActionItemStatus]
+
+
+export const LetterType = {
+  MASUK: 'MASUK',
+  KELUAR: 'KELUAR'
+} as const
+
+export type LetterType = (typeof LetterType)[keyof typeof LetterType]
+
+
+export const LetterStatus = {
+  DRAFT: 'DRAFT',
+  REVIEW: 'REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type LetterStatus = (typeof LetterStatus)[keyof typeof LetterStatus]
+
+
+export const FilePermissionType = {
+  VIEW: 'VIEW',
+  EDIT: 'EDIT',
+  DELETE: 'DELETE'
+} as const
+
+export type FilePermissionType = (typeof FilePermissionType)[keyof typeof FilePermissionType]
+
+
+export const WorkProgramStatus = {
+  PLANNING: 'PLANNING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type WorkProgramStatus = (typeof WorkProgramStatus)[keyof typeof WorkProgramStatus]
