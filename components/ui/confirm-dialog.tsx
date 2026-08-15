@@ -29,7 +29,7 @@ export function ConfirmDialog({
     <Modal open={open} onClose={onCancel} title={title} maxWidth="small">
       <div className="flex flex-col gap-5">
         <div className="flex items-start gap-3">
-          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-danger-soft text-danger">
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-danger-soft text-danger animate-pulse-soft">
             <AlertIcon />
           </span>
           <p className="text-sm leading-6 text-muted">{message}</p>

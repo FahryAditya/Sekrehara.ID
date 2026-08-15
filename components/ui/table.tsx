@@ -45,7 +45,7 @@ export function Table<T>({ columns, data, rowKey, emptyMessage = "Tidak ada data
         </thead>
         <tbody>
           {data.map((row) => (
-            <tr key={rowKey(row)} className="border-b border-border last:border-b-0 hover:bg-background/40">
+            <tr key={rowKey(row)} className="border-b border-border transition-colors duration-150 last:border-b-0 hover:bg-background/40">
               {columns.map((column, index) => (
                 <td key={index} className={combineClassNames("px-6 py-3", column.className)}>
                   {column.accessor(row)}

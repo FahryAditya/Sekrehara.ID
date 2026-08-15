@@ -9,7 +9,7 @@ export function Card({ className, children, ...restProps }: CardProps) {
   return (
     <div
       className={combineClassNames(
-        "rounded-card border border-border bg-surface shadow-card",
+        "rounded-card border border-border bg-surface shadow-card transition-all duration-200 ease-smooth hover:-translate-y-0.5 hover:shadow-lg",
         className
       )}
       {...restProps}

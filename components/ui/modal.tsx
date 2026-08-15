@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { CloseIcon } from "@/components/ui/icons";
 import { combineClassNames } from "@/lib/utils";
 
@@ -25,6 +25,15 @@ const FOCUSABLE_SELECTOR =
 export function Modal({ open, onClose, title, description, children, maxWidth = "medium" }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    window.setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 180);
+  }, [onClose]);
 
   const getFocusableElements = useCallback(() => {
     if (!dialogRef.current) return [];
@@ -35,7 +44,7 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
     (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onClose();
+        handleClose();
         return;
       }
 
@@ -56,7 +65,7 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
         firstElement.focus();
       }
     },
-    [getFocusableElements, onClose]
+    [getFocusableElements, handleClose]
   );
 
   useEffect(() => {
@@ -80,10 +89,13 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      className={combineClassNames(
+        "fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4",
+        isClosing ? "animate-fade-out" : "animate-fade-in"
+      )}
       role="presentation"
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
+        if (event.target === event.currentTarget) handleClose();
       }}
     >
       <div
@@ -93,6 +105,7 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
         aria-labelledby="modal-title"
         className={combineClassNames(
           "w-full rounded-card border border-border bg-surface shadow-modal",
+          isClosing ? "animate-scale-out" : "animate-scale-in",
           maxWidthClasses[maxWidth]
         )}
       >
@@ -105,7 +118,7 @@ export function Modal({ open, onClose, title, description, children, maxWidth = 
           </div>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Tutup dialog"
             className="rounded-md p-1.5 text-muted transition-colors hover:bg-zinc-100 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border"
           >

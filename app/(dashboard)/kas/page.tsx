@@ -127,18 +127,27 @@ export default function KasPage() {
         <StatCard
           label="Saldo Akhir"
           value={formatRupiah(saldoAkhir)}
+          numericValue={saldoAkhir}
+          animateValue
+          formatValue={(num) => formatRupiah(num)}
           icon={<WalletIcon className="h-5 w-5" />}
           accentClassName="bg-primary-soft text-primary"
         />
         <StatCard
           label="Total Pemasukan"
           value={formatRupiah(totalPemasukan)}
+          numericValue={totalPemasukan}
+          animateValue
+          formatValue={(num) => formatRupiah(num)}
           icon={<TrendingUpIcon className="h-5 w-5" />}
           accentClassName="bg-success-soft text-success"
         />
         <StatCard
           label="Total Pengeluaran"
           value={formatRupiah(totalPengeluaran)}
+          numericValue={totalPengeluaran}
+          animateValue
+          formatValue={(num) => formatRupiah(num)}
           icon={<TrendingDownIcon className="h-5 w-5" />}
           accentClassName="bg-danger-soft text-danger"
         />

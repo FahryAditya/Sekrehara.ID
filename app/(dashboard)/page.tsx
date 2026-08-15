@@ -97,6 +97,8 @@ export default function DashboardPage() {
         <StatCard
           label="Total Peserta"
           value={participants.length.toString()}
+          numericValue={participants.length}
+          animateValue
           icon={<UsersIcon className="h-5 w-5" />}
           accentClassName="bg-primary-soft text-primary"
         />
@@ -114,6 +116,9 @@ export default function DashboardPage() {
         <StatCard
           label="Saldo Kas"
           value={formatRupiah(saldoAkhir)}
+          numericValue={saldoAkhir}
+          animateValue
+          formatValue={(num) => formatRupiah(num)}
           icon={<WalletIcon className="h-5 w-5" />}
           accentClassName="bg-warning-soft text-warning"
           footer={
@@ -132,6 +137,8 @@ export default function DashboardPage() {
         <StatCard
           label="Pengumuman Terkirim"
           value={announcements.length.toString()}
+          numericValue={announcements.length}
+          animateValue
           icon={<MegaphoneIcon className="h-5 w-5" />}
           accentClassName="bg-primary-soft text-primary"
           footer={`${totalParticipantEmails} email peserta siap dikirim`}
@@ -139,7 +146,7 @@ export default function DashboardPage() {
       </section>
 
       {latestEvent ? (
-        <section aria-label="Ringkasan presensi" className="mt-8">
+        <section aria-label="Ringkasan presensi" className="mt-8 animate-fade-in-up" style={{ animationDelay: "40ms" }}>
           <Card>
             <CardHeader
               title={latestEvent.name}
@@ -168,7 +175,11 @@ export default function DashboardPage() {
         </section>
       ) : null}
 
-      <section aria-label="Transaksi dan peserta terbaru" className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <section
+        aria-label="Transaksi dan peserta terbaru"
+        className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2 animate-fade-in-up"
+        style={{ animationDelay: "80ms" }}
+      >
         <Card>
           <CardHeader
             title="Transaksi Terbaru"
@@ -260,7 +271,11 @@ export default function DashboardPage() {
         </Card>
       </section>
 
-      <section aria-label="Pengumuman terakhir" className="mt-8">
+      <section
+        aria-label="Pengumuman terakhir"
+        className="mt-8 animate-fade-in-up"
+        style={{ animationDelay: "120ms" }}
+      >
         <Card>
           <CardHeader
             title="Pengumuman Terakhir"

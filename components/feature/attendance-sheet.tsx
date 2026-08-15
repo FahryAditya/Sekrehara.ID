@@ -161,7 +161,7 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
             aria-valuenow={Math.round((hadirCount / participants.length) * 100)}
           >
             <div
-              className="h-full rounded-full bg-success transition-all"
+              className="h-full rounded-full bg-success transition-all duration-500 ease-smooth"
               style={{ width: `${participants.length > 0 ? (hadirCount / participants.length) * 100 : 0}%` }}
             />
           </div>
@@ -225,9 +225,9 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
                         aria-pressed={currentStatus === option.value}
                         onClick={() => handleSetStatus(participant.id, option.value)}
                         className={combineClassNames(
-                          "flex-1 rounded px-3 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+                          "flex-1 rounded px-3 py-1.5 text-xs font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:scale-[0.97]",
                           currentStatus === option.value
-                            ? option.activeClassName
+                            ? combineClassNames("animate-pop", option.activeClassName)
                             : combineClassNames("text-muted", option.idleClassName)
                         )}
                       >

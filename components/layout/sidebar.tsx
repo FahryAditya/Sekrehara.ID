@@ -71,14 +71,20 @@ function SidebarLink({ item, isActive, onNavigate }: SidebarLinkProps) {
       onClick={onNavigate}
       aria-current={isActive ? "page" : undefined}
       className={combineClassNames(
-        "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
+        "group flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+        "active:scale-[0.98]",
         isActive
           ? "bg-primary-soft text-primary"
           : "text-zinc-600 hover:bg-background hover:text-foreground"
       )}
     >
-      <item.icon className="h-5 w-5 shrink-0" />
+      <item.icon
+        className={combineClassNames(
+          "h-5 w-5 shrink-0 transition-transform duration-200",
+          isActive ? "scale-110" : "group-hover:scale-105"
+        )}
+      />
       <span className="flex flex-col">
         <span>{item.label}</span>
         <span
@@ -90,6 +96,9 @@ function SidebarLink({ item, isActive, onNavigate }: SidebarLinkProps) {
           {item.description}
         </span>
       </span>
+      {isActive ? (
+        <span className="ml-auto h-5 w-1 rounded-full bg-primary animate-fade-in" aria-hidden="true" />
+      ) : null}
     </Link>
   );
 }
