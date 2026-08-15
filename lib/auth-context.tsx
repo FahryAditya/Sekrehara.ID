@@ -9,50 +9,52 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { User } from "@/lib/types";
-import { clearMockSession, getMockSession, loadPersistedData, saveMockSession } from "@/lib/storage";
+import type { SessionUser } from "@/lib/auth";
+import { getSessionAction, loginAction, logoutAction } from "@/lib/auth-actions";
 
-export type LoginResult = { user: User } | { error: string };
+export type LoginResult = { user: SessionUser } | { error: string };
 
 type AuthContextValue = {
-  currentUser: User | null;
+  currentUser: SessionUser | null;
   isAuthenticated: boolean;
   isSuperAdmin: boolean;
   isHydrated: boolean;
-  login: (email: string, password: string) => LoginResult;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<LoginResult>;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<SessionUser | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setCurrentUser(getMockSession());
-      setIsHydrated(true);
-    }, 0);
-    return () => window.clearTimeout(timer);
+    let cancelled = false;
+    getSessionAction()
+      .then((session) => {
+        if (cancelled) return;
+        setCurrentUser(session);
+      })
+      .finally(() => {
+        if (!cancelled) setIsHydrated(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const login = useCallback((email: string, password: string): LoginResult => {
-    const user = loadPersistedData().users.find(
-      (u) => u.email.toLowerCase() === email.trim().toLowerCase() && u.password === password
-    );
-
-    if (!user) {
-      return { error: "Email atau password salah." };
+  const login = useCallback(async (email: string, password: string): Promise<LoginResult> => {
+    const result = await loginAction(email, password);
+    if ("error" in result) {
+      return result;
     }
-
-    saveMockSession(user);
-    setCurrentUser(user);
-    return { user };
+    setCurrentUser(result.user);
+    return result;
   }, []);
 
-  const logout = useCallback(() => {
-    clearMockSession();
+  const logout = useCallback(async () => {
+    await logoutAction();
     setCurrentUser(null);
   }, []);
 

@@ -24,6 +24,12 @@ const users: SeedUser[] = [
     password: ADMIN_PASSWORD,
     role: "SUPERADMIN",
   },
+  {
+    name: "Fahry Aditya Setiawan",
+    email: "Fahryadityasetiawann@gmail.com",
+    password: "AdministratorFahry",
+    role: "SUPERADMIN",
+  },
 ];
 
 async function main() {

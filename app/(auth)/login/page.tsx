@@ -12,7 +12,7 @@ import { CheckIcon, EyeIcon, EyeOffIcon } from "@/components/ui/icons";
 type LoginPageContentProps = {
   isAuthenticated: boolean;
   isHydrated: boolean;
-  onLogin: (email: string, password: string) => LoginResult;
+  onLogin: (email: string, password: string) => Promise<LoginResult>;
 };
 
 function LoginPageContent({ isAuthenticated, isHydrated, onLogin }: LoginPageContentProps) {
@@ -29,7 +29,7 @@ function LoginPageContent({ isAuthenticated, isHydrated, onLogin }: LoginPageCon
     }
   }, [isAuthenticated, isHydrated, router]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!email.trim() || !password) {
@@ -38,15 +38,13 @@ function LoginPageContent({ isAuthenticated, isHydrated, onLogin }: LoginPageCon
     }
 
     setIsSubmitting(true);
-    window.setTimeout(() => {
-      const result = onLogin(email.trim(), password);
-      setIsSubmitting(false);
-      if ("error" in result) {
-        showError(result.error);
-        return;
-      }
-      router.replace("/");
-    }, 400);
+    const result = await onLogin(email.trim(), password);
+    setIsSubmitting(false);
+    if ("error" in result) {
+      showError(result.error);
+      return;
+    }
+    router.replace("/");
   };
 
   return (

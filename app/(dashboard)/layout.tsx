@@ -57,8 +57,7 @@ function DashboardShell({ children }: { children: ReactNode }) {
             size="small"
             className="mt-2 w-full justify-start"
             onClick={() => {
-              logout();
-              router.replace("/login");
+              void logout().then(() => router.replace("/login"));
             }}
           >
             <LogOutIcon className="h-4 w-4" />
@@ -94,9 +93,10 @@ function DashboardShell({ children }: { children: ReactNode }) {
                 size="small"
                 className="mt-2 w-full justify-start"
                 onClick={() => {
-                  logout();
-                  setIsSidebarOpen(false);
-                  router.replace("/login");
+                  void logout().then(() => {
+                    setIsSidebarOpen(false);
+                    router.replace("/login");
+                  });
                 }}
               >
                 <LogOutIcon className="h-4 w-4" />
