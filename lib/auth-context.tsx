@@ -11,6 +11,7 @@ import {
 } from "react";
 import type { SessionUser } from "@/lib/auth";
 import { getSessionAction, loginAction, logoutAction } from "@/lib/auth-actions";
+import { clearCache } from "@/lib/cache-store";
 
 export type LoginResult = { user: SessionUser } | { error: string };
 
@@ -55,6 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(async () => {
     await logoutAction();
+    clearCache();
     setCurrentUser(null);
   }, []);
 

@@ -14,9 +14,14 @@ import {
   changePasswordAction,
   type ProfileData,
 } from "@/lib/profile-actions";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { LogOutIcon } from "@/components/ui/icons";
 import { formatDate } from "@/lib/format";
 
 export default function ProfilePage() {
+  const router = useRouter();
+  const { logout } = useAuth();
   const { showSuccess, showError } = useToast();
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -141,13 +146,24 @@ export default function ProfilePage() {
               {profile.role === "SUPERADMIN" ? "Super Admin" : "Admin"}
             </Badge>
           </div>
-          <div className="border-t border-border px-6 py-4">
+          <div className="border-t border-border px-6 py-4 flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <span className="text-xs text-muted">Terdaftar sejak</span>
               <span className="text-sm font-medium text-foreground">
                 {formatDate(profile.createdAt)}
               </span>
             </div>
+            <Button
+              variant="danger-outline"
+              size="small"
+              className="mt-2 w-full justify-center text-danger border-danger/30 hover:bg-danger-soft hover:text-danger"
+              onClick={() => {
+                void logout().then(() => router.replace("/login"));
+              }}
+            >
+              <LogOutIcon className="h-4 w-4" />
+              Keluar dari Akun
+            </Button>
           </div>
         </Card>
 

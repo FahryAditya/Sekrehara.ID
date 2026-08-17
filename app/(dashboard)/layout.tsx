@@ -121,14 +121,45 @@ function DashboardShell({ children }: { children: ReactNode }) {
             <MenuIcon />
           </button>
           <span className="text-base font-semibold text-foreground">SekreHara</span>
-          <span className="ml-auto">
+          <div className="ml-auto flex items-center gap-2">
             <NotificationBell />
-          </span>
+            <Button
+              variant="ghost"
+              size="small"
+              className="text-danger hover:bg-danger-soft hover:text-danger px-2"
+              onClick={() => {
+                void logout().then(() => router.replace("/login"));
+              }}
+              title="Keluar / Logout"
+            >
+              <LogOutIcon className="h-4 w-4" />
+            </Button>
+          </div>
         </header>
 
         {/* Header desktop */}
-        <header className="sticky top-0 z-30 hidden h-16 items-center justify-end border-b border-border bg-surface/90 px-8 backdrop-blur lg:flex">
-          <NotificationBell />
+        <header className="sticky top-0 z-30 hidden h-16 items-center justify-between border-b border-border bg-surface/90 px-8 backdrop-blur lg:flex">
+          <div className="flex items-center gap-2 text-sm text-muted">
+            <span>Masuk sebagai:</span>
+            <span className="font-semibold text-foreground">{currentUser.name}</span>
+            <span className="rounded-full bg-primary-soft px-2 py-0.5 text-xs font-medium text-primary">
+              {currentUser.role === "SUPERADMIN" ? "Super Admin" : "Admin"}
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <NotificationBell />
+            <Button
+              variant="danger-outline"
+              size="small"
+              className="text-danger border-danger/30 hover:bg-danger-soft hover:text-danger"
+              onClick={() => {
+                void logout().then(() => router.replace("/login"));
+              }}
+            >
+              <LogOutIcon className="h-4 w-4" />
+              Keluar / Logout
+            </Button>
+          </div>
         </header>
 
         <main className={combineClassNames("mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8")}>
