@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
@@ -28,8 +28,17 @@ import { formatDateTime } from "@/lib/format";
 import { combineClassNames } from "@/lib/utils";
 
 export default function ArchivePage() {
+  return (
+    <Suspense fallback={null}>
+      <ArchiveContent />
+    </Suspense>
+  );
+}
+
+function ArchiveContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { showSuccess, showError } = useToast();
   const folderId = searchParams.get("folder");
 
   const cacheKey = `archive-view-${folderId ?? "root"}`;

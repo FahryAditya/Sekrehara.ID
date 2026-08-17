@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { DataStoreProvider } from "@/lib/data-store";
@@ -144,7 +144,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <ToastProvider>
       <AuthProvider>
         <DataStoreProvider>
-          <PageProgressBar />
+          <Suspense fallback={null}>
+            <PageProgressBar />
+          </Suspense>
           <DashboardShell>{children}</DashboardShell>
         </DataStoreProvider>
       </AuthProvider>
