@@ -23,6 +23,7 @@ import {
   type LetterListResult,
 } from "@/lib/letters-actions";
 import { DocumentIcon, PlusIcon, TrashIcon } from "@/components/ui/icons";
+import { getCache, setCache } from "@/lib/cache-store";
 import { formatDate } from "@/lib/format";
 import type { LetterType } from "@/lib/generated/prisma/enums";
 
@@ -49,8 +50,10 @@ const statusVariant: Record<string, "neutral" | "primary" | "success" | "danger"
 
 export default function LettersPage() {
   const { showSuccess, showError } = useToast();
-  const [result, setResult] = useState<LetterListResult | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const cachedLettersResult = getCache<LetterListResult>("letters-result");
+
+  const [result, setResult] = useState<LetterListResult | null>(cachedLettersResult);
+  const [isLoading, setIsLoading] = useState(!cachedLettersResult);
 
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("ALL");
@@ -81,7 +84,12 @@ export default function LettersPage() {
       status: statusFilter,
       search: search.trim() || undefined,
     })
-      .then((lettersResult) => setResult(lettersResult))
+      .then((lettersResult) => {
+        if (nextPage === 1 && typeFilter === "ALL" && statusFilter === "ALL" && !search.trim()) {
+          setCache("letters-result", lettersResult);
+        }
+        setResult(lettersResult);
+      })
       .catch((error) => {
         showError(error instanceof Error ? error.message : "Gagal memuat surat.");
       })

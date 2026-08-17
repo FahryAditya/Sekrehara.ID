@@ -25,6 +25,7 @@ import { listAllMembersAction, type MemberListItem } from "@/lib/members-actions
 import { TaskIcon, PlusIcon, TrashIcon, SearchIcon } from "@/components/ui/icons";
 import { formatDate } from "@/lib/format";
 import type { Priority } from "@/lib/generated/prisma/enums";
+import { getCache, setCache } from "@/lib/cache-store";
 
 const statusLabel: Record<string, string> = {
   TODO: "To Do",
@@ -58,9 +59,12 @@ const priorityVariant: Record<string, "neutral" | "primary" | "success" | "dange
 
 export default function TasksPage() {
   const { showSuccess, showError } = useToast();
-  const [result, setResult] = useState<TaskListResult | null>(null);
-  const [members, setMembers] = useState<MemberListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const cachedTasksResult = getCache<TaskListResult>("tasks-result");
+  const cachedMembers = getCache<MemberListItem[]>("members");
+
+  const [result, setResult] = useState<TaskListResult | null>(cachedTasksResult);
+  const [members, setMembers] = useState<MemberListItem[]>(cachedMembers ?? []);
+  const [isLoading, setIsLoading] = useState(!cachedTasksResult);
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
@@ -86,7 +90,12 @@ export default function TasksPage() {
       priority: priorityFilter,
       search: search.trim() || undefined,
     })
-      .then((taskResult) => setResult(taskResult))
+      .then((taskResult) => {
+        if (nextPage === 1 && statusFilter === "ALL" && priorityFilter === "ALL" && !search.trim()) {
+          setCache("tasks-result", taskResult);
+        }
+        setResult(taskResult);
+      })
       .catch((error) => {
         showError(error instanceof Error ? error.message : "Gagal memuat tugas.");
       })
@@ -96,7 +105,10 @@ export default function TasksPage() {
   useEffect(() => {
     load(1);
     listAllMembersAction()
-      .then(setMembers)
+      .then((membersResult) => {
+        setCache("members", membersResult);
+        setMembers(membersResult);
+      })
       .catch(() => undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter, priorityFilter]);

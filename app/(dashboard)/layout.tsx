@@ -11,6 +11,7 @@ import { MenuIcon, LogOutIcon } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { combineClassNames } from "@/lib/utils";
+import { PageProgressBar } from "@/components/ui/page-progress-bar";
 
 function DashboardShell({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -143,6 +144,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <ToastProvider>
       <AuthProvider>
         <DataStoreProvider>
+          <PageProgressBar />
           <DashboardShell>{children}</DashboardShell>
         </DataStoreProvider>
       </AuthProvider>

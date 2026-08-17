@@ -23,6 +23,7 @@ import {
 import { listAllMembersAction, type MemberListItem } from "@/lib/members-actions";
 import { PlusIcon, CalendarIcon, TrashIcon } from "@/components/ui/icons";
 import { formatDateTime } from "@/lib/format";
+import { getCache, setCache } from "@/lib/cache-store";
 
 const statusLabel: Record<string, string> = {
   DRAFT: "Draft",
@@ -40,9 +41,12 @@ const statusVariant: Record<string, "neutral" | "primary" | "success" | "warning
 
 export default function MeetingsPage() {
   const { showSuccess, showError } = useToast();
-  const [items, setItems] = useState<MeetingItem[]>([]);
-  const [members, setMembers] = useState<MemberListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const cachedMeetings = getCache<MeetingItem[]>("meetings");
+  const cachedMembers = getCache<MemberListItem[]>("members");
+
+  const [items, setItems] = useState<MeetingItem[]>(cachedMeetings ?? []);
+  const [members, setMembers] = useState<MemberListItem[]>(cachedMembers ?? []);
+  const [isLoading, setIsLoading] = useState(!cachedMeetings);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,6 +64,8 @@ export default function MeetingsPage() {
   const load = () => {
     Promise.all([listMeetingsAction(), listAllMembersAction()])
       .then(([meetingsResult, membersResult]) => {
+        setCache("meetings", meetingsResult);
+        setCache("members", membersResult);
         setItems(meetingsResult);
         setMembers(membersResult);
       })

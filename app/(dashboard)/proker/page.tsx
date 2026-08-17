@@ -24,6 +24,7 @@ import { listAllMembersAction, type MemberListItem } from "@/lib/members-actions
 import { listSekbidAction, type SekbidItem } from "@/lib/sekbid-actions";
 import { ChartIcon, PlusIcon, TrashIcon } from "@/components/ui/icons";
 import type { WorkProgramStatus } from "@/lib/generated/prisma/enums";
+import { getCache, setCache } from "@/lib/cache-store";
 
 const statusLabel: Record<string, string> = {
   PLANNING: "Perencanaan",
@@ -41,10 +42,14 @@ const statusVariant: Record<string, "neutral" | "primary" | "success" | "danger"
 
 export default function WorkProgramsPage() {
   const { showSuccess, showError } = useToast();
-  const [items, setItems] = useState<WorkProgramItem[]>([]);
-  const [members, setMembers] = useState<MemberListItem[]>([]);
-  const [sekbids, setSekbids] = useState<SekbidItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const cachedPrograms = getCache<WorkProgramItem[]>("work-programs");
+  const cachedMembers = getCache<MemberListItem[]>("members");
+  const cachedSekbids = getCache<SekbidItem[]>("sekbids");
+
+  const [items, setItems] = useState<WorkProgramItem[]>(cachedPrograms ?? []);
+  const [members, setMembers] = useState<MemberListItem[]>(cachedMembers ?? []);
+  const [sekbids, setSekbids] = useState<SekbidItem[]>(cachedSekbids ?? []);
+  const [isLoading, setIsLoading] = useState(!cachedPrograms);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,6 +68,9 @@ export default function WorkProgramsPage() {
   const load = () => {
     Promise.all([listWorkProgramsAction(), listAllMembersAction(), listSekbidAction()])
       .then(([programsResult, membersResult, sekbidsResult]) => {
+        setCache("work-programs", programsResult);
+        setCache("members", membersResult);
+        setCache("sekbids", sekbidsResult);
         setItems(programsResult);
         setMembers(membersResult);
         setSekbids(sekbidsResult);

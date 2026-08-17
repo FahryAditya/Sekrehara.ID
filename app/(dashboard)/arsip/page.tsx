@@ -23,6 +23,7 @@ import {
   type FileItem,
 } from "@/lib/archive-actions";
 import { FolderIcon, PaperclipIcon, PlusIcon, TrashIcon, PencilIcon } from "@/components/ui/icons";
+import { getCache, setCache } from "@/lib/cache-store";
 import { formatDateTime } from "@/lib/format";
 import { combineClassNames } from "@/lib/utils";
 
@@ -31,11 +32,13 @@ export default function ArchivePage() {
   const searchParams = useSearchParams();
   const folderId = searchParams.get("folder");
 
-  const { showSuccess, showError } = useToast();
-  const [folders, setFolders] = useState<FolderItem[]>([]);
-  const [files, setFiles] = useState<FileItem[]>([]);
-  const [path, setPath] = useState<{ id: string; name: string }[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const cacheKey = `archive-view-${folderId ?? "root"}`;
+  const cachedView = getCache<{ folders: FolderItem[]; files: FileItem[]; path: { id: string; name: string }[] }>(cacheKey);
+
+  const [folders, setFolders] = useState<FolderItem[]>(cachedView?.folders ?? []);
+  const [files, setFiles] = useState<FileItem[]>(cachedView?.files ?? []);
+  const [path, setPath] = useState<{ id: string; name: string }[]>(cachedView?.path ?? []);
+  const [isLoading, setIsLoading] = useState(!cachedView);
 
   const [isFolderModalOpen, setIsFolderModalOpen] = useState(false);
   const [isFileModalOpen, setIsFileModalOpen] = useState(false);
@@ -57,6 +60,7 @@ export default function ArchivePage() {
   const load = useCallback(() => {
     getArchiveViewAction(folderId)
       .then((result) => {
+        setCache(cacheKey, result);
         setFolders(result.folders);
         setFiles(result.files);
         setPath(result.path);
@@ -65,7 +69,7 @@ export default function ArchivePage() {
         showError(error instanceof Error ? error.message : "Gagal memuat arsip.");
       })
       .finally(() => setIsLoading(false));
-  }, [folderId, showError]);
+  }, [folderId, cacheKey, showError]);
 
   useEffect(() => {
     load();
