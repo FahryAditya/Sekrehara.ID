@@ -1,25 +1,50 @@
 "use client";
 
-import { useState } from "react";
-import { useDataStore } from "@/lib/data-store";
+import { useCallback, useEffect, useState } from "react";
 import { useToast } from "@/components/ui/toast";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Spinner } from "@/components/ui/spinner";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { AnnouncementForm } from "@/components/feature/announcement-form";
 import { MegaphoneIcon, InboxIcon } from "@/components/ui/icons";
 import { formatDateTime } from "@/lib/format";
+import {
+  listAnnouncementsAction,
+  createAnnouncementAction,
+  type AnnouncementItem,
+} from "@/lib/announcements-actions";
+import { listAllMembersAction, type MemberListItem } from "@/lib/members-actions";
 
 export default function PengumumanPage() {
-  const { participants, announcements, addAnnouncement } = useDataStore();
   const { showSuccess, showError } = useToast();
 
+  const [announcements, setAnnouncements] = useState<AnnouncementItem[]>([]);
+  const [participants, setParticipants] = useState<MemberListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [pendingSubject, setPendingSubject] = useState("");
   const [pendingBody, setPendingBody] = useState("");
 
   const recipientCount = participants.filter((participant) => participant.email).length;
+
+  const load = useCallback(() => {
+    Promise.all([listAnnouncementsAction(), listAllMembersAction()])
+      .then(([announcementsResult, membersResult]) => {
+        setAnnouncements(announcementsResult);
+        setParticipants(membersResult);
+      })
+      .catch((loadError) => {
+        showError(loadError instanceof Error ? loadError.message : "Gagal memuat pengumuman.");
+      })
+      .finally(() => setIsLoading(false));
+  }, [showError]);
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sortedAnnouncements = [...announcements].sort((a, b) =>
     b.sentAt.localeCompare(a.sentAt)
@@ -36,13 +61,13 @@ export default function PengumumanPage() {
   };
 
   const handleConfirmSend = async () => {
-    const result = await addAnnouncement({
+    const result = await createAnnouncementAction({
       subject: pendingSubject,
       body: pendingBody,
       recipientCount,
     });
-    if (!result.ok) {
-      showError(result.error ?? "Gagal mengirim pengumuman.");
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess(
@@ -51,7 +76,16 @@ export default function PengumumanPage() {
     setIsConfirmOpen(false);
     setPendingSubject("");
     setPendingBody("");
+    load();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-primary">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div>

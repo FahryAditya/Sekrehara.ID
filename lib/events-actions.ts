@@ -119,6 +119,43 @@ export async function listAllAttendanceAction(): Promise<
   return map;
 }
 
+export type EventDetailResult =
+  | { ok: true; event: EventItem; attendance: Record<string, AttendanceStatus> }
+  | { error: string };
+
+export async function getEventWithAttendanceAction(
+  eventId: string
+): Promise<EventDetailResult> {
+  await requireUser();
+
+  const event = await prisma.activityEvent.findUnique({
+    where: { id: eventId },
+    include: {
+      attendance: { select: { memberId: true, status: true } },
+      _count: { select: { attendance: true } },
+    },
+  });
+  if (!event) return { error: "Kegiatan tidak ditemukan." };
+
+  const attendance: Record<string, AttendanceStatus> = {};
+  for (const record of event.attendance) {
+    attendance[record.memberId] = record.status as AttendanceStatus;
+  }
+
+  return {
+    ok: true,
+    event: {
+      id: event.id,
+      name: event.name,
+      date: event.date.toISOString(),
+      description: event.description,
+      createdAt: event.createdAt.toISOString(),
+      recordedCount: event._count.attendance,
+    },
+    attendance,
+  };
+}
+
 export async function setAttendanceStatusAction(
   eventId: string,
   memberId: string,

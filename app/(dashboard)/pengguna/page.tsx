@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useDataStore } from "@/lib/data-store";
+import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/components/ui/toast";
 import { PageHeader } from "@/components/layout/page-header";
@@ -12,12 +12,28 @@ import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Table } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
-import { AdminForm } from "@/components/feature/admin-form";
+import { Spinner } from "@/components/ui/spinner";
 import { RequireSuperAdmin } from "@/components/layout/require-super-admin";
-import { PlusIcon, ShieldIcon, TrashIcon } from "@/components/ui/icons";
+import { PlusIcon, ShieldIcon, PencilIcon, TrashIcon } from "@/components/ui/icons";
 import { formatDate } from "@/lib/format";
 import type { Role } from "@/lib/types";
-import type { AdminUserItem } from "@/lib/users-actions";
+import {
+  listUsersAction,
+  createUserAction,
+  updateUserAction,
+  deleteUserAction,
+  type AdminUserItem,
+} from "@/lib/users-actions";
+
+const AdminForm = dynamic(
+  () => import("@/components/feature/admin-form").then((m) => m.AdminForm),
+  { ssr: false, loading: () => null }
+);
+
+type ModalState =
+  | { mode: "add"; user: null }
+  | { mode: "edit"; user: AdminUserItem }
+  | null;
 
 export default function PenggunaPage() {
   return (
@@ -28,47 +44,85 @@ export default function PenggunaPage() {
 }
 
 function PenggunaPageContent() {
-  const { users, addUser, deleteUser } = useDataStore();
   const { currentUser } = useAuth();
   const { showSuccess, showError } = useToast();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [users, setUsers] = useState<AdminUserItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [modalState, setModalState] = useState<ModalState>(null);
   const [userToDelete, setUserToDelete] = useState<AdminUserItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleAddUser = async (values: { name: string; email: string; password: string; role: Role }) => {
-    const emailExists = users.some(
-      (user) => user.email.toLowerCase() === values.email.toLowerCase()
-    );
-    if (emailExists) {
-      showError("Email tersebut sudah terdaftar sebagai pengguna.");
-      return;
-    }
+  const load = useCallback(() => {
+    listUsersAction()
+      .then(setUsers)
+      .catch((loadError) => {
+        showError(loadError instanceof Error ? loadError.message : "Gagal memuat pengguna.");
+      })
+      .finally(() => setIsLoading(false));
+  }, [showError]);
 
-    const result = await addUser(values);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal menambah pengguna.");
-      return;
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmitForm = async (values: {
+    name: string;
+    email: string;
+    password: string;
+    role: Role;
+  }) => {
+    if (modalState?.mode === "edit" && modalState.user) {
+      const result = await updateUserAction({
+        id: modalState.user.id,
+        name: values.name,
+        email: values.email,
+        role: values.role,
+        password: values.password || undefined,
+      });
+
+      if ("error" in result) {
+        showError(result.error);
+        return;
+      }
+      showSuccess(`Data pengguna "${values.name}" berhasil diperbarui.`);
+    } else {
+      const result = await createUserAction(values);
+      if ("error" in result) {
+        showError(result.error);
+        return;
+      }
+      showSuccess("Pengguna baru berhasil ditambahkan.");
     }
-    showSuccess("Pengguna baru berhasil ditambahkan.");
-    setIsModalOpen(false);
+    setModalState(null);
+    load();
   };
 
   const handleConfirmDelete = async () => {
     if (!userToDelete) return;
 
     setIsDeleting(true);
-    const result = await deleteUser(userToDelete.id);
+    const result = await deleteUserAction(userToDelete.id);
     setIsDeleting(false);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal menghapus pengguna.");
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess(`Pengguna "${userToDelete.name}" berhasil dihapus.`);
     setUserToDelete(null);
+    load();
   };
 
   const canDeleteUser = (user: AdminUserItem) => user.id !== currentUser?.id;
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-primary">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -76,7 +130,7 @@ function PenggunaPageContent() {
         title="Kelola Pengguna"
         description="Atur akun administrator dan super admin yang dapat mengakses dashboard."
         action={
-          <Button onClick={() => setIsModalOpen(true)}>
+          <Button onClick={() => setModalState({ mode: "add", user: null })}>
             <PlusIcon className="h-4 w-4" />
             Tambah Pengguna
           </Button>
@@ -122,16 +176,28 @@ function PenggunaPageContent() {
               {
                 header: "Aksi",
                 accessor: (user: AdminUserItem) => (
-                  <Button
-                    variant="ghost"
-                    size="small"
-                    aria-label={`Hapus pengguna ${user.name}`}
-                    className="text-danger hover:bg-danger-soft hover:text-danger disabled:pointer-events-none disabled:opacity-40"
-                    disabled={!canDeleteUser(user)}
-                    onClick={() => setUserToDelete(user)}
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
+                  <div className="flex items-center gap-1">
+                    <Button
+                      variant="ghost"
+                      size="small"
+                      aria-label={`Edit ${user.name}`}
+                      title="Edit Nama, Email & Password"
+                      onClick={() => setModalState({ mode: "edit", user })}
+                    >
+                      <PencilIcon className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="small"
+                      aria-label={`Hapus pengguna ${user.name}`}
+                      title="Hapus Pengguna"
+                      className="text-danger hover:bg-danger-soft hover:text-danger disabled:pointer-events-none disabled:opacity-40"
+                      disabled={!canDeleteUser(user)}
+                      onClick={() => setUserToDelete(user)}
+                    >
+                      <TrashIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
                 ),
               },
             ]}
@@ -143,21 +209,38 @@ function PenggunaPageContent() {
             icon={<ShieldIcon className="h-6 w-6" />}
             title="Belum ada pengguna"
             description="Tambahkan pengguna admin pertama untuk mengelola dashboard."
+            action={
+              <Button onClick={() => setModalState({ mode: "add", user: null })}>
+                <PlusIcon className="h-4 w-4" />
+                Tambah Pengguna
+              </Button>
+            }
           />
         )}
       </Card>
 
       <Modal
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Tambah Pengguna"
-        description="Buat akun administrator baru untuk mengakses dashboard."
+        open={modalState !== null}
+        onClose={() => setModalState(null)}
+        title={modalState?.mode === "edit" ? "Edit Pengguna & Password" : "Tambah Pengguna"}
+        description={
+          modalState?.mode === "edit"
+            ? `Edit informasi, email, peran, atau ubah password untuk ${modalState.user.name}.`
+            : "Buat akun administrator baru untuk mengakses dashboard."
+        }
       >
-        <AdminForm
-          submitLabel="Tambah Pengguna"
-          onSubmit={handleAddUser}
-          onCancel={() => setIsModalOpen(false)}
-        />
+        {modalState ? (
+          <AdminForm
+            key={modalState.mode === "edit" ? modalState.user.id : "add"}
+            initialName={modalState.mode === "edit" ? modalState.user.name : ""}
+            initialEmail={modalState.mode === "edit" ? modalState.user.email : ""}
+            initialRole={modalState.mode === "edit" ? modalState.user.role : "ADMIN"}
+            isEdit={modalState.mode === "edit"}
+            submitLabel={modalState.mode === "edit" ? "Simpan Perubahan" : "Tambah Pengguna"}
+            onSubmit={handleSubmitForm}
+            onCancel={() => setModalState(null)}
+          />
+        ) : null}
       </Modal>
 
       <ConfirmDialog

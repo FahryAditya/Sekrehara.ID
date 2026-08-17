@@ -82,3 +82,49 @@ export async function deleteUserAction(id: string): Promise<{ ok: true } | { err
   await createActivityLog(session.id, "DELETE", "USER", id, `Menghapus pengguna ${target.email}`);
   return { ok: true };
 }
+
+export type UpdateAdminUserInput = {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+  password?: string;
+};
+
+export async function updateUserAction(input: UpdateAdminUserInput): Promise<AdminUserActionResult> {
+  const session = await requireSuperAdmin();
+
+  const name = input.name.trim();
+  const email = input.email.trim().toLowerCase();
+  if (!name) return { error: "Nama lengkap wajib diisi." };
+  if (!email) return { error: "Alamat email wajib diisi." };
+
+  const existing = await prisma.user.findUnique({ where: { id: input.id } });
+  if (!existing) return { error: "Pengguna tidak ditemukan." };
+
+  const emailConflict = await prisma.user.findFirst({
+    where: { email, id: { not: input.id } },
+  });
+  if (emailConflict) return { error: "Email tersebut sudah digunakan oleh pengguna lain." };
+
+  const updateData: { name: string; email: string; role: Role; password?: string } = {
+    name,
+    email,
+    role: input.role,
+  };
+
+  if (input.password && input.password.trim().length > 0) {
+    if (input.password.trim().length < 6) {
+      return { error: "Password minimal 6 karakter." };
+    }
+    updateData.password = await bcrypt.hash(input.password.trim(), 10);
+  }
+
+  await prisma.user.update({
+    where: { id: input.id },
+    data: updateData,
+  });
+
+  await createActivityLog(session.id, "UPDATE", "USER", input.id, `Memperbarui pengguna ${email}`);
+  return { ok: true, id: input.id };
+}

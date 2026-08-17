@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { useDataStore } from "@/lib/data-store";
+import dynamic from "next/dynamic";
 import { useToast } from "@/components/ui/toast";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
@@ -11,44 +11,88 @@ import { Modal } from "@/components/ui/modal";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
-import { EventForm } from "@/components/feature/event-form";
+import { Spinner } from "@/components/ui/spinner";
 import { PlusIcon, ClipboardCheckIcon, CalendarIcon, TrashIcon } from "@/components/ui/icons";
 import { formatDate, formatPercent } from "@/lib/format";
-import type { EventItem } from "@/lib/events-actions";
+import {
+  listEventsAction,
+  createEventAction,
+  deleteEventAction,
+  listAllAttendanceAction,
+  type EventItem,
+} from "@/lib/events-actions";
+import { listAllMembersAction, type MemberListItem } from "@/lib/members-actions";
+import type { AttendanceMap } from "@/lib/types";
+
+const EventForm = dynamic(
+  () => import("@/components/feature/event-form").then((m) => m.EventForm),
+  { ssr: false, loading: () => null }
+);
 
 export default function PresensiPage() {
-  const { events, attendance, participants, addEvent, deleteEvent } = useDataStore();
   const { showSuccess, showError } = useToast();
 
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [attendance, setAttendance] = useState<AttendanceMap>({});
+  const [participants, setParticipants] = useState<MemberListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventToDelete, setEventToDelete] = useState<EventItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const load = useCallback(() => {
+    Promise.all([listEventsAction(), listAllAttendanceAction(), listAllMembersAction()])
+      .then(([eventsResult, attendanceResult, membersResult]) => {
+        setEvents(eventsResult);
+        setAttendance(attendanceResult);
+        setParticipants(membersResult);
+      })
+      .catch((loadError) => {
+        showError(loadError instanceof Error ? loadError.message : "Gagal memuat presensi.");
+      })
+      .finally(() => setIsLoading(false));
+  }, [showError]);
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const sortedEvents = [...events].sort((a, b) => b.date.localeCompare(a.date));
 
   const handleCreateEvent = async (values: { name: string; date: string; description: string }) => {
-    const result = await addEvent(values);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal membuat kegiatan.");
+    const result = await createEventAction(values);
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess("Kegiatan baru berhasil dibuat.");
     setIsModalOpen(false);
+    load();
   };
 
   const handleConfirmDelete = async () => {
     if (!eventToDelete) return;
 
     setIsDeleting(true);
-    const result = await deleteEvent(eventToDelete.id);
+    const result = await deleteEventAction(eventToDelete.id);
     setIsDeleting(false);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal menghapus kegiatan.");
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess("Kegiatan berhasil dihapus.");
     setEventToDelete(null);
+    load();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-primary">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div>

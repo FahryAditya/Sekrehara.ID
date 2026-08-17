@@ -5,9 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { useToast } from "@/components/ui/toast";
+import { EyeIcon, EyeOffIcon } from "@/components/ui/icons";
 import type { Role } from "@/lib/types";
 
 type AdminFormProps = {
+  initialName?: string;
+  initialEmail?: string;
+  initialRole?: Role;
+  isEdit?: boolean;
   submitLabel: string;
   onSubmit: (values: { name: string; email: string; password: string; role: Role }) => void;
   onCancel: () => void;
@@ -19,12 +24,21 @@ type FieldErrors = {
   password?: string;
 };
 
-export function AdminForm({ submitLabel, onSubmit, onCancel }: AdminFormProps) {
+export function AdminForm({
+  initialName = "",
+  initialEmail = "",
+  initialRole = "ADMIN",
+  isEdit = false,
+  submitLabel,
+  onSubmit,
+  onCancel,
+}: AdminFormProps) {
   const { showError } = useToast();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(initialName);
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<Role>("ADMIN");
+  const [role, setRole] = useState<Role>(initialRole);
+  const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   const validateForm = (): boolean => {
@@ -41,10 +55,14 @@ export function AdminForm({ submitLabel, onSubmit, onCancel }: AdminFormProps) {
       nextErrors.email = "Format email tidak valid.";
     }
 
-    if (!password) {
-      nextErrors.password = "Password wajib diisi.";
-    } else if (password.length < 6) {
-      nextErrors.password = "Password minimal 6 karakter.";
+    if (!isEdit) {
+      if (!password) {
+        nextErrors.password = "Password wajib diisi.";
+      } else if (password.length < 6) {
+        nextErrors.password = "Password minimal 6 karakter.";
+      }
+    } else if (password && password.length < 6) {
+      nextErrors.password = "Password baru minimal 6 karakter.";
     }
 
     setFieldErrors(nextErrors);
@@ -77,6 +95,7 @@ export function AdminForm({ submitLabel, onSubmit, onCancel }: AdminFormProps) {
         error={fieldErrors.name}
         placeholder="mis. Rina Wijaya"
       />
+
       <Input
         id="admin-email"
         label="Alamat Email"
@@ -86,19 +105,35 @@ export function AdminForm({ submitLabel, onSubmit, onCancel }: AdminFormProps) {
         error={fieldErrors.email}
         placeholder="nama@sekrehara.id"
       />
-      <Input
-        id="admin-password"
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        error={fieldErrors.password}
-        placeholder="Minimal 6 karakter"
-        autoComplete="new-password"
-      />
+
+      <div className="flex flex-col gap-1.5">
+        <div className="flex items-center justify-between">
+          <label htmlFor="admin-password" className="text-sm font-medium text-foreground">
+            {isEdit ? "Password Baru (Kosongkan jika tidak diubah)" : "Password"}
+          </label>
+          <button
+            type="button"
+            onClick={() => setShowPassword((current) => !current)}
+            className="flex items-center gap-1.5 text-xs font-medium text-primary transition-colors hover:text-primary-hover"
+          >
+            {showPassword ? <EyeOffIcon className="h-3.5 w-3.5" /> : <EyeIcon className="h-3.5 w-3.5" />}
+            {showPassword ? "Sembunyikan" : "Lihat Password"}
+          </button>
+        </div>
+        <Input
+          id="admin-password"
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          error={fieldErrors.password}
+          placeholder={isEdit ? "Masukkan password baru..." : "Minimal 6 karakter"}
+          autoComplete="new-password"
+        />
+      </div>
+
       <Select
         id="admin-role"
-        label="Peran"
+        label="Peran / Hak Akses"
         value={role}
         onChange={(event) => setRole(event.target.value as Role)}
       >

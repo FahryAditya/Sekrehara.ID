@@ -1,17 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useDataStore } from "@/lib/data-store";
 import { useToast } from "@/components/ui/toast";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Spinner } from "@/components/ui/spinner";
 import { ChevronLeftIcon, ClipboardCheckIcon, UsersIcon } from "@/components/ui/icons";
 import { formatDate, formatPercent } from "@/lib/format";
 import { combineClassNames } from "@/lib/utils";
+import {
+  getEventWithAttendanceAction,
+  setAttendanceStatusAction,
+  type EventItem,
+} from "@/lib/events-actions";
+import { listAllMembersAction, type MemberListItem } from "@/lib/members-actions";
 import type { AttendanceStatus } from "@/lib/types";
 
 type AttendanceSheetProps = {
@@ -45,12 +51,37 @@ const statusOptions: Array<{
 ];
 
 export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
-  const { events, participants, attendance, setAttendanceStatus } = useDataStore();
   const { showSuccess, showError } = useToast();
+  const [event, setEvent] = useState<EventItem | null>(null);
+  const [attendance, setAttendance] = useState<Record<string, AttendanceStatus>>({});
+  const [participants, setParticipants] = useState<MemberListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<AttendanceStatus | "SEMUA">("SEMUA");
 
-  const event = events.find((item) => item.id === eventId);
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([getEventWithAttendanceAction(eventId), listAllMembersAction()])
+      .then(([eventResult, members]) => {
+        if (cancelled) return;
+        if ("error" in eventResult) {
+          setEvent(null);
+        } else {
+          setEvent(eventResult.event);
+          setAttendance(eventResult.attendance);
+        }
+        setParticipants(members);
+      })
+      .catch(() => {
+        if (!cancelled) setEvent(null);
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [eventId]);
 
   const filteredParticipants = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -59,11 +90,19 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
         !normalizedQuery ||
         participant.name.toLowerCase().includes(normalizedQuery) ||
         (participant.email ?? "").toLowerCase().includes(normalizedQuery);
-      const status = attendance[eventId]?.[participant.id];
+      const status = attendance[participant.id];
       const matchesFilter = statusFilter === "SEMUA" || status === statusFilter;
       return matchesQuery && matchesFilter;
     });
-  }, [participants, attendance, eventId, searchQuery, statusFilter]);
+  }, [participants, attendance, searchQuery, statusFilter]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-primary">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   if (!event) {
     return (
@@ -88,7 +127,7 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
     );
   }
 
-  const records = attendance[eventId] ?? {};
+  const records = attendance;
   const recordedCount = Object.keys(records).length;
   const hadirCount = Object.values(records).filter((status) => status === "HADIR").length;
   const izinCount = Object.values(records).filter((status) => status === "IZIN").length;
@@ -101,11 +140,12 @@ export function AttendanceSheet({ eventId }: AttendanceSheetProps) {
   ];
 
   const handleSetStatus = async (participantId: string, status: AttendanceStatus) => {
-    const result = await setAttendanceStatus(eventId, participantId, status);
-    if (!result.ok) {
-      showError("Gagal memperbarui kehadiran: " + (result.error ?? ""));
+    const result = await setAttendanceStatusAction(eventId, participantId, status);
+    if ("error" in result) {
+      showError("Gagal memperbarui kehadiran: " + result.error);
       return;
     }
+    setAttendance((current) => ({ ...current, [participantId]: status }));
     const participant = participants.find((item) => item.id === participantId);
     const statusLabel = statusOptions.find((option) => option.value === status)?.label;
     if (participant) {

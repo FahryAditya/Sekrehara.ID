@@ -8,6 +8,7 @@ import { ToastProvider, useToast } from "@/components/ui/toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CheckIcon, EyeIcon, EyeOffIcon } from "@/components/ui/icons";
+import { combineClassNames } from "@/lib/utils";
 
 type LoginPageContentProps = {
   isAuthenticated: boolean;
@@ -17,11 +18,12 @@ type LoginPageContentProps = {
 
 function LoginPageContent({ isAuthenticated, isHydrated, onLogin }: LoginPageContentProps) {
   const router = useRouter();
-  const { showError } = useToast();
+  const { showSuccess, showError } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
     if (isHydrated && isAuthenticated) {
@@ -33,6 +35,8 @@ function LoginPageContent({ isAuthenticated, isHydrated, onLogin }: LoginPageCon
     event.preventDefault();
 
     if (!email.trim() || !password) {
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 400);
       showError("Email dan password wajib diisi.");
       return;
     }
@@ -41,15 +45,26 @@ function LoginPageContent({ isAuthenticated, isHydrated, onLogin }: LoginPageCon
     const result = await onLogin(email.trim(), password);
     setIsSubmitting(false);
     if ("error" in result) {
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 400);
       showError(result.error);
       return;
     }
-    router.replace("/");
+
+    showSuccess("Berhasil Masuk! Mengalihkan ke Dashboard...");
+    setTimeout(() => {
+      router.replace("/");
+    }, 250);
   };
 
   return (
     <main className="flex min-h-full flex-1 items-center justify-center bg-background px-4 py-10">
-      <div className="w-full max-w-6xl overflow-hidden rounded-card border border-border bg-surface shadow-card">
+      <div
+        className={combineClassNames(
+          "w-full max-w-6xl overflow-hidden rounded-card border border-border bg-surface shadow-card transition-all duration-300",
+          isShaking ? "animate-[shake_0.4s_ease-in-out] border-danger/50" : ""
+        )}
+      >
         <div className="grid lg:grid-cols-2">
           {/* Panel branding */}
           <div className="hidden flex-col justify-between gap-10 bg-primary-soft p-10 lg:flex">

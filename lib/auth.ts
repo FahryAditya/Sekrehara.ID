@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
+import { cache } from "react";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import type { Role } from "@/lib/types";
@@ -42,7 +43,7 @@ function readUserId(token: string | undefined): string | null {
   return userId ?? null;
 }
 
-export async function getSession(): Promise<SessionUser | null> {
+export const getSession = cache(async (): Promise<SessionUser | null> => {
   const cookieStore = await cookies();
   const userId = readUserId(cookieStore.get(SESSION_COOKIE)?.value);
   if (!userId) return null;
@@ -57,7 +58,7 @@ export async function getSession(): Promise<SessionUser | null> {
     role: user.role as Role,
     createdAt: user.createdAt.toISOString(),
   };
-}
+});
 
 export async function createSession(userId: string, rememberMe = false): Promise<void> {
   const cookieStore = await cookies();

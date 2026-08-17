@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
-import { DataStoreProvider } from "@/lib/data-store";
 import { ToastProvider } from "@/components/ui/toast";
 import { Sidebar } from "@/components/layout/sidebar";
 import { NotificationBell } from "@/components/feature/notification-bell";
@@ -174,12 +173,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <ToastProvider>
       <AuthProvider>
-        <DataStoreProvider>
-          <Suspense fallback={null}>
-            <PageProgressBar />
-          </Suspense>
-          <DashboardShell>{children}</DashboardShell>
-        </DataStoreProvider>
+        <Suspense fallback={null}>
+          <PageProgressBar />
+        </Suspense>
+        <DashboardShell>{children}</DashboardShell>
       </AuthProvider>
     </ToastProvider>
   );

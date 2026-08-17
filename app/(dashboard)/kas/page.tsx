@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useDataStore } from "@/lib/data-store";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useToast } from "@/components/ui/toast";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
@@ -13,23 +13,49 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Table } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
-import { TransactionForm } from "@/components/feature/transaction-form";
+import { Spinner } from "@/components/ui/spinner";
 import { PlusIcon, WalletIcon, TrendingUpIcon, TrendingDownIcon, TrashIcon } from "@/components/ui/icons";
 import { formatRupiah, formatDate } from "@/lib/format";
 import { combineClassNames } from "@/lib/utils";
-import type { Transaction, TransactionType } from "@/lib/types";
+import {
+  listTransactionsAction,
+  createTransactionAction,
+  deleteTransactionAction,
+  type TransactionItem,
+} from "@/lib/transactions-actions";
+import type { TransactionType } from "@/lib/types";
+
+const TransactionForm = dynamic(
+  () => import("@/components/feature/transaction-form").then((m) => m.TransactionForm),
+  { ssr: false, loading: () => null }
+);
 
 type TransactionFilter = "SEMUA" | TransactionType;
 
 export default function KasPage() {
-  const { transactions, addTransaction, deleteTransaction } = useDataStore();
   const { showSuccess, showError } = useToast();
 
+  const [transactions, setTransactions] = useState<TransactionItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<TransactionFilter>("SEMUA");
-  const [transactionToDelete, setTransactionToDelete] = useState<Transaction | null>(null);
+  const [transactionToDelete, setTransactionToDelete] = useState<TransactionItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const load = useCallback(() => {
+    listTransactionsAction()
+      .then(setTransactions)
+      .catch((loadError) => {
+        showError(loadError instanceof Error ? loadError.message : "Gagal memuat transaksi.");
+      })
+      .finally(() => setIsLoading(false));
+  }, [showError]);
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const totalPemasukan = useMemo(
     () =>
@@ -63,22 +89,15 @@ export default function KasPage() {
       })
       .sort((a, b) => b.date.localeCompare(a.date));
 
-    const rowsWithBalance = matchedTransactions
-      .slice()
-      .reverse()
-      .reduce<Array<{ transaction: Transaction; runningBalance: number }>>(
-        (accumulator, transaction) => {
-          const previousBalance =
-            accumulator.length === 0 ? 0 : accumulator[accumulator.length - 1].runningBalance;
-          const runningBalance =
-            transaction.type === "PEMASUKAN"
-              ? previousBalance + transaction.amount
-              : previousBalance - transaction.amount;
-          return [...accumulator, { transaction, runningBalance }];
-        },
-        []
-      )
-      .reverse();
+    const rowsWithBalance: Array<{ transaction: TransactionItem; runningBalance: number }> = [];
+    let runningBalance = 0;
+    for (let index = matchedTransactions.length - 1; index >= 0; index -= 1) {
+      const transaction = matchedTransactions[index];
+      runningBalance +=
+        transaction.type === "PEMASUKAN" ? transaction.amount : -transaction.amount;
+      rowsWithBalance.push({ transaction, runningBalance });
+    }
+    rowsWithBalance.reverse();
 
     return rowsWithBalance;
   }, [transactions, searchQuery, typeFilter]);
@@ -90,30 +109,40 @@ export default function KasPage() {
     description: string;
     date: string;
   }) => {
-    const result = await addTransaction(values);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal mencatat transaksi.");
+    const result = await createTransactionAction(values);
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess(
       values.type === "PEMASUKAN" ? "Pemasukan berhasil dicatat." : "Pengeluaran berhasil dicatat."
     );
     setIsModalOpen(false);
+    load();
   };
 
   const handleConfirmDelete = async () => {
     if (!transactionToDelete) return;
 
     setIsDeleting(true);
-    const result = await deleteTransaction(transactionToDelete.id);
+    const result = await deleteTransactionAction(transactionToDelete.id);
     setIsDeleting(false);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal menghapus transaksi.");
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess("Transaksi berhasil dihapus.");
     setTransactionToDelete(null);
+    load();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-primary">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -195,12 +224,12 @@ export default function KasPage() {
             columns={[
               {
                 header: "Tanggal",
-                accessor: ({ transaction }: { transaction: Transaction }) =>
+                accessor: ({ transaction }: { transaction: TransactionItem }) =>
                   formatDate(transaction.date),
               },
               {
                 header: "Keterangan",
-                accessor: ({ transaction }: { transaction: Transaction }) => (
+                accessor: ({ transaction }: { transaction: TransactionItem }) => (
                   <div className="flex flex-col">
                     <span className="font-medium text-foreground">{transaction.description}</span>
                     <span className="text-xs text-muted">{transaction.category}</span>
@@ -209,7 +238,7 @@ export default function KasPage() {
               },
               {
                 header: "Jenis",
-                accessor: ({ transaction }: { transaction: Transaction }) => (
+                accessor: ({ transaction }: { transaction: TransactionItem }) => (
                   <Badge
                     variant={transaction.type === "PEMASUKAN" ? "success" : "danger"}
                   >
@@ -219,7 +248,7 @@ export default function KasPage() {
               },
               {
                 header: "Jumlah",
-                accessor: ({ transaction }: { transaction: Transaction }) => (
+                accessor: ({ transaction }: { transaction: TransactionItem }) => (
                   <span
                     className={combineClassNames(
                       "font-medium",
@@ -239,7 +268,7 @@ export default function KasPage() {
               },
               {
                 header: "Aksi",
-                accessor: ({ transaction }: { transaction: Transaction }) => (
+                accessor: ({ transaction }: { transaction: TransactionItem }) => (
                   <Button
                     variant="ghost"
                     size="small"

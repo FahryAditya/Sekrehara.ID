@@ -43,10 +43,11 @@ export function Button({
     <button
       type="button"
       className={combineClassNames(
-        "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-150",
+        "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-150 select-none",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
-        "active:scale-[0.98]",
-        "disabled:pointer-events-none disabled:opacity-50 disabled:active:scale-100",
+        "active:scale-[0.96] active:translate-y-0.5",
+        isLoading ? "cursor-wait opacity-80 animate-pulse-soft" : "",
+        "disabled:pointer-events-none disabled:opacity-50 disabled:active:scale-100 disabled:active:translate-y-0",
         variantClasses[variant],
         sizeClasses[size],
         className

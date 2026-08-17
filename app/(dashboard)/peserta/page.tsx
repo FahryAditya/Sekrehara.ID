@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useDataStore } from "@/lib/data-store";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useToast } from "@/components/ui/toast";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
@@ -12,10 +12,21 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Table } from "@/components/ui/table";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
-import { ParticipantForm } from "@/components/feature/participant-form";
+import { Spinner } from "@/components/ui/spinner";
 import { PlusIcon, PencilIcon, TrashIcon, UsersIcon } from "@/components/ui/icons";
 import { formatDate } from "@/lib/format";
-import type { MemberListItem } from "@/lib/members-actions";
+import {
+  listAllMembersAction,
+  createMemberAction,
+  updateMemberAction,
+  deleteMemberAction,
+  type MemberListItem,
+} from "@/lib/members-actions";
+
+const ParticipantForm = dynamic(
+  () => import("@/components/feature/participant-form").then((m) => m.ParticipantForm),
+  { ssr: false, loading: () => null }
+);
 
 type ModalState =
   | { mode: "add"; participant: null }
@@ -23,18 +34,28 @@ type ModalState =
   | null;
 
 export default function PesertaPage() {
-  const {
-    participants,
-    addParticipant,
-    updateParticipant,
-    deleteParticipant,
-  } = useDataStore();
   const { showSuccess, showError } = useToast();
 
+  const [participants, setParticipants] = useState<MemberListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [modalState, setModalState] = useState<ModalState>(null);
   const [participantToDelete, setParticipantToDelete] = useState<MemberListItem | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const load = useCallback(() => {
+    listAllMembersAction()
+      .then(setParticipants)
+      .catch((loadError) => {
+        showError(loadError instanceof Error ? loadError.message : "Gagal memuat peserta.");
+      })
+      .finally(() => setIsLoading(false));
+  }, [showError]);
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filteredParticipants = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -57,36 +78,46 @@ export default function PesertaPage() {
     nomorInduk: string;
   }) => {
     if (modalState?.mode === "edit" && modalState.participant) {
-      const result = await updateParticipant(modalState.participant.id, values);
-      if (!result.ok) {
-        showError(result.error ?? "Gagal memperbarui peserta.");
+      const result = await updateMemberAction(modalState.participant.id, values);
+      if ("error" in result) {
+        showError(result.error);
         return;
       }
       showSuccess("Data peserta berhasil diperbarui.");
     } else {
-      const result = await addParticipant(values);
-      if (!result.ok) {
-        showError(result.error ?? "Gagal menambah peserta.");
+      const result = await createMemberAction(values);
+      if ("error" in result) {
+        showError(result.error);
         return;
       }
       showSuccess("Peserta baru berhasil ditambahkan.");
     }
     setModalState(null);
+    load();
   };
 
   const handleConfirmDelete = async () => {
     if (!participantToDelete) return;
 
     setIsDeleting(true);
-    const result = await deleteParticipant(participantToDelete.id);
+    const result = await deleteMemberAction(participantToDelete.id);
     setIsDeleting(false);
-    if (!result.ok) {
-      showError(result.error ?? "Gagal menghapus peserta.");
+    if ("error" in result) {
+      showError(result.error);
       return;
     }
     showSuccess("Peserta berhasil dihapus.");
     setParticipantToDelete(null);
+    load();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center text-primary">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { useDataStore } from "@/lib/data-store";
+import { getDashboardStatsAction } from "@/lib/dashboard-actions";
 import { PageHeader } from "@/components/layout/page-header";
 import { StatCard } from "@/components/layout/stat-card";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -20,61 +18,25 @@ import {
   TrendingDownIcon,
 } from "@/components/ui/icons";
 import { formatRupiah, formatDate, formatDateTime, formatPercent } from "@/lib/format";
-import type { AttendanceStatus, Transaction } from "@/lib/types";
-import { useAuth } from "@/lib/auth-context";
-const statusLabel: Record<AttendanceStatus, string> = {
-  HADIR: "Hadir",
-  IZIN: "Izin",
-  ALPA: "Alpa",
-};
 
-const statusBadgeVariant: Record<AttendanceStatus, "success" | "warning" | "danger"> = {
-  HADIR: "success",
-  IZIN: "warning",
-  ALPA: "danger",
-};
+export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const { participants, events, attendance, transactions, announcements } = useDataStore();
-  const { currentUser } = useAuth();
+export default async function DashboardPage() {
+  const stats = await getDashboardStatsAction();
+  const {
+    currentUser,
+    memberCount,
+    totalParticipantEmails,
+    todayEvent,
+    latestEvent,
+    cashSummary,
+    latestTransactions,
+    latestParticipants,
+    announcementsTotal,
+    latestAnnouncements,
+  } = stats;
 
-  const today = new Date().toISOString().slice(0, 10);
-  const todaysEvents = events.filter((event) => event.date.slice(0, 10) === today);
-  const latestEvent = events[0];
-
-  let hadirCount = 0;
-  let izinCount = 0;
-  let alpaCount = 0;
-  let totalRecorded = 0;
-
-  if (todaysEvents.length > 0) {
-    const records = attendance[todaysEvents[0].id] ?? {};
-    for (const status of Object.values(records)) {
-      totalRecorded += 1;
-      if (status === "HADIR") hadirCount += 1;
-      if (status === "IZIN") izinCount += 1;
-      if (status === "ALPA") alpaCount += 1;
-    }
-  }
-
-  const totalPemasukan = transactions
-    .filter((transaction) => transaction.type === "PEMASUKAN")
-    .reduce((sum, transaction) => sum + transaction.amount, 0);
-  const totalPengeluaran = transactions
-    .filter((transaction) => transaction.type === "PENGELUARAN")
-    .reduce((sum, transaction) => sum + transaction.amount, 0);
-  const saldoAkhir = totalPemasukan - totalPengeluaran;
-
-  const latestTransactions = [...transactions]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 5);
-  const latestParticipants = [...participants]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 5);
-
-  const totalParticipantEmails = participants.filter((participant) => participant.email).length;
-
-  const firstName = currentUser?.name?.split(" ")[0] ?? "Admin";
+  const firstName = currentUser.name?.split(" ")[0] ?? "Admin";
   const greetingMessage = `Selamat datang kembali, ${firstName}`;
 
   return (
@@ -95,27 +57,27 @@ export default function DashboardPage() {
       <section aria-label="Statistik ringkasan" className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           label="Total Peserta"
-          value={participants.length.toString()}
-          numericValue={participants.length}
+          value={memberCount.toString()}
+          numericValue={memberCount}
           animateValue
           icon={<UsersIcon className="h-5 w-5" />}
           accentClassName="bg-primary-soft text-primary"
         />
         <StatCard
           label="Kehadiran Hari Ini"
-          value={totalRecorded > 0 ? formatPercent(hadirCount, totalRecorded) : "—"}
+          value={todayEvent && todayEvent.recorded > 0 ? formatPercent(todayEvent.hadir, todayEvent.recorded) : "—"}
           icon={<ClipboardCheckIcon className="h-5 w-5" />}
           accentClassName="bg-success-soft text-success"
           footer={
-            totalRecorded > 0
-              ? `${hadirCount} hadir · ${izinCount} izin · ${alpaCount} alpa`
+            todayEvent && todayEvent.recorded > 0
+              ? `${todayEvent.hadir} hadir · ${todayEvent.izin} izin · ${todayEvent.alpa} alpa`
               : "Belum ada kegiatan hari ini"
           }
         />
         <StatCard
           label="Saldo Kas"
-          value={formatRupiah(saldoAkhir)}
-          numericValue={saldoAkhir}
+          value={formatRupiah(cashSummary.saldo)}
+          numericValue={cashSummary.saldo}
           animateValue
           formatValue={(num) => formatRupiah(num)}
           icon={<WalletIcon className="h-5 w-5" />}
@@ -124,19 +86,19 @@ export default function DashboardPage() {
             <span className="flex items-center gap-3">
               <span className="flex items-center gap-1 text-success">
                 <TrendingUpIcon className="h-3.5 w-3.5" />
-                {formatRupiah(totalPemasukan)}
+                {formatRupiah(cashSummary.pemasukan)}
               </span>
               <span className="flex items-center gap-1 text-danger">
                 <TrendingDownIcon className="h-3.5 w-3.5" />
-                {formatRupiah(totalPengeluaran)}
+                {formatRupiah(cashSummary.pengeluaran)}
               </span>
             </span>
           }
         />
         <StatCard
           label="Pengumuman Terkirim"
-          value={announcements.length.toString()}
-          numericValue={announcements.length}
+          value={announcementsTotal.toString()}
+          numericValue={announcementsTotal}
           animateValue
           icon={<MegaphoneIcon className="h-5 w-5" />}
           accentClassName="bg-primary-soft text-primary"
@@ -149,21 +111,23 @@ export default function DashboardPage() {
           <Card>
             <CardHeader
               title={latestEvent.name}
-              subtitle={`${formatDate(latestEvent.date)} · ${participants.length} peserta terdaftar`}
+              subtitle={`${formatDate(latestEvent.date)} · ${memberCount} peserta terdaftar`}
             />
             <div className="flex flex-col gap-3 px-6 py-5 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-muted">Kehadiran:</span>
                 <div className="flex items-center gap-2">
-                  {(["HADIR", "IZIN", "ALPA"] as AttendanceStatus[]).map((status) => {
-                    const records = attendance[latestEvent.id] ?? {};
-                    const count = Object.values(records).filter((s) => s === status).length;
-                    return (
-                      <Badge key={status} variant={statusBadgeVariant[status]}>
-                        {statusLabel[status]}: {count}
-                      </Badge>
-                    );
-                  })}
+                  {(
+                    [
+                      { key: "HADIR", count: latestEvent.hadir, variant: "success" as const },
+                      { key: "IZIN", count: latestEvent.izin, variant: "warning" as const },
+                      { key: "ALPA", count: latestEvent.alpa, variant: "danger" as const },
+                    ]
+                  ).map(({ key, count, variant }) => (
+                    <Badge key={key} variant={variant}>
+                      {key}: {count}
+                    </Badge>
+                  ))}
                 </div>
               </div>
               <Link href={`/presensi/${latestEvent.id}`} className="ml-auto">
@@ -196,15 +160,15 @@ export default function DashboardPage() {
               columns={[
                 {
                   header: "Tanggal",
-                  accessor: (transaction: Transaction) => formatDate(transaction.date),
+                  accessor: (transaction) => formatDate(transaction.date),
                 },
                 {
                   header: "Keterangan",
-                  accessor: (transaction: Transaction) => transaction.description,
+                  accessor: (transaction) => transaction.description,
                 },
                 {
                   header: "Jumlah",
-                  accessor: (transaction: Transaction) => (
+                  accessor: (transaction) => (
                     <span
                       className={
                         transaction.type === "PEMASUKAN" ? "text-success" : "text-danger"
@@ -245,16 +209,15 @@ export default function DashboardPage() {
               columns={[
                 {
                   header: "Nama",
-                  accessor: (participant: (typeof participants)[number]) => participant.name,
+                  accessor: (participant) => participant.name,
                 },
                 {
                   header: "Email",
-                  accessor: (participant: (typeof participants)[number]) => participant.email,
+                  accessor: (participant) => participant.email,
                 },
                 {
                   header: "Terdaftar",
-                  accessor: (participant: (typeof participants)[number]) =>
-                    formatDateTime(participant.createdAt),
+                  accessor: (participant) => formatDateTime(participant.createdAt),
                 },
               ]}
               data={latestParticipants}
@@ -287,9 +250,9 @@ export default function DashboardPage() {
               </Link>
             }
           />
-          {announcements.length > 0 ? (
+          {latestAnnouncements.length > 0 ? (
             <ul className="divide-y divide-border">
-              {announcements.slice(0, 3).map((announcement) => (
+              {latestAnnouncements.map((announcement) => (
                 <li key={announcement.id} className="flex items-start gap-3 px-6 py-4">
                   <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary-soft text-primary">
                     <InboxIcon className="h-4 w-4" />
